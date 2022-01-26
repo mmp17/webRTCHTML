@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-    <title>WebRtc视频聊天室</title>
+    <title></title>
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" charset="utf-8">
         /** 信令 注：一条Socket连接*/
@@ -38,7 +38,7 @@
                 //【createAndJoinRoom】  创建并加入Room中 [room]
                 socket.emit('createAndJoinRoom', { room: roomName })
             } else {
-                console.log('请输入聊天室名');
+                console.log('채팅방명을 입력해주세요');
             }
         }
 
@@ -321,11 +321,11 @@
 </head>
 
 <body>
-    <input type="text" id="roomName" placeholder="请填写Room名称" />
+    <input type="text" id="roomName" placeholder="방제를 입력해 주세요." />
     <br/>
-    <button id="createAndJoinRoom" onclick="createAndJoinRoom()">createAndJoinRoom</button>
+    <button id="createAndJoinRoom" onclick="createAndJoinRoom()">방생성 또는 참가하기</button>
     <br/>
-    <button id="exit" onclick="exit()">exit</button>
+    <button id="exit" onclick="exit()"></button>
     <br/>
     <video id="localVideo" style='width:450px;height:350px;' autoplay></video>
     <br/>
