@@ -6,19 +6,19 @@
     <title></title>
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" charset="utf-8">
-        /** 信令 注：一条Socket连接*/
+        /** 신호 참고: 소켓 연결 1개*/
         //socket
         //var socket = io('ws://172.16.70.226:8081');
         var socket = io('wss://www.webrtcdeuk.tk:8443');
-        //本地socket id
+        //local socket ID
         var socketId;
         //room id
         var roomId;
 
-        /** RTCPeerConnection 注：视频聊天室内有几个其他客户端则有几条RTCPeerConnection连接*/
-        //存储RTCPeerConnection连接
+        /** RTCPeerConnection 참고: 화상 채팅방의 다른 여러 클라이언트에는 여러 개의 RTCPeerConnection 연결이 있습니다.*/
+        //RTCPeerConnection 연결 저장
         var rtcConnects = {};
-        //ice服务器
+        //ice server
         var config = {
             'iceServers': [{ 'url': 'stun:stun.xten.com' }]
         };
@@ -27,92 +27,91 @@
             offerToReceiveVideo: 1
         };
 
-        //本地stream
+        //local stream
         var localStream = null;
 
-        /** UI操作 */
-        //创建并加入聊天室
+        /** UI 작업 */
+        //채팅방 생성 및 참여
         function createAndJoinRoom() {
             var roomName = $('roomName').value;
             if (roomName) {
-                //【createAndJoinRoom】  创建并加入Room中 [room]
+                //【createAndJoinRoom] 방 만들기 및 참여 [방]
                 socket.emit('createAndJoinRoom', { room: roomName })
             } else {
                 console.log('채팅방명을 입력해주세요');
             }
         }
 
-        //退出聊天室 [from,room]
+        //채팅방 나가기 [from,room]
         function exit() {
-            //信令服务器发送 exit [from room]
+            
             var data = {};
             data.from = socketId;
             data.room = roomId;
             socket.emit('exit', data);
-            //可操作
+            
             $('createAndJoinRoom').disabled = false;
-            //数据重置
+            //데이터 재설정
             socketId = '';
             roomId = '';
-            //peer关闭
+            //peer폐쇄
             for (var i in rtcConnects) {
                 var pc = rtcConnects[i];
                 pc.close();
                 pc = null;
             }
             rtcConnects = {};
-            //移除远程摄像头
+            //원격 카메라 제거
             $('remoteDiv').innerHTML = '';
         }
 
-        /** WebRtc相关 */
-        //构建webRtc连接并返回
+        /** WebRtc */
+        //webRtc연결 빌드 및 반환
         function getOrCreateRtcConnect(socketId) {
             var pc = rtcConnects[socketId];
             if (typeof (pc) == 'undefined') {
-                //构建RTCPeerConnection
+                //RTCPeerConnection
                 pc = new RTCPeerConnection(config);
-                //设置获取icecandidate信息回调
+                //icecandidate
                 pc.onicecandidate = e => onIceCandidate(pc, socketId, e);
-                // //设置获取对端stream数据回调--stream方式
                 // pc.onaddstream = e => onAddStream(pc, socketId, e);
                 // if (localStream != null) {
-                //     //peer设置本地流
+                //     //peer로컬 스트림 설정
                 //     pc.addStream(localStream);
                 // }
 
-                //设置获取对端stream数据回调--track方式
+                
                 pc.ontrack = e => onTrack(pc, socketId, e);
                 if (localStream != null) {
-                    //peer设置本地流
+                    //peer로컬 스트림 설정
                     localStream.getTracks().forEach(function(track) {
                          pc.addTrack(track, localStream);
                     });
                 }
-                //设置获取对端stream数据回调
+                //peer 스트림 데이터를 가져오도록 콜백 설정
                 pc.onremovestream = e => onRemoveStream(pc, socketId, e);
-                //保存peer连接
+                //peer 연결 저장
                 rtcConnects[socketId] = pc;
             }
             return pc;
         }
 
-        //移除webRtc连接
+        //webRtc연결 제거
         function removeRtcConnect(socketId) {
             delete rtcConnects[socketId];
         }
 
-        //绑定本地摄像头流至video展示
+        //로컬 카메라 스트림 바인딩
         function gotStream(stream) {
             console.log('Received local stream');
             $('localVideo').srcObject = stream;
             localStream = stream;
         }
 
-        /** WebRtc RTCPeerConnection 事件回调 */
-        //获取icecandidate信息回调
+        /** WebRtc RTCPeerConnection */
+        //icecandidate정보 콜백 받기
         function onIceCandidate(pc, id, event) {
-            //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
+            //시그널링 서버로 보내기 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
             console.log('onIceCandidate to ' + id + ' candidate ' + event);
             if (event.candidate != null) {
                 var message = {};
@@ -128,10 +127,9 @@
             }
         }
 
-        //获取对端stream数据回调--onaddstream模式
         function onAddStream(pc, id, event) {
             console.log('onAddStream from ' + id);
-            //动态创建video    <video id="localVideo" style='width:450px;height:350px;' autoplay></video>
+            //동적으로 video 생성   <video id="localVideo" style='width:450px;height:350px;' autoplay></video>
             //$('remoteDiv').innerHTML += `<video id="${id}" style='width:200;height:200;' autoplay></video>`;
             var video = document.createElement('video');
             video.id = id;
@@ -140,14 +138,13 @@
             video.style.height = 200;
             video.style.marginRight = 5;
             $('remoteDiv').appendChild(video);
-            //对接数据流
             $(id).srcObject = event.stream;
         }
 
-        //获取对端stream数据回调--onTrack模式
+        //peer stream데이터 콜백--onTrack 모델
         function onTrack(pc, id, event) {
             console.log('onTrack from ' + id);
-            //动态创建video    <video id="localVideo" style='width:450px;height:350px;' autoplay></video>
+            //동적으로 video 생성   <video id="localVideo" style='width:450px;height:350px;' autoplay></video>
             //$('remoteDiv').innerHTML += `<video id="${id}" style='width:200;height:200;' autoplay></video>`;
             var video = document.createElement('video');
             video.id = id;
@@ -159,23 +156,21 @@
             $(id).srcObject = event.streams[0];
         }
 
-        //onRemoveStream回调
+        //onRemoveStream
         function onRemoveStream(pc, id, event) {
             console.log('onRemoveStream from ' + id);
-            //peer关闭
             getOrCreateRtcConnect(id).close;
-            //删除peer对象
+            //peer삭제
             delete rtcConnects[id];
-            //移除video
+            //video 제거
             $('remoteDiv').removeChild($(id));
         }
 
-        //offer创建成功回调
+        //offer 성공 콜백 만들기
         function onCreateOfferSuccess(pc, id, offer) {
             console.log('createOffer: success ' + ' id:' + id + ' offer ' + JSON.stringify(offer));
-            //设置本地setLocalDescription
+            //setLocalDescription
             pc.setLocalDescription(offer);
-            //发送offer消息
             var message = {};
             message.from = socketId;
             message.to = id;
@@ -184,17 +179,16 @@
             socket.emit('offer', message);
         }
 
-        //offer创建失败回调
+        //offer 실패 콜백 생성
         function onCreateOfferError(pc, id, error) {
             console.log('createOffer: fail error ' + error);
         }
 
-        //answer创建成功回调
+        //answer 성공 콜백 만들기
         function onCreateAnswerSuccess(pc, id, offer) {
             console.log('createAnswer: success ' + ' id:' + id + ' offer ' + JSON.stringify(offer));
-            //设置本地setLocalDescription
+            //setLocalDescription
             pc.setLocalDescription(offer);
-            //发送answer消息
             var message = {};
             message.from = socketId;
             message.to = id;
@@ -203,29 +197,28 @@
             socket.emit('answer', message);
         }
 
-        //answer创建失败回调
+        //answer 실패 콜백 생성
         function onCreateAnswerError(pc, id, error) {
             console.log('createAnswer: fail error ' + error);
         }
 
-        /** 信令socket监听 */
+        /** 시그널링socket모니터링 */
         //created [id,room,peers]
         socket.on('created', async function (data) {
             console.log('created: ' + JSON.stringify(data));
             $('createAndJoinRoom').disabled = true;
-            //设置socket id
+            //socket id 설정
             socketId = data.id;
-            //设置room id
+            //room id 설정
             roomId = data.room;
-            //根据回应peers 循环创建WebRtcPeerConnection & 发送offer消息 [from,to,room,sdp]
+            // WebRtcPeerConnection을 만들고 응답 peer 루프를 기반으로 offer 메시지 전송[from,to,room,sdp]
             for (let i = 0; i < data.peers.length; i++) {
                 var otherSocketId = data.peers[i].id;
-                //创建WebRtcPeerConnection
+                //WebRtcPeerConnection 생성
                 var pc = getOrCreateRtcConnect(otherSocketId);
-                //设置offer
+                //offer 설정
                 const offer = await pc.createOffer(offerOptions);//pc.createOffer(offerOptions).then(offer => onCreateOfferSuccess(pc, otherSocketId, offer), error => onCreateOfferError(pc, otherSocketId, error));
                 onCreateOfferSuccess(pc, otherSocketId, offer);
-                //闭包解决方式
                 // (function(pc, otherSocketId){
                 //     pc.createOffer(offerOptions).then(offer => onCreateOfferSuccess(pc, otherSocketId, offer), error => onCreateOfferError(pc, otherSocketId, error));
                 // })(pc, otherSocketId);
@@ -236,18 +229,18 @@
         //joined [id,room]
         socket.on('joined', function (data) {
             console.log('joined: ' + JSON.stringify(data));
-            //构建Peer
+            //Peer생성
             getOrCreateRtcConnect(data.from);
         })
 
         //offer [from,to,room,sdp]
         socket.on('offer', function (data) {
             console.log('offer: ' + JSON.stringify(data));
-            //获取peer
+            //peer open
             var pc = getOrCreateRtcConnect(data.from);
-            //构建RTCSessionDescription参数
+            //RTCSessionDescription 생성 
             var rtcDescription = { type: 'offer', sdp: data.sdp };
-            //设置远端setRemoteDescription
+            //setRemoteDescription 원격설정
             pc.setRemoteDescription(new RTCSessionDescription(rtcDescription));
             //createAnswer
             pc.createAnswer(offerOptions).then(offer => onCreateAnswerSuccess(pc, data.from, offer), error => onCreateAnswerError(pc, otherSocketId, error));
@@ -256,11 +249,11 @@
         //answer [from,to,room,sdp]
         socket.on('answer', function (data) {
             console.log('answer: ' + JSON.stringify(data));
-            //获取peer
+            //peer open
             var pc = getOrCreateRtcConnect(data.from);
-            //构建RTCSessionDescription参数
+            //RTCSessionDescription생성
             var rtcDescription = { type: 'answer', sdp: data.sdp };
-            //设置远端setRemoteDescription
+            //setRemoteDescription 원격설정
             pc.setRemoteDescription(new RTCSessionDescription(rtcDescription));
         })
 
@@ -268,30 +261,30 @@
         socket.on('candidate', function (data) {
             console.log('candidate: ' + JSON.stringify(data));
             var iceData = data.candidate;
-            //获取Peer
+            //Peer open
             var pc = getOrCreateRtcConnect(data.from);
             var rtcIceCandidate = new RTCIceCandidate({
                 candidate: iceData.sdp,
                 sdpMid: iceData.sdpMid,
                 sdpMLineIndex: iceData.sdpMLineIndex
             });
-            //添加对端Candidate
+            //Candidate peer 추가
             pc.addIceCandidate(rtcIceCandidate);
         })
 
         //exit [from,room]
         socket.on('exit', function (data) {
             console.log('exit: ' + JSON.stringify(data));
-            //判断是否为当前连接 
+            //현재 연결인지 확인
             var pc = rtcConnects[data.from];
             if (typeof (pc) == 'undefined') {
                 return;
             } else {
-                //peer关闭
+                //peer close
                 getOrCreateRtcConnect(data.from).close;
-                //删除peer对象
+                //peer 삭제
                 delete rtcConnects[data.from];
-                //移除video
+                //video 제거
                 $('remoteDiv').removeChild($(data.from));
 
             }
@@ -301,9 +294,9 @@
             return document.getElementById(id);
         }
 
-        //启动摄像头
+        //카메라 시작
         function startCamera() {
-            //启动摄像头
+            //카메라 시작
             if (localStream == null) {
                 navigator.mediaDevices
                     .getUserMedia({
@@ -315,7 +308,7 @@
             }
         }
 
-        //初始启动摄像头
+        //카메라 시작
         startCamera();
     </script>
 </head>
