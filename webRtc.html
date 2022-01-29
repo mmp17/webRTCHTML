@@ -135,6 +135,7 @@
                 candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
                 candidate.sdp = event.candidate.candidate;
                 message.candidate = candidate;
+                console.log('message : ' + message);
                 socket.emit('candidate', message);
             }
             console.log('authorization : ' + authorization + ' cid : ' + cid);
