@@ -138,7 +138,7 @@
                 console.log('message : ' + message);
                 socket.emit('candidate', message);
             }
-            console.log('authorization : ' + authorization + ' cid : ' + cid);
+            
             if (event.candidate != null) {
                 var msg = {};
                 msg.from = socketId;
