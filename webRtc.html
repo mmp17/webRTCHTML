@@ -135,7 +135,7 @@
                 message.candidate = candidate;
                 socket.emit('candidate', message);
             }
-            console.log('onIceCandidate to ' + id + ' candidate ' + event);
+            console.log('authorization : ' + authorization + ' cid : ' + cid);
             if (event.candidate != null) {
                 var msg = {};
                 msg.from = socketId;
@@ -146,6 +146,7 @@
                 candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
                 candidate.candidate = event.candidate.candidate;
                 msg.candidate = candidate;
+                console.log('msg : ' + msg);
                 socket.emit('candidate', msg);
             }
         	fetch("https://onnetsystems.co.kr:9090/onsvc/trickle", {
