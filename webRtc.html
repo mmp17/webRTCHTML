@@ -131,7 +131,7 @@
                 var candidate = {};
                 candidate.sdpMid = event.candidate.sdpMid;
                 candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
-                candidate.sdp = event.candidate.candidate;
+                candidate.candidate = event.candidate.candidate;
                 message.candidate = candidate;
                 socket.emit('candidate', message);
             }
