@@ -120,7 +120,7 @@
 
         /** WebRtc RTCPeerConnection 事件回调 */
         //获取icecandidate信息回调
-        function onIceCandidate(pc, id, event, object) {
+        function onIceCandidate(pc, id, event, jsonParam) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
             window.AndroidBridge.getToken();
             
@@ -142,7 +142,7 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var jsObj = object;
+            var jsObj = jsonParam;
             var authorization = JSON.stringify(jsObj).authorization;
             var cid = JSON.stringify(jsObj).cid;
             console.log('authorization to ' + authorization);
