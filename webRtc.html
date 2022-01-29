@@ -138,8 +138,8 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var authorization = JSON.parse.authorization;
-            var cid = JSON.parse.cid;
+            var authorization = JSON.parse(object).authorization;
+            var cid = JSON.parse(object).cid;
             console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
             if (event.candidate != null) {
