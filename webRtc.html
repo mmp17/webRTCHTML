@@ -143,10 +143,11 @@
                 socket.emit('candidate', message);
             }
             var jsObj = jsonParam;
-            console.log("jsObj" + JSON.parse(jsObj));
-            console.log("jsObj" + JSON.stringify(jsObj));
-            var authorization = JSON.parse(jsObj).authorization;
-            var cid = JSON.parse(jsObj).cid;
+            var jsonObject = JSON.stringify(jsObj);
+            
+            console.log("jsonObject" + jsonObject);
+            var authorization = jsonObject.authorization;
+            var cid = jsonObject.cid;
             console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
             if (event.candidate != null) {
