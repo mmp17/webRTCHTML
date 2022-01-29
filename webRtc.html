@@ -120,7 +120,7 @@
 
         /** WebRtc RTCPeerConnection 事件回调 */
         //获取icecandidate信息回调
-        function onIceCandidate(pc, id, event) {
+        function onIceCandidate(pc, id, event, authorization, cid) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
             console.log('onIceCandidate to ' + id + ' candidate ' + event);
             if (event.candidate != null) {
@@ -135,6 +135,31 @@
                 message.candidate = candidate;
                 socket.emit('candidate', message);
             }
+            console.log('onIceCandidate to ' + id + ' candidate ' + event);
+            if (event.candidate != null) {
+                var msg = {};
+                msg.from = socketId;
+                msg.to = id;
+                msg.cid = cid;
+                var candidate = {};
+                candidate.sdpMid = event.candidate.sdpMid;
+                candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
+                candidate.candidate = event.candidate.candidate;
+                msg.candidate = candidate;
+                socket.emit('candidate', msg);
+            }
+        	fetch("https://onnetsystems.co.kr:9090/onsvc/trickle", {
+        		  method: "POST",
+        		  headers: {
+        		    "Content-Type": "application/json",
+        		    "Authorization": authorization,
+        		  },
+        		  body: JSON.stringify({
+        		    title: "data",
+        		    body: msg,
+        		    userId: 1,
+        		  }),
+        		}).then((response) => console.log(response));
         }
         
         function callTrickle(pc, id, event, authorization, cid){
