@@ -122,8 +122,8 @@
         //获取icecandidate信息回调
         function onIceCandidate(pc, id, event, object) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
-            var str = window.AndroidBridge.getToken();
-            console.log('str' + str);
+            window.AndroidBridge.getToken();
+            
 
 
 
