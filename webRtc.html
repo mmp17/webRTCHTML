@@ -122,8 +122,8 @@
         //获取icecandidate信息回调
         function onIceCandidate(pc, id, event, authorization, cid) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
-            var authorization = JSON.parse(object).authorization;
-            var cid = JSON.parse(object).cid;
+            var authorization = JSON.parse(jsonData).authorization;
+            var cid = JSON.parse(jsonData).cid;
             console.log('onIceCandidate to ' + id + ' candidate ' + event);
             if (event.candidate != null) {
                 var message = {};
