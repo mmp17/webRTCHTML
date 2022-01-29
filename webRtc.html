@@ -142,7 +142,7 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var jsObj = jsonParam;
+            var jsObj = object;
             var authorization = JSON.stringify(jsObj).authorization;
             var cid = JSON.stringify(jsObj).cid;
             console.log('authorization to ' + authorization);
