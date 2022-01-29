@@ -127,7 +127,7 @@
                 var message = {};
                 message.from = socketId;
                 message.to = id;
-                message.cid = roomId;
+                message.room = roomId;
                 var candidate = {};
                 candidate.sdpMid = event.candidate.sdpMid;
                 candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
