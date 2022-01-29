@@ -120,9 +120,10 @@
 
         /** WebRtc RTCPeerConnection 事件回调 */
         //获取icecandidate信息回调
-        function onIceCandidate(pc, id, event) {
+        function onIceCandidate(pc, id, event, object) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
-            var candi = RTCPeerConnection.onicecandidate;
+            var authorization = json.parse(object).authorization;
+            var cid = json.parse(object).cid;
             console.log('RTCPeerConnection to ' + RTCPeerConnection);
             console.log('onIceCandidate to ' + id + ' candidate ' + event);
             if (event.candidate != null) {
