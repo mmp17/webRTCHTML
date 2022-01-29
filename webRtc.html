@@ -124,7 +124,8 @@
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
             var authorization = json.parse(object).authorization;
             var cid = json.parse(object).cid;
-            console.log('RTCPeerConnection to ' + RTCPeerConnection);
+            console.log('authorization to ' + authorization);
+            console.log('cid to ' + cid);
             console.log('onIceCandidate to ' + id + ' candidate ' + event);
             if (event.candidate != null) {
                 var message = {};
