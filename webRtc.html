@@ -132,7 +132,7 @@
                 candidate.sdpMid = event.candidate.sdpMid;
                 candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
                 candidate.candidate = event.candidate.candidate;
-                message.candidate = candidate;
+                message.sdp = candidate;
                 socket.emit('candidate', message);
             }
         }
