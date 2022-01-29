@@ -135,7 +135,8 @@
                 candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
                 candidate.sdp = event.candidate.candidate;
                 message.candidate = candidate;
-                console.log('message : ' + message);
+                var msgg = JSON.stringify(message);
+                console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
             
