@@ -142,10 +142,9 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var xhr = new XMLHttpRequest();
-            var _tzs = xhr.responseText;
-            var authorization = JSON.stringify(_tzs).authorization;
-            var cid = JSON.stringify(_tzs).cid;
+            
+            var authorization = JSON.stringify(object).authorization;
+            var cid = JSON.stringify(object).cid;
             console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
             if (event.candidate != null) {
