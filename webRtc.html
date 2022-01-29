@@ -122,10 +122,7 @@
         //获取icecandidate信息回调
         function onIceCandidate(pc, id, event, object) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
-            var authorization = json.parse(object).authorization;
-            var cid = json.parse(object).cid;
-            console.log('authorization to ' + authorization);
-            console.log('cid to ' + cid);
+            
             console.log('onIceCandidate to ' + id + ' candidate ' + event);
             if (event.candidate != null) {
                 var message = {};
@@ -141,7 +138,10 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            
+            var authorization = json.parse.authorization;
+            var cid = json.parse.cid;
+            console.log('authorization to ' + authorization);
+            console.log('cid to ' + cid);
             if (event.candidate != null) {
                 var msg = {};
                 msg.from = socketId;
