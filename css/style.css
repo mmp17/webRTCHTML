@@ -9,8 +9,8 @@
 .start_menu{position:relative; width:100%; height:200px; }
 .start_menu input{ width:180px; height:23px; font-size:13px;}
 .start_menu input::placeholder{color:#D52F89;}
-.roomName_1{position:absolute; top:130px; left:35px; background-color:white; border-radius: 20px 20px 20px 20px;}
-.createAndJoinRoom_1 {position:absolute; top:160px; left:35px; background-color:white; cursor:pointer; border-radius: 20px 20px 20px 20px; width:180px;}
+.roomName_1{position:absolute; top:100px; left:35px; background-color:white; border-radius: 20px 20px 20px 20px;}
+.createAndJoinRoom_1 {position:absolute; top:130px; left:35px; background-color:white; cursor:pointer; border-radius: 20px 20px 20px 20px; width:180px;}
 .createAndJoinRoom_1 p {color:#D52F89; }
 /*-----------------------------------------------------*/
 
