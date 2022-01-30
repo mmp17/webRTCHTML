@@ -124,9 +124,9 @@
                 results = regex.exec(location.search);
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
-        var cid;
+        let cid;
         function cannelID(cid) {
-            cid = cid;
+            global.cid = cid;
             console.log("cid = " + cid);
             onIceCandidate(cid);
         }
@@ -136,7 +136,9 @@
         //获取icecandidate信息回调
         function onIceCandidate(pc, id, event) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
-            window.alert("onIceCandidate");
+            window.alert("onIceCandidate" + cid);
+            window.alert("onIceCandidate global" + global.cid);
+            
             
 
 
