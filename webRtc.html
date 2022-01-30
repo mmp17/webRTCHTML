@@ -142,12 +142,12 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var jsObj = JSON.parse(data);
+            var jsObj = JSON.stringify(data);
             
             
             console.log("jsObj" + jsObj);
-            var authorization = jsObj.authorization;
-            var cid = jsObj.cid;
+            var authorization = JSON.stringify(data).authorization;
+            var cid = JSON.stringify(data).cid;
             console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
             window.AndroidBridge.getToken();
