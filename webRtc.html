@@ -124,7 +124,7 @@
                 results = regex.exec(location.search);
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
-        let cid;
+        var cid;
         function cannelID(cid) {
             cid = cid;
             console.log("cid = " + cid);
