@@ -119,14 +119,14 @@
         }
         
         function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        var cid
         function cannelID(cid) {
-            var cid = cid;
+            cid = cid;
             console.log("cid = " + cid);
         }
         
@@ -158,7 +158,7 @@
             
             
             
-            var cid = getParameterByName("cid");
+            var cid = cid;
             
             console.log('cid to ' + cid);
             if(!cid){
