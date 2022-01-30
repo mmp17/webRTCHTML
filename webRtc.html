@@ -146,11 +146,12 @@
             
             
             console.log("jsObj" + jsObj);
+            window.AndroidBridge.getToken();
             var authorization = JSON.stringify(data).authorization;
             var cid = JSON.stringify(data).cid;
             console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
-            window.AndroidBridge.getToken();
+            
             if (event.candidate != null) {
                 var msg = {};
                 msg.from = socketId;
