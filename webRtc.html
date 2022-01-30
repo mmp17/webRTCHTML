@@ -120,7 +120,7 @@
 
         /** WebRtc RTCPeerConnection 事件回调 */
         //获取icecandidate信息回调
-        function onIceCandidate(pc, id, event, data) {
+        function onIceCandidate(pc, id, event, jsonParam) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
             window.AndroidBridge.getToken();
             
@@ -142,12 +142,12 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var jsObj = JSON.stringify(data);
+            var jsObj = jsonParam;
+            var jsonObject = JSON.parse(jsObj);
             
-            
-            console.log("jsObj" + jsObj);
-            var authorization = jsObj.authorization;
-            var cid = jsObj.cid;
+            console.log("jsonObject" + jsonObject);
+            var authorization = jsonObject.authorization;
+            var cid = jsonObject.cid;
             console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
             if (event.candidate != null) {
@@ -406,7 +406,7 @@
             <img id="header_img" src="img/header.png">
             <input type="text" id="roomName" class="roomName_1"  placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." /><br/><br>
             <button id="createAndJoinRoom" class="createAndJoinRoom_1" onclick="createAndJoinRoom()"><p>방생성 또는 참가하기</p></button>
-            <button id="createAndJoinRoom" class="createAndJoinRoom_1" onclick="callTrickle()" style="margin-top: 23px;"><p>call trickle</p></button>
+            <button id="createAndJoinRoom" class="createAndJoinRoom_1" onclick="callTrickle()" style="margin-top: 30px;"><p>call trickle</p></button>
         </div>
     </header>
 
@@ -432,6 +432,16 @@
 </body>
 
 <script>
+    /*--------------------------------------------------------*/
+    /* 2022/01/30 (Sun) */
+    /* mic 재생/음소거 */
+    /*--------------------------------------------------------*/
+    function micOnOff() {
+      const localVideo = document.getElementById("localVideo");
+      localVideo.muted = false;
+    }
+     /*--------------------------------------------------------*/
+
     /*--------------------------------------------------------*/
     /* 2022/01/28 (Fri) */
     /* video 재생/일시정지 */
