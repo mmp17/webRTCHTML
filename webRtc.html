@@ -154,7 +154,7 @@
             window.AndroidBridge.getToken();
             //var authorization = JSON.stringify(data).authorization;
             var cid = getParameterByName("cannelID");
-            console.log('authorization to ' + authorization);
+            //console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
             
             if (event.candidate != null) {
@@ -174,7 +174,7 @@
         		  method: "POST",
         		  headers: {
         		    "Content-Type": "application/json",
-        		    "Authorization": "Bearer" + authorization,
+        		    //"Authorization": "Bearer" + authorization,
         		  },
         		  body: JSON.stringify({
         		    title: "data",
