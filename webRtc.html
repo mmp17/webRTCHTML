@@ -142,7 +142,7 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var jsObj = JSON.stringify(data);
+            var jsObj = JSON.parse(data);
             
             
             console.log("jsObj" + jsObj);
