@@ -151,12 +151,15 @@
                 socket.emit('candidate', message);
             }
             
-            window.AndroidBridge.getToken();
-            //var authorization = JSON.stringify(data).authorization;
-            var cid = getParameterByName("cannelID");
-            //console.log('authorization to ' + authorization);
-            console.log('cid to ' + cid);
             
+            
+            var cid = getParameterByName("cannelID");
+            
+            console.log('cid to ' + cid);
+            if(!cid){
+                window.AndroidBridge.getToken();
+            }else{
+            }
             if (event.candidate != null) {
                 var msg = {};
                 msg.from = socketId;
@@ -174,7 +177,7 @@
         		  method: "POST",
         		  headers: {
         		    "Content-Type": "application/json",
-        		    //"Authorization": "Bearer" + authorization,
+        		    
         		  },
         		  body: JSON.stringify({
         		    title: "data",
@@ -184,36 +187,7 @@
         		}).then((response) => console.log(response));
         }
         
-        function callTrickle(pc, id, event, authorization, cid){
-        	
-        	console.log('authorization : ' + authorization + ' cid : ' + cid);
-        	console.log('onIceCandidate to ' + id + ' candidate ' + event);
-            if (event.candidate != null) {
-                var message = {};
-                message.from = socketId;
-                message.to = id;
-                message.cid = cid;
-                var candidate = {};
-                candidate.sdpMid = event.candidate.sdpMid;
-                candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
-                candidate.candidate = event.candidate.candidate;
-                message.candidate = candidate;
-                socket.emit('candidate', message);
-            }
-        	fetch("https://onnetsystems.co.kr:9090/onsvc/trickle", {
-        		  method: "POST",
-        		  headers: {
-        		    "Content-Type": "application/json",
-        		    "Authorization": authorization,
-        		  },
-        		  body: JSON.stringify({
-        		    title: "data",
-        		    body: message,
-        		    userId: 1,
-        		  }),
-        		}).then((response) => console.log(response));
-        	
-        }
+        
 
         //获取对端stream数据回调--onaddstream模式
         function onAddStream(pc, id, event) {
