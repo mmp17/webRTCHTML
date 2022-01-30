@@ -117,10 +117,18 @@
             $('localVideo').srcObject = stream;
             localStream = stream;
         }
+        
+        function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 
         /** WebRtc RTCPeerConnection 事件回调 */
         //获取icecandidate信息回调
-        function onIceCandidate(pc, id, event, data) {
+        function onIceCandidate(pc, id, event) {
             //向信令服务器发送 candidate [from,to,room,candidate[sdpMid,sdpMLineIndex,sdp]]
             
             
@@ -142,13 +150,10 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var jsObj = JSON.stringify(data);
             
-            
-            console.log("jsObj" + jsObj);
             window.AndroidBridge.getToken();
-            var authorization = JSON.stringify(data).authorization;
-            var cid = JSON.stringify(data).cid;
+            //var authorization = JSON.stringify(data).authorization;
+            var cid = getParameterByName(";
             console.log('authorization to ' + authorization);
             console.log('cid to ' + cid);
             
