@@ -155,7 +155,21 @@
             console.log("cid = " + cid);
             console.log("authorization = " + authorization);
             
-            
+            var user = {};
+            user.id = "silveradmin001";
+            user.password = "1111";
+            fetch("https://onnetsystems.co.kr:9090/onsvc/token", {
+        		  method: "POST",
+        		  headers: {
+        		    "Content-Type": "application/json",
+        		    
+        		  },
+        		  body: JSON.stringify({
+        		    title: "data",
+        		    body: user,
+        		    userId: 1,
+        		  }),
+        		}).then((response) => console.log(response));
             
             if (event.candidate != null) {
                 var msg = {};
