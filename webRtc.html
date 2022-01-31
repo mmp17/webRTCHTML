@@ -125,10 +125,14 @@
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
         var ccid;
-        function cannelID(cid) {
-            ccid = cid;
+        var auth
+        function cannelID(object) {
+            ccid = JSON.parse(object).cid;
+            auth = JSON.parse(object).authorization;
             this.ccid;
             console.log("ccid = " + ccid);
+            console.log("authorization = " + authorization);
+            
             onIceCandidate();
         }
         
