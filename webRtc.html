@@ -125,11 +125,12 @@
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
         var ccid;
-        var auth
-        function cannelID(object) {
-            ccid = JSON.parse(object).cid;
-            auth = JSON.parse(object).authorization;
+        var auth;
+        function cannelID(cid, authorization) {
+            ccid = cid;
+            auth = authorization;
             this.ccid;
+            this.auth;
             console.log("ccid = " + ccid);
             console.log("authorization = " + authorization);
             
@@ -165,8 +166,10 @@
             
             
             var that = this;
-            
+            var cid = ccid;
+            var authorization = auth
             console.log('ccid to ' + that.ccid);
+            console.log('auth to ' + that.auth);
             if(!cid){
                 window.AndroidBridge.getToken();
             }else{
