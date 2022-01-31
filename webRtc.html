@@ -396,32 +396,25 @@
 </head>
 
 <body>
-    <header>
+    <header id="header">
         <div class="start_menu">
             <img id="header_img" src="img/header.png">
             <input type="text" id="roomName" class="roomName_1"  placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." /><br/><br>
             <button id="createAndJoinRoom" class="createAndJoinRoom_1" onclick="createAndJoinRoom()"><p>방생성 또는 참가하기</p></button>
-            <button id="createAndJoinRoom" class="createAndJoinRoom_1" onclick="callTrickle()" style="margin-top: 30px;"><p>call trickle</p></button>
         </div>
     </header>
 
-    <div>
+    <div id="cont">
         <hr><video id="localVideo" style='width:450px; height:350px;' autoplay></video><hr>
         <div class="con_btn_set">
-            <div class="con_btn1">
                 <div class="sc1"><button id="mic_onoff" onclick="micOnOff()" value=""><img src="img/mic.png"/></button></div>
-            </div>
-            <div class="con_btn2">
                 <div class="sc2"><button id="video_onoff" onclick="videoOnOff()" value=""><img src="img/video.png"/></button></div>
-            </div>
-            <div class="con_btn3"> 
                 <div class="sc3"><button id="exit" onclick="exit()" value=""><img src="img/tel.png"></button></div>
-            </div>      
             <div id='remoteDiv'></div>
         </div><br/>
     </div>
 
-    <footer>
+    <footer id="footer">
         <br><hr>
     </footer>
 </body>
