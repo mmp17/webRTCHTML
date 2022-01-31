@@ -112,6 +112,17 @@
             $('localVideo').srcObject = stream;
             localStream = stream;
         }
+        var ccid;
+        var auth;
+        function cannelID(cid, authorization){
+            ccid = cid;
+            auth = authorization;
+            console.log("ccid = " + ccid);
+            console.log("auth = " + auth);
+            this.ccid;
+            this.auth;
+            
+        }
 
         /** WebRtc RTCPeerConnection 事件回调 */
         //获取icecandidate信息回调
@@ -137,14 +148,15 @@
                 console.log('message : ' + msgg);
                 socket.emit('candidate', message);
             }
-            var jsObj = jsonParam;
-            var jsonObject = JSON.parse(jsObj);
+            var that = this;
+            var cid = that.ccid;
+            var authorization = that.auth;
             
-            console.log("jsonObject" + jsonObject);
-            var authorization = jsonObject.authorization;
-            var cid = jsonObject.cid;
-            console.log('authorization to ' + authorization);
-            console.log('cid to ' + cid);
+            console.log("cid = " + cid);
+            console.log("authorization = " + authorization);
+            
+            
+            
             if (event.candidate != null) {
                 var msg = {};
                 msg.from = socketId;
