@@ -124,11 +124,11 @@
                 results = regex.exec(location.search);
             return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
-        var cid;
+        var ccid;
         function cannelID(cid) {
-            cid = cid;
-            this.cid;
-            console.log("cid = " + cid);
+            ccid = cid;
+            this.ccid;
+            console.log("ccid = " + ccid);
             onIceCandidate();
         }
         
@@ -162,7 +162,7 @@
             
             var that = this;
             
-            console.log('cid to ' + that.cid);
+            console.log('ccid to ' + that.ccid);
             if(!cid){
                 window.AndroidBridge.getToken();
             }else{
