@@ -8,10 +8,6 @@
     <!----------------------------------------------------------->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!----------------------------------------------------------->
-    <!-- 반응형 웹 import-->
-    <!----------------------------------------------------------->
-
-
     <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" charset="utf-8">
         /** 信令 注：一条Socket连接*/
@@ -403,7 +399,7 @@
     <header class="header">
         <div class="chat_menu">
             <img class="header_img" src="img/header.png">
-            <input type="text" id="roomName" class="roomName_1"  placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." /><br/><br>
+            <input type="text" id="roomName" class="roomName_1" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." /><br/><br>
             <button id="createAndJoinRoom" class="createAndJoinRoom_1" onclick="createAndJoinRoom()"><p>방생성 또는 참가하기</p></button>
         </div>
 
@@ -434,7 +430,7 @@
     /* 2022/01/30 (Sun) */
     /* mic 재생/음소거 */
     /*--------------------------------------------------------*/
-    function micOnOff() {
+    function miconoff() {
       const localVideo = document.getElementById("localVideo");
       localVideo.muted = false;
     }
@@ -446,7 +442,7 @@
     /*--------------------------------------------------------*/
     var video = document.getElementById("localVideo");
 
-    var playButton = document.getElementById("video_onoff");
+    var playButton = document.getElementById("videoonoff");
 
     /* 비디오 재생 */
     playButton.addEventListener("click", function () {
