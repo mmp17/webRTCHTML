@@ -409,7 +409,7 @@
     </script>
 </head>
     
-    <body>
+   <body>
     <nav class="navbar">
         <ul class="navbar_menu">
             <input type="text" id="roomName" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." />
@@ -418,18 +418,17 @@
     </nav>
     
     <div class="video_main"><hr>       
-            <video class="video_st" id="localVideo" autoplay></video>
-            <!-- <video class="video_st" autoplay><source src="test.mp4"/></video> -->
-        <div id='remoteDiv'></div>
+            <!-- <video class="video_st" id="localVideo" autoplay></video> -->
+            <video class="video_st" autoplay><source src="test.mp4"/></video>
         <div class="cont_btn">
             <button id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"/></button>
             <button id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
             <button id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
         </div>
+    </div><hr>
+    <div class="video_join">
+        <div id='remoteDiv'></div>
     </div>
-    <section>
-
-    </section>
 </body>
 <script>
     /*--------------------------------------------------------*/
