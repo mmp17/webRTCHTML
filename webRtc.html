@@ -408,46 +408,40 @@
         startCamera();
     </script>
 </head>
-
-<body>
-    <header class="header">
-        <div class="chat_menu">
-            <img class="header_img" src="img/header.png">
-            <input type="text" id="roomName" class="roomName_1" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." /><br/><br>
-            <button id="createAndJoinRoom" class="createAndJoinRoom_1" onclick="createAndJoinRoom()"><p>방생성 또는 참가하기</p></button>
-        </div>
-
-    <div class="content">
-        <div class="inner">
-            <nav>
-            <hr><video id="localVideo" style='width:450px; height:350px;' autoplay></video><hr>
-                <ul class="con_btn_set">
-                    <li><button id="miconoff" onclick="miconoff()" value=""><img src="img/mic.png"/></button></li>
-                    <li><button id="videoonoff" onclick="videoonoff()" value=""><img src="img/video.png"/></button></li>
-                    <li><button id="exit" onclick="exit()" value=""><img src="img/tel.png"></button></li>
-                    <!--<li><a href="#elements">Elements</a></li>-->
-                </ul>
-            </nav>
+    
+    <body>
+    <nav class="navbar">
+        <ul class="navbar_menu">
+            <input type="text" id="roomName" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." />
+            <button id="createAndJoinRoom" onclick="createAndJoinRoom()"><p>방생성 또는 참가하기</p></button>
+        </ul>
+    </nav>
+    
+    <div class="video_main"><hr>       
+            <!-- <video id="localVideo" autoplay></video> -->
+            <video class="video_st" autoplay><source src="test.mp4"/></video>
+        <div id='remoteDiv'></div>
+        <div class="cont_btn">
+            <button id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"/></button>
+            <button id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
+            <button id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
         </div>
     </div>
-        <div id='remoteDiv'></div>
-    <br/>
-    </header>
+    <section>
 
-    <footer id="footer">
-        <br><hr>
-    </footer>
+    </section>
 </body>
-
 <script>
     /*--------------------------------------------------------*/
     /* 2022/01/30 (Sun) */
     /* mic 재생/음소거 */
     /*--------------------------------------------------------*/
-    function miconoff() {
+    /*
+    function mic_onoff() {
       const localVideo = document.getElementById("localVideo");
       localVideo.muted = false;
     }
+    */
      /*--------------------------------------------------------*/
 
     /*--------------------------------------------------------*/
@@ -456,7 +450,7 @@
     /*--------------------------------------------------------*/
     var video = document.getElementById("localVideo");
 
-    var playButton = document.getElementById("videoonoff");
+    var playButton = document.getElementById("video_onoff");
 
     /* 비디오 재생 */
     playButton.addEventListener("click", function () {
@@ -472,3 +466,5 @@
 
 </script>
 </html>
+
+
