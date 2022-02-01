@@ -175,6 +175,9 @@
             }
         	fetch("https://onnetsystems.co.kr:9090/onsvc/trickle", {
         		  method: "POST",
+                  mode: 'cors', // no-cors, cors, *same-origin
+                  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                  credentials: 'same-origin',
         		  headers: {
         		    "Content-Type": "application/json",
         		    "Authorization": "Bearer " +authori,
