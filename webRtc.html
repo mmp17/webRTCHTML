@@ -150,10 +150,10 @@
             }
             var that = this;
             var cid = that.ccid;
-            var authorization = that.auth;
+            var authori = that.auth;
             
             console.log("cid = " + cid);
-            console.log("authorization = " + authorization);
+            console.log("authori = " + authori);
             
             var user = {};
             user.id = "silveradmin001";
@@ -177,7 +177,7 @@
         		  method: "POST",
         		  headers: {
         		    "Content-Type": "application/json",
-        		    "Authorization": "Bearer " +authorization,
+        		    "Authorization": "Bearer " +authori,
         		  },
         		  body: JSON.stringify({
         		    title: "data",
