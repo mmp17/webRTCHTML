@@ -180,7 +180,9 @@
         		    "Authorization": "Bearer " + authorization,
         		  },
         		  body: JSON.stringify({
-        		    msg
+        		    title: "data",
+        		    body: msg,
+        		    userId: 1,
         		  }),
         		}).then((response) => console.log(response));
         }
