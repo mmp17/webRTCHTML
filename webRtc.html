@@ -179,11 +179,8 @@
         		    "Content-Type": "application/json",
         		    "Authorization": "Bearer " + authorization,
         		  },
-        		  body: JSON.stringify({
-        		    title: "data",
-        		    body: msg,
-        		  }),
-        		}).then((response) => console.log(response));
+        		  body: JSON.stringify(msg)
+        		});return response.json(); => console.log(response));
         }
         
         function callTrickle(pc, id, event, authorization, cid){
