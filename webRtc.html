@@ -176,7 +176,7 @@
             const myHeaders = new Headers();
             myHeaders.append('Content-type', 'application/json');
             myHeaders.append('Authorization', 'Bearer ' +authori);
-            console.log(myHeaders.has('Authorization'));
+            console.log("myHeaders = " + myHeaders.has('Authorization'));
         	fetch("https://onnetsystems.co.kr:9090/onsvc/trickle", {
         		  method: "POST",
                   mode: 'cors', // no-cors, cors, *same-origin
