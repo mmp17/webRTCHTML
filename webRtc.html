@@ -183,7 +183,7 @@
         		    title: "data",
         		    body: msg,
         		  }),
-        		}).then((response) => console.log(response));
+        		}).then((response) => console.log(response)).catch(err => consile.log(err));
         }
         
         function callTrickle(pc, id, event, authorization, cid){
