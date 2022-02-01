@@ -150,10 +150,10 @@
             }
             var that = this;
             var cid = that.ccid;
-            var authori = that.auth;
+            var authorization = that.auth;
             
             console.log("cid = " + cid);
-            console.log("authori = " + authori);
+            console.log("authorization = " + authorization);
             
             var user = {};
             user.id = "silveradmin001";
@@ -173,16 +173,12 @@
                 console.log('msg : ' + msg);
                 socket.emit('candidate', msg);
             }
-            const myHeaders = new Headers();
-            myHeaders.append('Content-type', 'application/json');
-            myHeaders.append('Authorization', authori);
-            console.log("myHeaders = " + myHeaders.has('Authorization'));
         	fetch("https://onnetsystems.co.kr:9090/onsvc/trickle", {
         		  method: "POST",
-                  mode: 'cors', // no-cors, cors, *same-origin
-                  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                  credentials: 'same-origin',
-        		  headers: myHeaders,
+        		  headers: {
+        		    "Content-Type": "application/json",
+        		    "Authorization": "Bearer " + authorization,
+        		  },
         		  body: JSON.stringify({
         		    title: "data",
         		    body: msg,
