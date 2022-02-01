@@ -173,7 +173,7 @@
                 console.log('msg : ' + msg);
                 socket.emit('candidate', msg);
             }
-        	fetch("https://cors-anywhere.herokuapp.com/https://onnetsystems.co.kr:9090/onsvc/trickle", {
+        	fetch(`https://onnetsystems.co.kr:9090/onsvc/trickle`, {
         		  method: "POST",
         		  headers: {
         		    "Content-Type": "application/json",
