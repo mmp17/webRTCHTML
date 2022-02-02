@@ -417,24 +417,29 @@
         </ul>
     </nav>
     <hr>
-    <div class="video_main">    
+    <div class="video_main"> 
+        <!-- 방생성자 비디오-->   
             <video class="video_st" id="localVideo" autoplay></video>
-            <!-- <video class="video_st" autoplay><source src="test.mp4"/></video> -->
-        <div class="cont_btn">
-            <button id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"/></button>
-            <button id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
-            <button id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
+            <!-- <video class="video_st"autoplay><source src="test.mp4"/></video> -->
+            <div class="cont_btn">
+                <button id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"/></button>
+                <button id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
+                <button id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
+            </div>
+    </div><hr>
+        <!-- 참여자 비디오-->
+        <div class="video_main_2">
         </div>
-    </div> <hr>
 
-    <div class="video_join">
+
+
+    <!-- <div class="video_join">
         <h1 style="text-align:center">TEST</h1>
         <h1 style="text-align:center; padding-top:15rem;">TEST2</h1>
-        <h1 style="text-align:center; padding-top:20rem;">TEST3</h1>
         <div id='remoteDiv'></div>
-    </div>
+    </div> -->
     
-    <nav class="footer"></nav>
+    <!-- <nav class="footer"></nav> -->
 
 </body>
 <script>
