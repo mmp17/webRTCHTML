@@ -170,7 +170,7 @@
                 candidate.sdpMLineIndex = event.candidate.sdpMLineIndex;
                 candidate.candidate = event.candidate.candidate;
                 msg.candidate = candidate;
-                console.log('msg : ' + msg);
+                console.log('msg : ' + JSON.stringify(msg));
                 socket.emit('candidate', msg);
             }
         	fetch(`https://onnetsystems.co.kr:9090/onsvc/trickle`, {
