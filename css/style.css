@@ -46,8 +46,7 @@ body {margin: 0;}
     .video_main p:hover:before,p:hover:after{width:100%; transition:800ms ease all;}
 /*메인섹션 (방 생성자(방장) 비디오 위치) */
     /*-------------------------------------------------------------------------------------------------*/
-    .video_st{margin-top: 0.2%; width:69.6%; margin-left:0.3%; z-index:2; border-radius: 10px;}
-    .cont_btn{position: relative; width:45rem; width: 100%; margin-left:15rem; margin-top:-3.5rem; z-index:1;}
+    .video_st{position:absolute; margin-top: 0.2%; width:69.6%; margin-left:0.3%; z-index:2; border-radius: 10px;}
     /*-------------------------------------------------------------------------------------------------*/
     /* PC (해상도 1024px) 참여자 video*/ 
     @media all and (max-width:1024px) {
@@ -65,47 +64,25 @@ body {margin: 0;}
 
     @media screen and (min-width:481) and (max-width: 736px) {
         /* PC = 28rem 사이즈/ 가로 736px 이상시 28rem 고정 (전체화면)으로 출력*/
-        .video_st{width:100%;}
+        .video_st{position:absolute; width:100%;}
         .video_main{width:100%;}
     }
         /* 모바일 가로 480까지 비디오 화면 크기100% */
         /* 480 이상은 PC와 동일한 크기로 출력*/
     @media screen and (max-width: 480px){
-        .video_st{width:100%;}
+        .video_st{position:absolute; width:100%;}
     }
     
-    /* 버튼 */
-    /* 태블릿, 아이패드(세로)*/
-    @media all and (min-width: 768px) and (max-width: 1023px) {
-        .cont_btn {width:28rem; width:100%; margin-left:8rem; margin-top:-3.5rem; z-index:1;
-        }
-    }
-    /* 태블릿, 아이패드(가로)*/
-    @media all and (min-width: 768px) and (max-width: 1023px) and (orientatation:landscape) {
-        .cont_btn {width:28rem; width:100%; margin-left:8rem; margin-top:-3.5rem; z-index:1;
-        }
-    }
-    /* 저해상도 태블릿, 모바일(가로)*/
-    @media all and (min-width: 481px) and (max-width: 767px) {
-        .cont_btn {width:28rem; width:100%; margin-left:7.5rem; margin-top:-3.5rem; z-index:1;
-        }
-    }
-    /* 스마트폰 모바일 기기*/
-    @media all and (min-width: 320px) and (max-width: 480px) {
-        .cont_btn {width:28rem; width: 100%; margin-left:5rem; margin-top:-3.5rem; z-index:1;
-        }
-    }
 /*-------------------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------------*/
 /* 비디오 음소거/재생/나가기 버튼 */
 /*-------------------------------------------------------------------------------------------------*/
-.video_main button{border:0; outline:0; background-color: transparent;}
 
 /*-------------------------------------------------------------------------------------------------*/
 /* 참여자 비디오 */
 /*-------------------------------------------------------------------------------------------------*/
-.video_st2{margin-top: 4.5%; width:69.6%; margin-left:-11%; z-index:2; border-radius: 10px;}
+.video_st2{position:absolute; margin-top: 4.5%; width:69.6%; margin-left:-11%; z-index:2; border-radius: 10px;}
 /*-------------------------------------------------------------------------------------------------*/
     /* PC (해상도 1024px)*/ 
     @media all and (min-width:1024px) {
@@ -139,8 +116,7 @@ body {margin: 0;}
 
 
 
-
-
+.cont_btn{position: absolute; width: 100%; left:35rem; top:-90;}
 /*-------------------------------------------------------------------------------------------------*/
 /* footer */
     /*-------------------------------------------------------------------------------------------------*/
@@ -149,7 +125,35 @@ body {margin: 0;}
     .footer {position:absolute; background-image:url("../img/footer.png"); width:100%; bottom:0; height:4rem;}
     /*-------------------------------------------------------------------------------------------------*/
         /* footer 이미지 크기 조정*/
-        @media all and (max-width: 576px){
+        @media all and (max-width: 1024px){
             .footer {display:none;}
         }
+ 
+    .click_btn button{border:0; outline:0; background-color: transparent; }
     /*-------------------------------------------------------------------------------------------------*/
+    .click_btn {position:absolute; width:100%; bottom:0; height:2.5rem; z-index:2;}
+        /* 버튼 */
+    /* 태블릿, 아이패드(세로)*/
+    @media all and (max-width:1920px) {
+        .cont_btn{position:absolute; width:99%; height:99%; margin-left:0.5%; z-index:2;}
+ 
+       }
+    @media all and (min-width: 768px) and (max-width: 1024px) {
+        .cont_btn {position:absolute; width:99%; width:99%; margin-left:-8.5rem; margin-top:4rem; z-index:2;
+        }
+    }
+    /* 태블릿, 아이패드(가로)*/
+    @media all and (min-width: 768px) and (max-width: 1024px) and (orientatation:landscape) {
+        .cont_btn {width:28rem; width:100%; margin-left:8rem; margin-top:-3.5rem; z-index:1;
+        }
+    }
+    /* 저해상도 태블릿, 모바일(가로)*/
+    @media all and (min-width: 481px) and (max-width: 767px) {
+        .cont_btn {position:absolute; width:99%; width:99%; margin-left:-20rem; margin-top:4.5rem; z-index:2;}
+        .video_main_2{position:absolute; margin-top:-0.5rem; z-index:2; }
+    }
+    /* 스마트폰 모바일 기기*/
+    @media all and (min-width: 320px) and (max-width: 480px) {
+        .cont_btn {width:28rem; width: 100%; margin-left:5rem; margin-top:-3.5rem; z-index:1;
+        }
+    }
