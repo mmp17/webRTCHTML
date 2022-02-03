@@ -1,3 +1,33 @@
+*,
+*::before,
+*::after {  
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
+
+.container {width: 100%; padding-right: var(--bs-gutter-x, 0.75rem); padding-left: var(--bs-gutter-x, 0.75rem); margin-right: auto; margin-left: auto;}
+.container{background-image: url("../assets/header.png");}
+
+@media (min-width: 576px) {
+  .container {max-width: 100%;}
+}
+@media (min-width: 768px) {
+  .container {max-width: 100%;}
+}
+@media (min-width: 992px) {
+  .container {max-width: 100%;}
+}
+@media (min-width: 1200px) {
+  .container {max-width: 100%;}
+}
+@media (min-width: 1400px) {
+   .container {max-width: 100%;}
+}
 /* 페이지 전체 확장*/
 body {margin: 0;} 
 /* nav(input, button) */
@@ -39,11 +69,7 @@ body {margin: 0;}
         .footer {display:none;}
     }
 /*-------------------------------------------------------------------------------------------------*/
-.video_main p {position:absolute; top:8.5rem; margin-left:92rem; font-weight:bold;background:#582c55; color:#fff; border: 1px solid; height:1.5em; padding:0 2em; transition:800ms ease all; outline:none; cursor:default;}
-    .video_main p:hover {background:#fff; color:#582c55;}
-    .video_main p:before,p:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #582c55; transition:400ms ease all;}
-    .video_main p:after{right:inherit; top:inherit; left:0; bottom:0;}
-    .video_main p:hover:before,p:hover:after{width:100%; transition:800ms ease all;}
+
 /*메인섹션 (방 생성자(방장) 비디오 위치) */
     /*-------------------------------------------------------------------------------------------------*/
     .video_st{position:absolute; margin-top: 0.2%; width:69.6%; margin-left:0.3%; z-index:2; border-radius: 10px;}
@@ -109,12 +135,6 @@ body {margin: 0;}
         .video_main_2{position:absolute; top:22%; height:15.5%; width: 40%; left:57%}
     }
 /*-------------------------------------------------------------------------------------------------*/
-
-
-
-
-
-
 
 .cont_btn{position: absolute; width: 100%; left:35rem; top:-90;}
 /*-------------------------------------------------------------------------------------------------*/
