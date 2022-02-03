@@ -1,65 +1,69 @@
-@-ms-viewport{width: device-width;}
-
-/* PC용 1680px 이상일 때 폰트사이트 15px */
-@media screen and (max-width: 1680px) {
-    html {font-size: 15px;}
-}
-/* PC용 736px 이하일 때 폰트사이즈 12px */
-@media screen and (max-width: 736px) {
-    html {font-size: 16px;}
-}
-/* 360px 이하일 때 폰트사이즈 9px */
-@media screen and (max-width: 360px) {
-    html {font-size: 16px;}
-}
-
 /* 페이지 전체 확장*/
 body {margin: 0;} 
 /* nav(input, button) */
-    /*---------------------------------------------------*/
+    /*-------------------------------------------------------------------------------------------------*/
     /* 헤더(nav) flex박스 선언*/
     .navbar {display:flex; background-image:url("../img/header.png"); justify-content: space-between; align-items: center; height:9rem;}
-    /*---------------------------------------------------*/
+    /*-------------------------------------------------------------------------------------------------*/
     /* ul태그(채팅방명 입력/방생성 또는 참가 버튼) */
     .navbar_menu{display:flex; list-style: none;}
-    /*---------------------------------------------------*/
+    /*-------------------------------------------------------------------------------------------------*/
     /* 채팅방명 입력 textarea 효과*/
-    .navbar_menu input {font-weight:bold;background:#582c55; color:#fff; border: 1px solid; position:relative; height:3em; font-size:0.8em; cursor:pointer; transition:800ms ease all; outline:none;}
+    /*-------------------------------------------------------------------------------------------------*/
+    .navbar_menu input {font-weight:bold;background:#582c55; color:#fff; border: 1px solid; position:relative; height:3em; font-size:0.8em; transition:800ms ease all; outline:none; }
     .navbar_menu input:hover {background:#fff; color:#582c55;}
     .navbar_menu input:before,button:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #582c55; transition:400ms ease all;}
     .navbar_menu input:after{right:inherit; top:inherit; left:0; bottom:0;}
     .navbar_menu input:hover:before,button:hover:after{width:100%; transition:800ms ease all;}
-    /*---------------------------------------------------*/
+   /*-------------------------------------------------------------------------------------------------*/
     /*방생성 또는 참가하기 버튼 효과*/
-    .navbar_menu button {font-weight:bold;background:#582c55; color:#fff; border: 1px solid; position:relative; left:0.5em; height:3em; font-size:0.8em; padding:0 2em; cursor:pointer; transition:800ms ease all; outline:none;}
+    .navbar_menu button {font-weight:bold;background:#582c55; color:#fff; border: 1px solid; position:relative; left:0.5em; height:3em; font-size:0.8em; padding:0 2em; cursor:pointer; transition:800ms ease all; outline:none; }
     .navbar_menu button:hover {background:#fff; color:#582c55;}
     .navbar_menu button:before,button:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #582c55; transition:400ms ease all;}
     .navbar_menu button:after{right:inherit; top:inherit; left:0; bottom:0;}
     .navbar_menu button:hover:before,button:hover:after{width:100%; transition:800ms ease all;}
-    /*---------------------------------------------------*/
+    /*-------------------------------------------------------------------------------------------------*/
 
-/* (nav) 반응형*/
-    /*---------------------------------------------------*/
-    @media all and (max-width: 576px){
-        .navbar {width:100%; justify-content: space-between; align-items: center;}
-        .navbar_menu {flex-direction: column; align-items: flex-start;}
-        .navbar_menu input{margin-top:3rem; width:11rem; height:2rem;}
-        .navbar_menu button{margin-top:0.5rem; margin-left:-0.4rem; width: 10rem; height: 2rem;}
-        .navbar_menu button p{font-size:3px; font-family:sans-serif;}
-    }
+/*-------------------------------------------------------------------------------------------------*/
+/* (nav) 반응형  (((((((( PC ))))))))) */
 /*---------------------------------------------------*/
-
+    @media all and (min-width: 481px) and (max-width:1368px){
+        .navbar {display:none;}
+        .video_st{position:absolute; width:99%; height:99%; margin-left:0.5%; z-index:2; margin-top:2rem;}
+        .footer {display:none;}
+    }
+    /* 스마트폰 모바일 기기*/
+    @media all and (min-width: 280px) and (max-width: 480px) {
+        .navbar {display:none;}
+        .video_st{position:absolute; width:99%; height:99%; margin-left:0.5%; z-index:2; margin-top:2rem;}
+        .footer {display:none;}
+    }
+/*-------------------------------------------------------------------------------------------------*/
+.video_main p {position:absolute; top:8.5rem; margin-left:92rem; font-weight:bold;background:#582c55; color:#fff; border: 1px solid; height:1.5em; padding:0 2em; transition:800ms ease all; outline:none; cursor:default;}
+    .video_main p:hover {background:#fff; color:#582c55;}
+    .video_main p:before,p:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #582c55; transition:400ms ease all;}
+    .video_main p:after{right:inherit; top:inherit; left:0; bottom:0;}
+    .video_main p:hover:before,p:hover:after{width:100%; transition:800ms ease all;}
 /*메인섹션 (방 생성자(방장) 비디오 위치) */
-    /*---------------------------------------------------*/
-    .video_st{width:28rem; z-index:2;}
+    /*-------------------------------------------------------------------------------------------------*/
+    .video_st{margin-top: 0.2%; width:69.6%; margin-left:0.3%; z-index:2; border-radius: 10px;}
     .cont_btn{position: relative; width:45rem; width: 100%; margin-left:15rem; margin-top:-3.5rem; z-index:1;}
-    /*---------------------------------------------------*/
-    /* PC (해상도 1024px)*/ 
-    @media all and (max-width:1920px) {
-        .video_st{width:100%;}
-        .video_main{width:100%; height:80%;}
+    /*-------------------------------------------------------------------------------------------------*/
+    /* PC (해상도 1024px) 참여자 video*/ 
+    @media all and (max-width:1024px) {
+        .video_st{position:absolute; width:99%; height:99%; margin-left:0.5%; z-index:2;}
+            body{background-color: #707070;}
+            .video_st2{ position: absolute; top: -45; left: 78%; transform: translate(-50%, -50%); border-radius:10px;}
+            .footer{display:none;}
        }
-    @media screen and (max-width: 736px) {
+    @media all and (min-width:737px) and (max-width:1024px){
+        .video_st{position:absolute; width:99%; height:99%; margin-left:0.5%; z-index:2; }
+            body{background-color: #707070;}
+            .video_st2{ position: absolute; top: -45; left: 78%; transform: translate(-50%, -50%); border-radius:10px;}
+            .footer{display:none;}
+    }
+
+    @media screen and (min-width:481) and (max-width: 736px) {
         /* PC = 28rem 사이즈/ 가로 736px 이상시 28rem 고정 (전체화면)으로 출력*/
         .video_st{width:100%;}
         .video_main{width:100%;}
@@ -70,6 +74,7 @@ body {margin: 0;}
         .video_st{width:100%;}
     }
     
+    /* 버튼 */
     /* 태블릿, 아이패드(세로)*/
     @media all and (min-width: 768px) and (max-width: 1023px) {
         .cont_btn {width:28rem; width:100%; margin-left:8rem; margin-top:-3.5rem; z-index:1;
@@ -90,12 +95,18 @@ body {margin: 0;}
         .cont_btn {width:28rem; width: 100%; margin-left:5rem; margin-top:-3.5rem; z-index:1;
         }
     }
-/*---------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------------*/
 /* 비디오 음소거/재생/나가기 버튼 */
-/*---------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
 .video_main button{border:0; outline:0; background-color: transparent;}
-/*---------------------------------------------------*/
-.video_main_2{position:absolute; top:21.7%; bottom:20%; width: 22%; height:22%; left:76.5%; background-color: white; border:2px solid black; border-radius:1rem;}
+
+/*-------------------------------------------------------------------------------------------------*/
+/* 참여자 비디오 */
+/*-------------------------------------------------------------------------------------------------*/
+.video_st2{margin-top: 4.5%; width:69.6%; margin-left:-11%; z-index:2; border-radius: 10px;}
+/*-------------------------------------------------------------------------------------------------*/
     /* PC (해상도 1024px)*/ 
     @media all and (min-width:1024px) {
         .video_main_2{position:absolute; top:17%; height:14%; width: 25%; left:73.5%}
@@ -120,28 +131,25 @@ body {margin: 0;}
     @media all and (max-width:479px) {
         .video_main_2{position:absolute; top:22%; height:15.5%; width: 40%; left:57%}
     }
-
-/* 영상통화 참가시 참여자 영상 컨테이너*/
-    /*---------------------------------------------------*/
-    /*.video_join{ width:100%; background-color:#d12a83; height:80%;} */
-    /*---------------------------------------------------*/
-        /* @media screen and (max-width: 736px) {
-            .video_join {width:100%; height: 100%; justify-content: space-between; align-items: center;}
-            }
-        @media screen and (max-width: 480px){
-            .video_join {width:100%; height: 50%; justify-content: space-between; align-items: center;}
-            } */
-    /*---------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
 
 
+
+
+
+
+
+
+
+/*-------------------------------------------------------------------------------------------------*/
 /* footer */
-    /*---------------------------------------------------*/
+    /*-------------------------------------------------------------------------------------------------*/
     /* footer 이미지 및 하단 고정*/
-    /*---------------------------------------------------*/
-    .footer {position:fixed; background-image:url("../img/footer.png"); width:100%; bottom:0; height:4rem;}
-    /*---------------------------------------------------*/
+    /*-------------------------------------------------------------------------------------------------*/
+    .footer {position:absolute; background-image:url("../img/footer.png"); width:100%; bottom:0; height:4rem;}
+    /*-------------------------------------------------------------------------------------------------*/
         /* footer 이미지 크기 조정*/
         @media all and (max-width: 576px){
-            .footer {width:100%; height:3.0rem;}
+            .footer {display:none;}
         }
-    /*---------------------------------------------------*/
+    /*-------------------------------------------------------------------------------------------------*/
