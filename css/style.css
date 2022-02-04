@@ -107,6 +107,9 @@ body {margin:0;}
 }
 */
 .user_btn {position: absolute; width: 100%; top: 50%; left: 50%; transform: translate(-50%,-50%);}
+@media screen and (max-width:1025px){
+  .user_btn{display:none;}
+}
 @media screen and (min-width:1024px){
   .user_btn{width:100%; top:4%; left:18.5%; transform: translate(-50%,-50%);}
 }
