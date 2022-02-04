@@ -5,69 +5,22 @@
   text-shadow: none;
 }
 
-
-
 body {margin:0;}
 
 /* 메인비디오 크기 및 테두리/간격*/
-#localVideo {
-  min-width: 99%;
-  min-height: 99vh;
-  max-width: 99%;
-  max-height: 99vh;
-  margin-left:0.5rem;
-  margin-top:0.2rem;
-  object-fit: cover;
-  border-radius: 10px;
-  z-index: -1;
-}
-#localVideo::-webkit-media-controls {
-  display: none !important;
-}
+#bg-video {min-width: 99%; min-height: 99vh; max-width: 99%; max-height: 99vh; margin-left:0.5rem; margin-top:0.2rem; object-fit: cover; border-radius: 10px; z-index: -1;}
+#bg-video::-webkit-media-controls {display: none !important;}
 
-body .cont_btn {position:fixed; bottom: 0; width: 100%; text-align:center; padding: 5px; z-index:10;}
-.cont_btn .c_btn1, .c_btn2, .c_btn3{float:center;border:0; outline:0; background-color:transparent;}
-
-@media screen and (max-width: 6000px) {
- body .cont_btn{position:fixed; text-align:center; left:0px; bottom:0px; z-index:50; width:100%}
+/* 참여자 비디오 */
+#bg-video2 {position:absolute; right:0.8rem; top:0.3rem; z-index:222; width:23%; border-radius: 10px;}
+#bg-video2::-webkit-media-controls {display: none !important;}
+@media screen and (min-width:480px) and (max-width:767px) {
+    #bg-video2{width:40%; right:0; top:0;}
+}
+@media screen and (max-width:479px){
+    #bg-video2{width:50%; right:0; top:0;}
 }
 /*
-@media screen and (max-width: 1024px) {
-  .cont_btn{position: absolute; width: 100%; top: 95%; left: 50%; font-size:2rem; margin:0 auto;}
-}
-@media screen and (min-width:767px) and (max-width: 1023px) {
-  .cont_btn{position:fixed; bottom:-12%; margin:0 auto;}
-}
-@media screen and (min-width:575px) and (max-width:766px) {
-  .cont_btn{position:fixed; bottom:-25%; margin:0 auto;}
-}*/
-/*
-@media screen and (max-width: 1024px) {
-  .cont_btn{position: absolute; width: 100%; top: 95%; left: 50%; font-size:2rem; margin:0 auto;}
-}
-@media screen and (min-width:767px) and (max-width: 1023px) {
-  .cont_btn{position:fixed; bottom:-12%; margin:0 auto;}
-}
-@media screen and (min-width:575px) and (max-width:766px) {
-  .cont_btn{position:fixed; bottom:-25%; margin:0 auto;}
-}*/
-
-#bg-video2 {
-  position:fixed;
-  min-width: 18%;
-  min-height: 19vh;
-  max-width: 18%;
-  max-height: 19vh;
-  margin-top:0.21rem;
-  right:0.7rem;
-  object-fit: cover;
-  border-radius: 10px;
-  z-index: -2;
-}
-#bg-video2::-webkit-media-controls {
-  display: none !important;
-}
-
 @media screen and (min-width:767px) and (max-width:1023px){
   #bg-video2{position:fixed; min-width: 18%; left:45.8rem;}
 }
@@ -79,7 +32,29 @@ body .cont_btn {position:fixed; bottom: 0; width: 100%; text-align:center; paddi
   .user_btn input {max-width:48%;}
   .user_btn button{max-width:50%;}
 }
+*/
 
+
+/*
+@media screen and (max-width: 1024px) {
+  .cont_btn{position: absolute; width: 100%; top: 95%; left: 50%; font-size:2rem; margin:0 auto;}
+}
+@media screen and (min-width:767px) and (max-width: 1023px) {
+  .cont_btn{position:fixed; bottom:-12%; margin:0 auto;}
+}
+@media screen and (min-width:575px) and (max-width:766px) {
+  .cont_btn{position:fixed; bottom:-25%; margin:0 auto;}
+}
+@media screen and (max-width: 1024px) {
+  .cont_btn{position: absolute; width: 100%; top: 95%; left: 50%; font-size:2rem; margin:0 auto;}
+}
+@media screen and (min-width:767px) and (max-width: 1023px) {
+  .cont_btn{position:fixed; bottom:-12%; margin:0 auto;}
+}
+@media screen and (min-width:575px) and (max-width:766px) {
+  .cont_btn{position:fixed; bottom:-25%; margin:0 auto;}
+}
+*/
 
 /*-------------------------------------------------------------------------------------------------*/
 /* 채팅방명 입력 textarea 효과*/
