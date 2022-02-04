@@ -407,31 +407,25 @@
         //初始启动摄像头
         startCamera();
     </script>
-</head>
+<body class="d-flex h-100 text-center text-white bg-dark" >
+    <!-- <video class="video_st" id="localVideo" autoplay></video> -->
+    <video class="video_st" id="bg-video" autoplay muted loop><source src="test.mp4"/></video>
     
-  <body class="d-flex h-100 text-center text-white bg-dark" >
-    <video class="video_st" id="localVideo" autoplay></video>
-    <!-- <video class="video_st" id="bg-video" autoplay muted loop><source src="test.mp4"/></video> -->
-    
-    <div class="user_btn">
-      <input type="text" id="roomName" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." />
-      <button id="createAndJoinRoom" class="btn_1" onclick="createAndJoinRoom()">방생성 또는 참가하기</button>
-    </div>
-      
-    <div class="cont_btn">
-      <button class="c_btn1" id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"></button>
-      <button class="c_btn2" id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
-      <button class="c_btn3" id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
-    </div>
+        <div class="user_btn">
+        <input type="text" id="roomName" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." />
+        <button id="createAndJoinRoom" class="btn_1" onclick="createAndJoinRoom()">방생성 또는 참가하기</button>
+        </div>
+        <!--
+        <div class="cont_btn">
+            <button class="c_btn1" id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"></button>
+            <button class="c_btn2" id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
+            <button class="c_btn3" id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
+        </div>
+        -->
+        
+        <video class="video_st2" id="bg-video2" autoplay muted loop><source src="video_test.mp4"/></video>
 
-    <div class="user_video">
-       <video class="video_st2" id="bg-video2" autoplay muted loop><source src="video_test.mp4"/></video>
-    </div>
-
-    </div>
-    
-
-
+        
     <script>
       /*--------------------------------------------------------*/
       /* 2022/01/30 (Sun) */
