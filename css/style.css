@@ -25,11 +25,11 @@ body {margin:0;}
   display: none !important;
 }
 
-.cont_btn {position:fixed; bottom: 0; float:center; width: 100%; padding: 5px; z-index:-2;}
+.cont_btn {position:fixed; bottom: 0; float:center; width: 100%; padding: 5px; z-index:10;}
 .cont_btn .c_btn1, .c_btn2, .c_btn3{border:0; outline:0; background-color:transparent;}
 
 @media screen and (mix-width:240px) and (max-width:1024px){
-  .cont_btn{position:fixed; bottom: 0; float:center; width: 100%; padding: 5px; z-index:-2;}
+  .cont_btn{position:fixed; bottom: 0; float:center; width: 100%; padding: 5px; z-index:10;}
 }
 /*
 @media screen and (max-width: 1024px) {
