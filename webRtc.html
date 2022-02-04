@@ -409,76 +409,64 @@
     </script>
 </head>
     
-   <body>
-    <div class="container">
-    <nav class="navbar">
-        <ul class="navbar_menu">
-            <input type="text" id="roomName" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." />
-            <button id="createAndJoinRoom" onclick="createAndJoinRoom()"><p>방생성 또는 참가하기</p></button>
-        </ul>
-    </nav>
-    <div class="video_main"> 
-        <!-- 방생성자 비디오-->   
-            <video class="video_st" id="localVideo" autoplay></video>
-            <!-- <video class="video_st" autoplay><source src="test.mp4"/></video> -->
-    </div>
-        <!-- 참여자 비디오-->
-        <div class="video_main_2">
-            <video class="video_st" id="localVideo" autoplay></video>
-        </div>
-    </div>
-
-    <!-- <div class="video_join">
-        <h1 style="text-align:center">TEST</h1>
-        <h1 style="text-align:center; padding-top:15rem;">TEST2</h1>
-        <div id='remoteDiv'></div>
-    </div> -->
+  <body class="d-flex h-100 text-center text-white bg-dark" >
+    <video class="video_st" id="localVideo" autoplay></video>
+    <!-- <video class="video_st" id="bg-video" autoplay muted loop><source src="test.mp4"/></video> -->
     
-    <nav class="footer"></nav>
+    <div class="user_btn">
+      <input type="text" id="roomName" placeholder="&nbsp;&nbsp;&nbsp;채팅방명을 입력해주세요." />
+      <button id="createAndJoinRoom" onclick="createAndJoinRoom()">방생성 또는 참가하기</button>
+    </div>
 
-    <!-- <nav class="click_btn">
-        <div class="cont_btn">
-            <button id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"/></button>
-            <button id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
-            <button id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
-        </div>
-    </nav> -->
+    <div class="cont_btn">
+      <button class="c_btn1" id="mic_onoff" onclick="mic_onoff()" value=""><img src="../img/mic.png"></button>
+      <button class="c_btn2" id="video_onoff" onclick="video_onoff()" value=""><img src="../img/video.png"/></button>
+      <button class="c_btn3" id="exit" onclick="exit()" value=""><img src="../img/tel.png"></button>
+    </div>
 
-</body>
-<script>
-    /*--------------------------------------------------------*/
-    /* 2022/01/30 (Sun) */
-    /* mic 재생/음소거 */
-    /*--------------------------------------------------------*/
-    /*
-    function mic_onoff() {
-      const localVideo = document.getElementById("localVideo");
-      localVideo.muted = false;
-    }
-    */
-     /*--------------------------------------------------------*/
+    <div class="user_video">
+       <video class="video_st2" id="bg-video2" autoplay muted loop><source src="gfp-astro-timelapse.mp4"/></video>
+    </div>
 
-    /*--------------------------------------------------------*/
-    /* 2022/01/28 (Fri) */
-    /* video 재생/일시정지 */
-    /*--------------------------------------------------------*/
-    var video = document.getElementById("localVideo");
+    </div>
+    
 
-    var playButton = document.getElementById("video_onoff");
 
-    /* 비디오 재생 */
-    playButton.addEventListener("click", function () {
-        if(video.paused == true) {
-            video.play();
-    /* 비디오 일시정지 */
-    playButton;
-        } else {
-            video.pause();
-            playButton;
-        }
-    });
-
-</script>
+    <script>
+      /*--------------------------------------------------------*/
+      /* 2022/01/30 (Sun) */
+      /* mic 재생/음소거 */
+      /*--------------------------------------------------------*/
+      /*
+      function mic_onoff() {
+        const localVideo = document.getElementById("localVideo");
+        localVideo.muted = false;
+      }
+      */
+       /*--------------------------------------------------------*/
+  
+      /*--------------------------------------------------------*/
+      /* 2022/01/28 (Fri) */
+      /* video 재생/일시정지 */
+      /*--------------------------------------------------------*/
+      var video = document.getElementById("localVideo");
+  
+      var playButton = document.getElementById("video_onoff");
+  
+      /* 비디오 재생 */
+      playButton.addEventListener("click", function () {
+          if(video.paused == true) {
+              video.play();
+      /* 비디오 일시정지 */
+      playButton;
+          } else {
+              video.pause();
+              playButton;
+          }
+      });
+  
+  </script>
+  </body>
 </html>
 
 
