@@ -34,6 +34,8 @@ body {margin:0;}
 }
 */
 
+/* 버튼 */
+  .cont_btn{position:absolute; width:100%; left:0; bottom:0; z-index:2;}
 
 /*
 @media screen and (max-width: 1024px) {
