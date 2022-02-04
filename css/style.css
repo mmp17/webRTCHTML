@@ -74,16 +74,16 @@ body {margin:0;}
   .user_btn input::placeholder{font-size:0.9em; padding-left:0.2rem; color:#000;}
   .user_btn input:focus::-webkit-input-placeholder {color:transparent;}
   .user_btn input:hover {background:#fff; color:#D52F89;}
-  .user_btn input:before,button:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #D52F89; transition:400ms ease all;}
+  .user_btn input:before,input:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #D52F89; transition:400ms ease all;}
   .user_btn input:after{right:inherit; top:inherit; left:0; bottom:0;}
-  .user_btn input:hover:before,button:hover:after{width:100%; transition:800ms ease all;}
+  .user_btn input:hover:before,input:hover:after{width:100%; transition:800ms ease all;}
 /*-------------------------------------------------------------------------------------------------*/
 /*방생성 또는 참가하기 버튼 효과*/
-  .user_btn button {font-weight:bold; background:#fff; color:#000; border: 2px solid; position:relative; left:0.5em; height:3em; font-size:0.8em; padding:0 2em; cursor:pointer; transition:800ms ease all; outline:none;}
-  .user_btn button:hover {background:#fff; color:#D52F89;}
-  .user_btn button:before,button:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #D52F89; transition:400ms ease all;}
-  .user_btn button:after{right:inherit; top:inherit; left:0; bottom:0;}
-  .user_btn button:hover:before,button:hover:after{width:100%; transition:800ms ease all;}
+  .user_btn .btn_1 {font-weight:bold; background:#fff; color:#000; border: 2px solid; position:relative; left:0.5em; height:3em; font-size:0.8em; padding:0 2em; cursor:pointer; transition:800ms ease all; outline:none;}
+  .user_btn .btn_1:hover {background:#fff; color:#D52F89;}
+  .user_btn .btn_1:before,.btn_1:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #D52F89; transition:400ms ease all;}
+  .user_btn .btn_1:after{right:inherit; top:inherit; left:0; bottom:0;}
+  .user_btn .btn_1:hover:before,.btn_1:hover:after{width:100%; transition:800ms ease all;}
 /*-------------------------------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------------------------------*/
