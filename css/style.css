@@ -19,21 +19,6 @@ body{background-color: #707070;}
     z-index:-4;
 }
 
-@media screen and (max-width:1919px) {
-    .container video{
-        position:absolute; 
-        top:50%; 
-        left:50%; 
-        width:98%; 
-        height:98.5%; 
-        background-color: transparent; 
-        transform: translate(-50%, -50%);
-        border-radius: 10px;
-        object-fit: cover;
-        z-index:-4;
-    }
-}
-
 /* 메인비디오 컨테이너 */
 .container-1 {
     position:absolute; 
@@ -48,15 +33,34 @@ body{background-color: #707070;}
     z-index:-3;
 }
 
-/* 채팅방명-방생성,참가버튼/ 참여자 비디오 flexbox*/
-.container-2{
-    display:flex;
-    justify-content: space-between;
-    color:white;
+.container-1 video{
+    position:absolute; 
+    top:0; 
+    right:0; 
+    width:100%;
+    height: 100%;
+    border-radius: 10px;
 }
+
+@media screen and (max-width:1919px) {
+    .container-1 #bg-video{
+        position:absolute; 
+        top:50%; 
+        left:50%; 
+        width:98%; 
+        height:98.5%; 
+        background-color: transparent; 
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        object-fit: cover;
+        z-index:-3;
+    }
+}
+
 .item-1{
-    display:flex; list-style: none;
+    display:flex; list-style: none; margin-top:1%; margin-left:6%;
 }
+
 .item-1 input {font-weight:bold;background:#a1d3db; color:#fff; border: 1px solid; position:relative; height:3em; font-size:0.8em; transition:800ms ease all; outline:none; border-radius: 10px;}
     .item-1 input::placeholder {color:#fff;}
     .item-1 input::placeholder:hover{color:#a1d3db}
@@ -71,15 +75,56 @@ body{background-color: #707070;}
     .item-1 button:before,button:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #a1d3db; transition:400ms ease all;}
     .item-1 button:after{right:inherit; top:inherit; left:0; bottom:0;}
     .item-1 button:hover:before,button:hover:after{width:100%; transition:800ms ease all;}
+
+.container-2{
+    position:absolute; 
+    top:0; 
+    right:0; 
+    width:100%; 
+    height:100%; 
+    background-color:transparent; 
+    border-radius: 10px;
+    object-fit: cover;
+    z-index:-2;
+}
+
+.container-2 video{
+    position:absolute; 
+    top:0; 
+    right:5.7rem; 
+    width:25%; 
+    height: auto;
+    border-radius: 10px;
+}
+
+@media screen and (max-width:1859px){
+    .container-2 video{
+        position:absolute;
+        margin-right:1rem;
+        height: auto;
+        right:-0rem;
+        top:0.7rem;
+        border-radius: 10px;
+    }
+}
+
+/* 채팅방명-방생성,참가버튼/ 참여자 비디오 flexbox*/
+.container-3{
+    display:flex;
+    justify-content: space-between;
+    color:white;
+    z-index:-1;
+}
+
 /* 1023px 아래는 버튼 표시X */
 @media screen and (max-width:1859px){
-    .container-2 .item-1{
+    .container-3 .item-1{
         display:none;
     }
 }
 /* 1023px 아래는 참여자 비디오 우측상단 고정 */
 @media screen and (max-width:1859px){
-    .container-2 .item-2{
+    .container-3 .item-2{
         position:absolute;
         margin-right:1rem;
         right:0;
@@ -87,15 +132,8 @@ body{background-color: #707070;}
     }
 }
 
-/* 컨트롤 버튼 컨테이너*/
-.container-3{
-    display:flex;
-    justify-content: center;
-    height:90%;
-    object-fit: cover;
-}
 /* 컨트롤 버튼 높이*/
-.item-3{
+.item-2{
     margin-top:auto;
 }
 .c_btn1, .c_btn2, .c_btn3{
@@ -103,13 +141,22 @@ body{background-color: #707070;}
     outline:0;
     background-color: transparent;
 }
+
+/* 컨트롤 버튼 컨테이너*/
+.container-4{
+    display:flex;
+    justify-content: center;
+    height:90%;
+    object-fit: cover;
+}
+
 @media screen and (max-width:1024px){
-    .container-3{
+    .container-4{
         display:flex;
         justify-content: center;
         height:95%;
     }
-    .item-3{
+    .item-4{
         margin-top:auto;
     }
 }
