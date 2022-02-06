@@ -408,30 +408,33 @@
         startCamera();
     </script>
   <body>
-    <div class="container">
+   <div class="container">
+
         <div class="container-1">
             <video class="video_st" id="bg-video" autoplay muted loop><source src="test.mp4"/></video>
         </div>
 
         <div class="container-2">
+            <!-- <h1> testr </h1> -->
+            <video class="video_st2" id="bg-video2" autoplay muted loop><source src="Sunset - 86879.mp4"/></video>
+            <!-- <div class="remoteDiv"> hi </div> -->
+        </div>
+
+        <div class="container-3">
             <div class="item-1">
                 <input type="text" id="roomName" placeholder="&nbsp;&nbsp; 채팅방명을 입력해주세요." />
                 <button id="createAndJoinRoom" onclick="createAndJoinRoom()">방생성 또는 참가하기</button>
             </div>
-
-            <div class="item-2">
-                <h1> 비디오자리</h1>
-                <!-- <div class="remoteDiv"></div> -->
-            </div>
         </div>
 
-        <div class="container-3">
-            <div class="item-3">
+        <div class="container-4">
+            <div class="item-2">
                 <button class="c_btn1" id="mic_onoff" onclick="mic_onoff()" value=""><img src="img/mic.png"></button>
                 <button class="c_btn2" id="video_onoff" onclick="video_onoff()" value=""><img src="img/video.png"/></button>
                 <button class="c_btn3" id="exit" onclick="exit()" value=""><img src="img/tel.png"></button>
             </div>
         </div>
+    </div>
 </div>
 
     <script>
