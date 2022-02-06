@@ -1,118 +1,115 @@
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #333;
-  text-shadow: none;
+/* 기본 설정값 */
+html, body{margin:0; padding:0; border:0;}
+div, span, section, header, footer, ul, li {box-sizing: border-box;}
+
+/* 전체화면 색상 #707070*/
+body{background-color: #707070;}
+
+/*  전체 컨테이너 */
+.container{
+    position:absolute; 
+    top:50%; 
+    left:50%; 
+    width:98%; 
+    height:98.5%; 
+    background-color: transparent; 
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    object-fit: cover;
+    z-index:-4;
 }
 
-body {margin:0;}
-
-/* 메인비디오 크기 및 테두리/간격*/
-#bg-video {min-width: 99%; min-height: 99vh; max-width: 99%; max-height: 99vh; margin-left:0.5rem; margin-top:0.2rem; object-fit: cover; border-radius: 10px; z-index: -2;}
-#bg-video::-webkit-media-controls {display: none !important;}
-
-/* 참여자 비디오 */
-#bg-video2 {position:absolute; right:0.8rem; top:0.3rem; z-index:-1; width:23%; border-radius: 10px;}
-#bg-video2::-webkit-media-controls {display: none !important;}
-@media all and (min-width:480px) and (max-width:767px) {
-    #bg-video2{width:40%; right:0; top:0;}
-}
-@media all and (max-width:479px){
-    #bg-video2{width:50%; right:0; top:0;}
-}
-
-/*
-@media screen and (min-width:767px) and (max-width:1023px){
-  #bg-video2{position:fixed; min-width: 18%; left:45.8rem;}
-}
-@media screen and (min-width:575px) and (max-width:766px){
-  #bg-video2{width:100%; top:6%; left:28%; transform: translate(-50%,-50%);}
-}
-@media screen and (max-width:576px){
-  #bg-video2{width:100%; top:4%; left:center; transform: translate(-50%,-50%);}
-  .user_btn input {max-width:48%;}
-  .user_btn button{max-width:50%;}
-}
-*/
-
-/* 버튼*/
-  .cont_btn{position:absolute; width:100%; left:0; bottom:0; z-index:2;}
-  .c_btn1, .c_btn2, .c_btn3{border:0; outline:0; background-color: transparent; }
-@media screen and (min-width:1200px) and (max-width:3000px) {
-    .cont_btn{position:absolute; width:100%; left:0; bottom:10rem; z-index:2;}
-}
-/*
-@media screen and (max-width: 1024px) {
-  .cont_btn{position: absolute; width: 100%; top: 95%; left: 50%; font-size:2rem; margin:0 auto;}
-}
-@media screen and (min-width:767px) and (max-width: 1023px) {
-  .cont_btn{position:fixed; bottom:-12%; margin:0 auto;}
-}
-@media screen and (min-width:575px) and (max-width:766px) {
-  .cont_btn{position:fixed; bottom:-25%; margin:0 auto;}
-}
-@media screen and (max-width: 1024px) {
-  .cont_btn{position: absolute; width: 100%; top: 95%; left: 50%; font-size:2rem; margin:0 auto;}
-}
-@media screen and (min-width:767px) and (max-width: 1023px) {
-  .cont_btn{position:fixed; bottom:-12%; margin:0 auto;}
-}
-@media screen and (min-width:575px) and (max-width:766px) {
-  .cont_btn{position:fixed; bottom:-25%; margin:0 auto;}
-}
-*/
-
-/*-------------------------------------------------------------------------------------------------*/
-/* 채팅방명 입력 textarea 효과*/
-/*-------------------------------------------------------------------------------------------------*/
-  .user_btn input {font-weight:bold;background:#fff; color:#000; border: 2px solid; position:relative; height:3em; font-size:0.8em; transition:800ms ease all; outline:none;}
-  .user_btn input::placeholder{font-size:0.9em; padding-left:0.2rem; color:#000;}
-  .user_btn input:focus::-webkit-input-placeholder {color:transparent;}
-  .user_btn input:hover {background:#fff; color:#D52F89;}
-  .user_btn input:before,input:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #D52F89; transition:400ms ease all;}
-  .user_btn input:after{right:inherit; top:inherit; left:0; bottom:0;}
-  .user_btn input:hover:before,input:hover:after{width:100%; transition:800ms ease all;}
-/*-------------------------------------------------------------------------------------------------*/
-/*방생성 또는 참가하기 버튼 효과*/
-  .user_btn .btn_1 {font-weight:bold; background:#fff; color:#000; border: 2px solid; position:relative; left:0.5em; height:3em; font-size:0.8em; padding:0 2em; cursor:pointer; transition:800ms ease all; outline:none;}
-  .user_btn .btn_1:hover {background:#fff; color:#D52F89;}
-  .user_btn .btn_1:before,.btn_1:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #D52F89; transition:400ms ease all;}
-  .user_btn .btn_1:after{right:inherit; top:inherit; left:0; bottom:0;}
-  .user_btn .btn_1:hover:before,.btn_1:hover:after{width:100%; transition:800ms ease all;}
-/*-------------------------------------------------------------------------------------------------*/
-
-.user_btn {position: absolute; width: 100%; top: 50%; left: 50%; transform: translate(-50%,-50%);}
-@media all and (max-width:1025px){
-  .user_btn{display:none;}
-}
-@media all and (min-width:1024px){
-  .user_btn{width:100%; top:4%; left:18.5%; transform: translate(-50%,-50%);}
-}
-@media all and (min-width:280px) and (max-width:1023px){
-  .user_btn{display:none;}
+@media screen and (max-width:1919px) {
+    .container video{
+        position:absolute; 
+        top:50%; 
+        left:50%; 
+        width:98%; 
+        height:98.5%; 
+        background-color: transparent; 
+        transform: translate(-50%, -50%);
+        border-radius: 10px;
+        object-fit: cover;
+        z-index:-4;
+    }
 }
 
-/*-------------------------------------------------------------------------------------------------*/
-/* 채팅방명 / 방생성 또는 참가하기 버튼*/
-/*-------------------------------------------------------------------------------------------------*/
-/*
-  .user_btn {position: absolute; width: 100%; top: 50%; left: 50%; transform: translate(-50%,-50%);}
-@media screen and (min-width:1024px){
-  .user_btn{width:100%; top:4%; left:18.5%; transform: translate(-50%,-50%);}
+/* 메인비디오 컨테이너 */
+.container-1 {
+    position:absolute; 
+    top:50%; 
+    left:50%; 
+    width:100%; 
+    height:100%; 
+    background-color:transparent; 
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    object-fit: cover;
+    z-index:-3;
 }
-@media screen and (min-width:767px) and (max-width:1023px){
-  .user_btn{width:100%; top:6%; left:24%; transform: translate(-50%,-50%);}
-}
-@media screen and (min-width:575px) and (max-width:766px){
-  .user_btn{width:100%; top:6%; left:28%; transform: translate(-50%,-50%);}
-}
-@media screen and (max-width:576px){
-  .user_btn{width:100%; top:4%; left:center; transform: translate(-50%,-50%);}
-  .user_btn input {max-width:48%;}
-  .user_btn button{max-width:50%;}
-}
-*/
 
-/*-------------------------------------------------------------------------------------------------*/
+/* 채팅방명-방생성,참가버튼/ 참여자 비디오 flexbox*/
+.container-2{
+    display:flex;
+    justify-content: space-between;
+    color:white;
+}
+.item-1{
+    display:flex; list-style: none;
+}
+.item-1 input {font-weight:bold;background:#a1d3db; color:#fff; border: 1px solid; position:relative; height:3em; font-size:0.8em; transition:800ms ease all; outline:none; border-radius: 10px;}
+    .item-1 input::placeholder {color:#fff;}
+    .item-1 input::placeholder:hover{color:#a1d3db}
+    .item-1 input:hover {background:#fff; color:#a1d3db;}
+    .item-1 input:before,input:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #a1d3db; transition:400ms ease all;}
+    .item-1 input:after{right:inherit; top:inherit; left:0; bottom:0;}
+    .item-1 input:hover:before,input:hover:after{width:100%; transition:800ms ease all;}
+/*---------------------------------------------------*/
+    /*방생성 또는 참가하기 버튼 효과*/
+    .item-1 button {font-weight:bold;background:#a1d3db; color:#fff; border: 1px solid; position:relative; left:0.5em; height:3.4em; font-size:0.8em; padding:0 2em; cursor:pointer; transition:800ms ease all; outline:none; border-radius: 10px;}
+    .item-1 button:hover {background:#fff; color:#a1d3db;}
+    .item-1 button:before,button:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #a1d3db; transition:400ms ease all;}
+    .item-1 button:after{right:inherit; top:inherit; left:0; bottom:0;}
+    .item-1 button:hover:before,button:hover:after{width:100%; transition:800ms ease all;}
+/* 1023px 아래는 버튼 표시X */
+@media screen and (max-width:1859px){
+    .container-2 .item-1{
+        display:none;
+    }
+}
+/* 1023px 아래는 참여자 비디오 우측상단 고정 */
+@media screen and (max-width:1859px){
+    .container-2 .item-2{
+        position:absolute;
+        margin-right:1rem;
+        right:0;
+        top:0;
+    }
+}
 
-
+/* 컨트롤 버튼 컨테이너*/
+.container-3{
+    display:flex;
+    justify-content: center;
+    height:90%;
+    object-fit: cover;
+}
+/* 컨트롤 버튼 높이*/
+.item-3{
+    margin-top:auto;
+}
+.c_btn1, .c_btn2, .c_btn3{
+    border:0;
+    outline:0;
+    background-color: transparent;
+}
+@media screen and (max-width:1024px){
+    .container-3{
+        display:flex;
+        justify-content: center;
+        height:95%;
+    }
+    .item-3{
+        margin-top:auto;
+    }
+}
