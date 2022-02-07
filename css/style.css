@@ -1,11 +1,19 @@
+/*------------------------------------------*/
 /* 기본 설정값 */
+/*------------------------------------------*/
 html, body{margin:0; padding:0; border:0;}
-div, span, section, header, footer, ul, li {box-sizing: border-box;}
+span, section, header, footer, ul, li {box-sizing: border-box;}
+/*------------------------------------------*/
 
+/*------------------------------------------*/
 /* 전체화면 색상 #707070*/
+/*------------------------------------------*/
 body{background-color: #707070;}
+/*------------------------------------------*/
 
+/*------------------------------------------*/
 /*  전체 컨테이너 */
+/*------------------------------------------*/
 .container{
     position:absolute; 
     top:50%; 
@@ -18,8 +26,11 @@ body{background-color: #707070;}
     object-fit: cover;
     z-index:-4;
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
 /* 메인비디오 컨테이너 */
+/*------------------------------------------*/
 .container-1 {
     position:absolute; 
     top:50%; 
@@ -33,6 +44,9 @@ body{background-color: #707070;}
     z-index:-3;
 }
 
+/*------------------------------------------*/
+/* 메인비디오 위치 및 사이즈*/
+/*------------------------------------------*/
 .container-1 video{
     position:absolute; 
     top:0; 
@@ -41,7 +55,11 @@ body{background-color: #707070;}
     height: 100%;
     border-radius: 10px;
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
+/* 1919px 이하 메인비디오 위치 및 사이즈*/
+/*------------------------------------------*/
 @media screen and (max-width:1919px) {
     .container-1 #bg-video{
         position:absolute; 
@@ -56,11 +74,17 @@ body{background-color: #707070;}
         z-index:-3;
     }
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
+/* 채팅방 입장/방생성 및 참여하기 버튼*/
+/*------------------------------------------*/
 .item-1{
     display:flex; list-style: none; margin-top:1%; margin-left:6%;
 }
-
+/*------------------------------------------*/
+/*방생성 또는 참가하기 버튼 효과*/
+/*------------------------------------------*/
 .item-1 input {font-weight:bold;background:#a1d3db; color:#fff; border: 1px solid; position:relative; height:3em; font-size:0.8em; transition:800ms ease all; outline:none; border-radius: 10px;}
     .item-1 input::placeholder {color:#fff;}
     .item-1 input::placeholder:hover{color:#a1d3db}
@@ -68,14 +92,17 @@ body{background-color: #707070;}
     .item-1 input:before,input:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #a1d3db; transition:400ms ease all;}
     .item-1 input:after{right:inherit; top:inherit; left:0; bottom:0;}
     .item-1 input:hover:before,input:hover:after{width:100%; transition:800ms ease all;}
-/*---------------------------------------------------*/
-    /*방생성 또는 참가하기 버튼 효과*/
+/*------------------------------------------*/
     .item-1 button {font-weight:bold;background:#a1d3db; color:#fff; border: 1px solid; position:relative; left:0.5em; height:3.4em; font-size:0.8em; padding:0 2em; cursor:pointer; transition:800ms ease all; outline:none; border-radius: 10px;}
     .item-1 button:hover {background:#fff; color:#a1d3db;}
     .item-1 button:before,button:after{content:''; position:absolute; top:0; right:0; height:2px; width:0; background: #a1d3db; transition:400ms ease all;}
     .item-1 button:after{right:inherit; top:inherit; left:0; bottom:0;}
     .item-1 button:hover:before,button:hover:after{width:100%; transition:800ms ease all;}
+/*------------------------------------------*/
 
+/*------------------------------------------*/
+/* 참여자 비디오 컨테이너 */
+/*------------------------------------------*/
 .container-2{
     position:absolute; 
     top:0; 
@@ -87,8 +114,12 @@ body{background-color: #707070;}
     object-fit: cover;
     z-index:-2;
 }
+/*------------------------------------------*/
 
-.container-2 div{
+/*------------------------------------------*/
+/* 참여자 비디오 위치 및 사이즈 */
+/*------------------------------------------*/
+.container-2 video{
     position:absolute; 
     top:0; 
     right:5.7rem; 
@@ -97,6 +128,9 @@ body{background-color: #707070;}
     border-radius: 10px;
 }
 
+/*------------------------------------------*/
+/* 1859px 이하 참여자 비디오 위치 및 사이즈 */
+/*------------------------------------------*/
 @media screen and (max-width:1859px){
     .container-2 video{
         position:absolute;
@@ -107,16 +141,22 @@ body{background-color: #707070;}
         border-radius: 10px;
     }
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
 /* 채팅방명-방생성,참가버튼/ 참여자 비디오 flexbox*/
+/*------------------------------------------*/
 .container-3{
     display:flex;
     justify-content: space-between;
     color:white;
     z-index:-1;
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
 /* 1023px 아래는 버튼 표시X */
+/*------------------------------------------*/
 @media screen and (max-width:1859px){
     .container-3 .item-1{
         display:none;
@@ -131,8 +171,11 @@ body{background-color: #707070;}
         top:0;
     }
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
 /* 컨트롤 버튼 높이*/
+/*------------------------------------------*/
 .item-2{
     margin-top:auto;
 }
@@ -141,15 +184,21 @@ body{background-color: #707070;}
     outline:0;
     background-color: transparent;
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
 /* 컨트롤 버튼 컨테이너*/
 .container-4{
     display:flex;
     justify-content: center;
-    height:90%;
+    height:92%;
     object-fit: cover;
 }
+/*------------------------------------------*/
 
+/*------------------------------------------*/
+/* 1024px 이하 컨트롤 버튼 위치 및 사이즈 */
+/*------------------------------------------*/
 @media screen and (max-width:1024px){
     .container-4{
         display:flex;
@@ -160,3 +209,4 @@ body{background-color: #707070;}
         margin-top:auto;
     }
 }
+/*------------------------------------------*/
