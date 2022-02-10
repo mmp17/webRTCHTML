@@ -100,28 +100,35 @@ var videoFilterLevel = -1;
 $(document).ready(function() {
     $(window).resize(doResize);
     doResize();
-
+    
     // 토큰이 없으면 로그인 페이지, 있으면 대시보드
     var check = getCookie()
     $('#user_logout').click(userLogout);
     if(check === "") {
-        console.log("##### is Token?(1)", check);
+        //console.log("##### is Token?(1)", check);
         // Login
         $('#user_login').click(auth);
     } else {
         // 
         showDashboard();
-        console.log("##### is Token?(2)", check);
+        //console.log("##### is Token?(2)", check);
     } 
 });
 
 function doResize() {
+    /* 윈도우창 크기 조절시 */ 
+    console.log("doResize");
+
     resizeMultiVideo();
     resizeChatArea();
     resizeMemberListArea();
+    
 }
 
 function resizeMultiVideo() {
+    /* console */
+    console.log("resizeMultiVideo");
+
     //--- 16:9 | 4:3
     var widthRatio = 16;
     var heightRatio = 9;
@@ -246,6 +253,9 @@ function resizeMultiVideo() {
 }
 
 function getUserCount() {
+    /* console */
+    console.log("getUserCount");
+
     var userCnt = 0;
     for(var i=1; i<max_member; i++) {
         if(feeds[i]) {
@@ -255,15 +265,24 @@ function getUserCount() {
     return userCnt;
 }
 
+
 function resizeChatArea() {
+    /* console */
+    console.log("resizeChatArea");
+
     $('#chatroom').css('height', ($(window).height()-200)+"px");
 }
 
 function resizeMemberListArea() {
+    /* console */
+    console.log("resizeMemberListArea");
+
     $('#member_list').css('height', ($(window).height()-150)+"px");
 }
 
 function _createChannelHandler(path, body, callbacks) {
+    console.log("_createChannelHandler");
+
     // Init Channel
     httpAPICall(path, {
         verb: 'POST',
@@ -357,15 +376,20 @@ function _createChannelHandler(path, body, callbacks) {
     });
 }
 
+
 function _createRecordHandler(callbacks) {
     _createRecordAndDataHandler(callbacks, 848884888488);
+    console.log("_createRecordHandler")
 }
 
 function _createDataHandler(callbacks) {
     _createRecordAndDataHandler(callbacks, 848884888489);
+    console.log("_createDataHandler")
 }
 
 function _createRecordAndDataHandler(callbacks, channelId) {
+    console.log("_createRecordAndDataHandler");
+
     var handler =
         {
             // session : that,
@@ -432,15 +456,21 @@ function _createRecordAndDataHandler(callbacks, channelId) {
     callbacks.success(handler);
 }
 
-function getVolume(handleId, remote) {
 
+function getVolume(handleId, remote) {
+    console.log("getVolume")
 }
+
+
 
 //--- document.cookie = "Name=Value(값);Expires=날짜;Domain=도메인;Path=경로;Secure";
 function getCookie() {
+    /* console */
+    console.log("getCookie");
+
     var cookies = document.cookie.split(";");
     var result = "";
-    console.log("####### Cookies:", cookies);
+    //console.log("####### Cookies:", cookies);
     for(var i in cookies) {
         if(cookies[i].search("onsvc") != -1) {
             result = cookies[i].replace("onsvc=", "");
@@ -451,6 +481,7 @@ function getCookie() {
 }
 
 function removeCookie() {
+    console.log("removeCookie");
     // window.addEventListener('beforeunload', (event) => {});
     // window.removeEventListener('beforeunload', {});
     var date = new Date();
@@ -460,19 +491,25 @@ function removeCookie() {
     cookie += ";expires=" + date.toUTCString();;
     document.cookie = cookie;
     connected = false;
+
 }
 
+
 function userLogout() {
+    console.log("userLogout");
     removeCookie();
     doSessionDestory();
 }
 
+
 function pageReload() {
+    console.log("pageReload");
     removeCookie();
     window.location.reload();
 }
 
 function httpAPICall(path, options) {
+
     var url = server + path;
     var fetchOptions = {
         method: options.verb,
@@ -495,14 +532,14 @@ function httpAPICall(path, options) {
     }
 
     if(path !== "/onsvc/check") {
-        console.log("####### Path: " + url);
-        console.log("####### Body: " + JSON.stringify(options.body));
+        //console.log("####### Path: " + url);
+        //console.log("####### Body: " + JSON.stringify(options.body));
     }
     
     var fetching = fetch(url, fetchOptions).catch(function(error) {
         token = null;
         userId = null;
-        console.log(error);
+        //console.log(error);
         //FIXME: 서버가 갑자기 종료된 경우의 대응에 대해 아래 내용 수정 요함..
         bootbox.alert({
             message: "서버 연결 오류. 관리자에게 문의하세요.",
@@ -552,16 +589,20 @@ function httpAPICall(path, options) {
             options.error(error.message || '<< internal error >>', error);
         }
     });
-
     return fetching;
 }
+
 
 var token = null;
 var superAdmin = false;
 function auth() {
+
+    /* submit button*/
+    console.log("auth");
+
     var data = { id: $('#login_id').val(), password: $('#login_pw').val() };
     var request = { type: 'login', data };
-    console.log("### Auth body:", request);
+    //console.log("### Auth body:", request);
     httpAPICall("/onsvc/login", {
         verb: 'POST',
         body: request,
@@ -610,9 +651,13 @@ function auth() {
             }
         }
     });
+    
 }
 
+
 function longPolling() {
+    /* 로그인 실패시 longPolling*/
+    console.log("longPolling");
     if(!connected) {
         return;
     }
@@ -643,9 +688,11 @@ function longPolling() {
     });
 }
 
+
 // Private event handler: this will trigger plugin callbacks, if set
 function _handleEvent(json, skipTimeout) {
-    console.log("Receive Long polling response=", JSON.stringify(json));
+    console.log("_handleEvent");
+    //console.log("Receive Long polling response=", JSON.stringify(json));
     if(skipTimeout !== true)
         longPolling();
 
@@ -820,13 +867,15 @@ function _handleEvent(json, skipTimeout) {
 }
 
 function doSessionDestory() {
-    console.log("========== Call logout!!! ==========");
+    /* 로그아웃시 */
+    console.log("doSessionDestory");
+    //console.log("========== Call logout!!! ==========");
     var request = { "username": userId };
     httpAPICall("/onsvc/logout", {
         verb: 'POST',
         body: request,
         success: function(json) {
-            console.log("Destroyed session:");
+            //console.log("Destroyed session:");
             console.debug(json);
             token = null;
             userId = null;
@@ -844,6 +893,7 @@ function doSessionDestory() {
 }
 
 function setCookie(token) {
+    console.log("setCookie")
     var exdate = new Date();
     exdate.setMinutes(exdate.getMinutes + 60);
     var cookie = "";
@@ -852,7 +902,9 @@ function setCookie(token) {
     document.cookie = cookie;
 }
 
+
 function showDashboard() {
+    console.log(showDashboard = "showDashboard(21)");
     // Make sure the browser supports WebRTC
     if(!isWebrtcSupported()) {
         bootbox.alert("No WebRTC support... ");
@@ -867,10 +919,13 @@ function showDashboard() {
 }
 
 function doCall() {
+    console.log("doCall")
     localFeedForVideoCall(true);
 }
 
 function openCreateRoomModal() {
+    /* 회의방 생성 클릭시*/ 
+    console.log("openCreateRoomModal");
     $("#room_title_input").val("");
     $('#room_group_input *').remove();
     var groups = getGroupList();
@@ -886,10 +941,12 @@ function openCreateRoomModal() {
 }
 
 function closeCreateRoomModal() {
+    console.log("closeCreateRoomModal");
     $("#createRoomModal").css("display", "none");
 }
 
 function doCreateRoom() {
+    console.log("doCreateRoom")
     var title = $("#room_title_input").val();
     if(title === "") {
         alert("회의방 제목이 입력되지 않았습니다.");
@@ -903,16 +960,19 @@ function doCreateRoom() {
 
 //----- Screen Sharing
 function createScreenSharingHandler() {
+    console.log("createScreenSharingHandler");
     localFeedForScreenSharing();
 }
 
 var isWebrtcSupported = function() {
+    console.log("isWebrtcSupported");
 	return !!window.RTCPeerConnection;
 };
 
 var userList;
 var groupDataList;
 function getUserList() {
+    console.log("getUserList");
     httpAPICall("/onsvc/groupdata", {
         verb: 'GET',
         success: function(json) {
@@ -997,6 +1057,7 @@ function getUserList() {
 }
 
 function getDashboardFriendHtml(name, levelTitle, levelColor, isOnline, isSelf) {
+    console.log("getDashboardFriendHtml");
     var statusText;
     var videoCallBtnHtml;
     if(isOnline) {
@@ -1031,6 +1092,7 @@ function getDashboardFriendHtml(name, levelTitle, levelColor, isOnline, isSelf) 
 }
 
 function getGroupList() {
+    console.log("getGroupList");
     var groups = [];
     for(var i in groupDataList) {
         var groupData = groupDataList[i];
@@ -1042,6 +1104,7 @@ function getGroupList() {
 }
 
 function userOnclickEvent(item) {
+    console.log("userOnclickEvent");
     var userName;
     var ppNode = item.parentNode.parentNode;
     
@@ -1051,7 +1114,7 @@ function userOnclickEvent(item) {
             userName = list[i].childNodes[0].childNodes[0].nodeValue;
         }
     }
-    console.log("userName =" + userName);
+    //console.log("userName =" + userName);
     var login;
     for(var i in groupDataList) {
         var groupData = groupDataList[i];
@@ -1084,7 +1147,7 @@ function userOnclickEvent(item) {
         callback: function(result) {
             if(result) {
                 if(!login) {
-                    console.log(JSON.stringify(groupDataList)); // temp
+                    //console.log(JSON.stringify(groupDataList)); // temp
                     bootbox.alert("접속중인 사용자가 아닙니다!");
                     calleeId = null;
                     calleeName = null;
@@ -1103,6 +1166,7 @@ function userOnclickEvent(item) {
 
 var roomList;
 function getConfRoomList() {
+    console.log("getConfRoomList");
     httpAPICall("/onsvc/videoconf/roomlist", {
         verb: 'GET',
         success: function(json) {
@@ -1202,6 +1266,7 @@ function getConfRoomList() {
 }
 
 function isRoomOwnerId(roomId, userId) {
+    console.log("isRoomOwnerId");
     //--- 최고관리자인 경우
     if(superAdmin) {
         return true;
@@ -1240,6 +1305,7 @@ function isRoomOwnerId(roomId, userId) {
 }
 
 function getGroupAdminList(groupId) {
+    console.log("getGroupAdminList");
     for(var i in groupDataList) {
         var groupData = groupDataList[i];
         if(groupId === groupData['group_id']) {
@@ -1257,6 +1323,7 @@ function getGroupAdminList(groupId) {
 }
 
 function roomOnclickEvent(item) {
+    console.log("roomOnclickEvent");
     var roomId = item.getAttribute('id');
     var list = item.childNodes;
     for(var i=0; i<list.length; i++) {
@@ -1317,6 +1384,7 @@ function roomOnclickEvent(item) {
 
 //--- For VideoCall
 function doHangup() {
+    console.log("doHangup");
 	// Hangup a call
     var request = { data: null };
     httpAPICall("/onsvc/videocall/hangup", {
@@ -1335,8 +1403,10 @@ function doHangup() {
     });
 	videocall.hangup();
 }
+
 //--- For VideoConf
 function doHangupVideoConf() {
+    console.log("doHangupVideoConf");
 	// Hangup a call
     var request = { data: null };
     httpAPICall("/onsvc/videoconf/hangup", {
@@ -1371,6 +1441,7 @@ function doHangupVideoConf() {
 
 //--- For ScreenSharing
 function doStopScreenSharing() {
+    console.log("doStopScreenSharing");
 	// Hangup a call
     var data = { cid: screentest.getId(), type: "stop" };
     var request = { data: data };
@@ -1393,6 +1464,7 @@ function doStopScreenSharing() {
 }
 
 function _sendTrickleCandidate(channelId, candidate) {
+    console.log("_sendTrickleCandidate");
     var data = { cid: channelId, candidate};
     var request = { type: "candidate", data };
     httpAPICall("/onsvc/trickle", {
@@ -1412,10 +1484,14 @@ function _sendTrickleCandidate(channelId, candidate) {
 }
 
 function isGetUserMediaAvailable() {
+    console.log("isGetUserMediaAvailable");
 	return navigator.mediaDevices && navigator.mediaDevices.getUserMedia;
 };
 
+
 function _prepareWebrtc(channelId, offer, callbacks) {
+    console.log("_prepareWebrtc");
+    
     callbacks.success = (typeof callbacks.success == "function") ? callbacks.success : noop;
     callbacks.error = (typeof callbacks.error == "function") ? callbacks.error : webrtcError;
     var jsep = callbacks.jsep;
@@ -1446,14 +1522,14 @@ function _prepareWebrtc(channelId, offer, callbacks) {
         media.keepAudio = false;
         media.keepVideo = false;
     } else {
-        console.log("Updating existing media session");
+        //console.log("Updating existing media session");
         media.update = true;
         // Check if there's anything to add/remove/replace, or if we
         // can go directly to preparing the new SDP offer or answer
         if(callbacks.stream) {
             // External stream: is this the same as the one we were using before?
             if(callbacks.stream !== config.myStream) {
-                console.log("Renegotiation involves a new external stream");
+                //console.log("Renegotiation involves a new external stream");
             }
         } else {
             // Check if there are changes on audio
@@ -1583,7 +1659,7 @@ function _prepareWebrtc(channelId, offer, callbacks) {
         if(media.removeAudio || media.replaceAudio) {
             if(config.myStream && config.myStream.getAudioTracks() && config.myStream.getAudioTracks().length) {
                 var at = config.myStream.getAudioTracks()[0];
-                console.log("Removing audio track:", at);
+                //console.log("Removing audio track:", at);
                 config.myStream.removeTrack(at);
                 try {
                     at.stop();
@@ -1598,7 +1674,7 @@ function _prepareWebrtc(channelId, offer, callbacks) {
                 if(ra) {
                     for(var asnd of config.pc.getSenders()) {
                         if(asnd && asnd.track && asnd.track.kind === "audio") {
-                            console.log("Removing audio sender:", asnd);
+                            //console.log("Removing audio sender:", asnd);
                             config.pc.removeTrack(asnd);
                         }
                     }
@@ -1608,7 +1684,7 @@ function _prepareWebrtc(channelId, offer, callbacks) {
         if(media.removeVideo || media.replaceVideo) {
             if(config.myStream && config.myStream.getVideoTracks() && config.myStream.getVideoTracks().length) {
                 config.myStream.getVideoTracks().forEach(function(vt) {
-                    console.log("Removing video track:", vt);
+                    //console.log("Removing video track:", vt);
                     config.myStream.removeTrack(vt);
                     try {
                         vt.stop();
@@ -1624,7 +1700,7 @@ function _prepareWebrtc(channelId, offer, callbacks) {
                 if(rv) {
                     for(var vsnd of config.pc.getSenders()) {
                         if(vsnd && vsnd.track && vsnd.track.kind === "video") {
-                            console.log("Removing video sender:", vsnd);
+                            //console.log("Removing video sender:", vsnd);
                             config.pc.removeTrack(vsnd);
                         }
                     }
@@ -1635,7 +1711,7 @@ function _prepareWebrtc(channelId, offer, callbacks) {
     // Was a MediaStream object passed, or do we need to take care of that?
     if(callbacks.stream) {
         var stream = callbacks.stream;
-        console.log("MediaStream provided by the application");
+        //console.log("MediaStream provided by the application");
         console.debug(stream);
         // If this is an update, let's check if we need to release the previous stream
         if(media.update && config.myStream && config.myStream !== callbacks.stream && !config.streamExternal && !media.replaceAudio && !media.replaceVideo) {
@@ -1707,17 +1783,17 @@ function _prepareWebrtc(channelId, offer, callbacks) {
                         maxHeight = 360;
                         width = 640;
                     } else {
-                        console.log("Default video setting is stdres 4:3");
+                        //console.log("Default video setting is stdres 4:3");
                         height = 480;
                         maxHeight = 480;
                         width = 640;
                     }
-                    console.log("Adding media constraint:", media.video);
+                    //console.log("Adding media constraint:", media.video);
                     videoSupport = {
                         'height': {'ideal': height},
                         'width': {'ideal': width}
                     };
-                    console.log("Adding video constraint:", videoSupport);
+                    //console.log("Adding video constraint:", videoSupport);
                 }
             } else if(media.video === 'screen' || media.video === 'window') {
                 if(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
@@ -1751,20 +1827,26 @@ function _prepareWebrtc(channelId, offer, callbacks) {
                             cHandle.consentDialog(false);
                             callbacks.error(error);
                         });
+
                     return;
                 }
+
                 // We're going to try and use the extension for Chrome 34+, the old approach
                 // for older versions of Chrome, or the experimental support in Firefox 33+
+                
+ 
                 function callbackUserMedia(error, stream) {
+                    console.log("callbackUserMedia");
                     cHandle.consentDialog(false);
                     if(error) {
                         callbacks.error(error);
                     } else {
-                        _streamsDone(channelId, jsep, media, callbacks, stream);
                     }
                 }
+               
                 function getScreenMedia(constraints, gsmCallback, useAudio) {
-                    console.log("Adding media constraint (screen capture)");
+                    console.log(getScreenMedia = "getScreenMedia(42)");
+                    //console.log("Adding media constraint (screen capture)");
                     console.debug(constraints);
                     navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(stream) {
@@ -2034,6 +2116,7 @@ function _prepareWebrtc(channelId, offer, callbacks) {
 // attempted in https://github.com/meetecho/janus-gateway/issues/1670
 var endOfCandidates = null;
 function _prepareWebrtcPeer(channelId, callbacks) {
+    console.log("_prepareWebrtcPeer");
     callbacks = callbacks || {};
     callbacks.success = (typeof callbacks.success == "function") ? callbacks.success : noop;
     callbacks.error = (typeof callbacks.error == "function") ? callbacks.error : webrtcError;
@@ -2055,7 +2138,7 @@ function _prepareWebrtcPeer(channelId, callbacks) {
         callbacks.customizeSdp(jsep);
         config.pc.setRemoteDescription(jsep)
             .then(function() {
-                console.log("Remote description accepted!");
+                //console.log("Remote description accepted!");
                 config.remoteSdp = jsep.sdp;
                 // Any trickle candidate we cached?
                 if(config.candidates && config.candidates.length > 0) {
@@ -2079,9 +2162,9 @@ function _prepareWebrtcPeer(channelId, callbacks) {
         callbacks.error("Invalid JSEP");
     }
 }
-
 // WebRTC stuff
 function _streamsDone(channelId, jsep, media, callbacks, stream) {
+    console.log("_streamsDone");
     var cHandle = channels[channelId];
     if(!cHandle || !cHandle.webrtcStuff) {
         console.warn("Invalid handle");
@@ -2110,7 +2193,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
             config.myStream.addTrack(stream.getAudioTracks()[0]);
             if(unifiedPlan) {
                 // Use Transceivers
-                console.log((media.replaceAudio ? "Replacing" : "Adding") + " audio track:", stream.getAudioTracks()[0]);
+                //console.log((media.replaceAudio ? "Replacing" : "Adding") + " audio track:", stream.getAudioTracks()[0]);
                 var audioTransceiver = null;
                 var transceivers = config.pc.getTransceivers();
                 if(transceivers && transceivers.length > 0) {
@@ -2128,7 +2211,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
                     config.pc.addTrack(stream.getAudioTracks()[0], stream);
                 }
             } else {
-                console.log((media.replaceAudio ? "Replacing" : "Adding") + " audio track:", stream.getAudioTracks()[0]);
+                //console.log((media.replaceAudio ? "Replacing" : "Adding") + " audio track:", stream.getAudioTracks()[0]);
                 config.pc.addTrack(stream.getAudioTracks()[0], stream);
             }
         }
@@ -2139,7 +2222,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
             });
             if(unifiedPlan) {
                 // Use Transceivers
-                console.log((media.replaceVideo ? "Replacing" : "Adding") + " video track:", stream.getVideoTracks()[0]);
+                //console.log((media.replaceVideo ? "Replacing" : "Adding") + " video track:", stream.getVideoTracks()[0]);
                 var videoTransceiver = null;
                 var transceivers = config.pc.getTransceivers();
                 if(transceivers && transceivers.length > 0) {
@@ -2157,7 +2240,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
                     config.pc.addTrack(stream.getVideoTracks()[0], stream);
                 }
             } else {
-                console.log((media.replaceVideo ? "Replacing" : "Adding") + " video track:", stream.getVideoTracks()[0]);
+                //console.log((media.replaceVideo ? "Replacing" : "Adding") + " video track:", stream.getVideoTracks()[0]);
                 config.pc.addTrack(stream.getVideoTracks()[0], stream);
             }
         }
@@ -2183,7 +2266,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
         pc_config["forceEncodedVideoInsertableStreams"] = true;
         pc_config["encodedInsertableStreams"] = true;
         }
-        console.log("Creating PeerConnection");
+        //console.log("Creating PeerConnection");
         console.debug(pc_constraints);
         config.pc = new RTCPeerConnection(pc_config, pc_constraints);
         console.debug(config.pc);
@@ -2191,7 +2274,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
             config.volume = {};
             config.bitrate.value = "0 kbits/sec";
         }
-        console.log("Preparing local SDP and gathering candidates (trickle=" + config.trickle + ")");
+        //console.log("Preparing local SDP and gathering candidates (trickle=" + config.trickle + ")");
         config.pc.oniceconnectionstatechange = function(e) {
             if(config.pc)
                 cHandle.iceState(config.pc.iceConnectionState);
@@ -2199,7 +2282,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
         config.pc.onicecandidate = function(event) {
             // JSON.stringify doesn't work on some WebRTC objects anymore
             // See https://code.google.com/p/chromium/issues/detail?id=467366
-            console.log("### event:", event);
+            //console.log("### event:", event);
             if(event.candidate !== null) {
                 var candidate = {
                     "candidate": event.candidate.candidate,
@@ -2213,7 +2296,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
             }
         };
         config.pc.ontrack = function(event) {
-            console.log("Handling Remote Track");
+            //console.log("Handling Remote Track");
             console.debug(event);
             if(!event.streams)
                 return;
@@ -2233,7 +2316,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
                     }
                 }
                 if(receiverStreams) {
-                    console.log(receiverStreams);
+                    //console.log(receiverStreams);
                     if(receiverStreams.readableStream && receiverStreams.writableStream) {
                         receiverStreams.readableStream
                             .pipeThrough(config.receiverTransforms[event.track.kind])
@@ -2246,9 +2329,9 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
                 }
             }
             var trackMutedTimeoutId = null;
-            console.log("Adding onended callback to track:", event.track);
+            //console.log("Adding onended callback to track:", event.track);
             event.track.onended = function(ev) {
-                console.log("Remote track removed:", ev);
+                //console.log("Remote track removed:", ev);
                 if(config.remoteStream) {
                     clearTimeout(trackMutedTimeoutId);
                     config.remoteStream.removeTrack(ev.target);
@@ -2256,7 +2339,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
                 }
             };
             event.track.onmute = function(ev) {
-                console.log("Remote track muted:", ev);
+                //console.log("Remote track muted:", ev);
                 if(config.remoteStream && trackMutedTimeoutId == null) {
                     trackMutedTimeoutId = setTimeout(function() {
                         console.log("Removing remote track");
@@ -2271,7 +2354,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
                 }
             };
             event.track.onunmute = function(ev) {
-                console.log("Remote track flowing again:", ev);
+                //console.log("Remote track flowing again:", ev);
                 if(trackMutedTimeoutId != null) {
                     clearTimeout(trackMutedTimeoutId);
                     trackMutedTimeoutId = null;
@@ -2287,7 +2370,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
         };
     }
     if(addTracks && stream) {
-        console.log('Adding local stream');
+        //console.log('Adding local stream');
         var simulcast2 = (callbacks.simulcast2 === true);
         var audioTracks = stream.getAudioTracks();
         if(audioTracks.length > 0) {
@@ -2302,10 +2385,10 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
     }
     // Any data channel to create?
     if(_isDataEnabled(media) && !config.dataChannel["DataChannel"]) {
-        console.log("Creating default data channel");
+        //console.log("Creating default data channel");
         _createDataChannel(channelId, "DataChannel", null, false);
         config.pc.ondatachannel = function(event) {
-            console.log("Data channel created by Janus:", event);
+            //console.log("Data channel created by Janus:", event);
             _createDataChannel(channelId, event.channel.label, event.channel.protocol, event.channel);
         };
     }
@@ -2319,7 +2402,7 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
     } else {
         config.pc.setRemoteDescription(jsep)
             .then(function() {
-                console.log("Remote description accepted!");
+                //console.log("Remote description accepted!");
                 config.remoteSdp = jsep.sdp;
                 // Any trickle candidate we cached?
                 if(config.candidates && config.candidates.length > 0) {
@@ -2343,12 +2426,13 @@ function _streamsDone(channelId, jsep, media, callbacks, stream) {
 }
 
 function _addLocalTrack(stream, track, config, callbacks, simulcast2) {
-    console.log('Adding local track:', track);
+    console.log("_addLocalTrack");
+    //console.log('Adding local track:', track);
     var sender = null;
     if(!simulcast2 || track.kind === 'audio') {
         sender = config.pc.addTrack(track, stream);
     } else {
-        console.log('Enabling rid-based simulcasting:', track);
+        //console.log('Enabling rid-based simulcasting:', track);
         var maxBitrates = getMaxBitrates(callbacks.simulcastMaxBitrates);
         var tr = config.pc.addTransceiver(track, {
             direction: "sendrecv",
@@ -2375,7 +2459,7 @@ function _addLocalTrack(stream, track, config, callbacks, simulcast2) {
             }
         }
         if(senderStreams) {
-            console.log(senderStreams);
+            //console.log(senderStreams);
             if(senderStreams.readableStream && senderStreams.writableStream) {
                 senderStreams.readableStream
                     .pipeThrough(config.senderTransforms[sender.track.kind])
@@ -2391,6 +2475,7 @@ function _addLocalTrack(stream, track, config, callbacks, simulcast2) {
 
 // Private method to create a data channel
 function _createDataChannel(channelId, dclabel, dcprotocol, incoming, pendingData) {
+    console.log("_createDataChannel");
     var cHandle = channels[channelId];
     if(!cHandle || !cHandle.webrtcStuff) {
         console.warn("Invalid handle");
@@ -2402,22 +2487,22 @@ function _createDataChannel(channelId, dclabel, dcprotocol, incoming, pendingDat
         return;
     }
     var onDataChannelMessage = function(event) {
-        console.log('Received message on data channel:', event);
+        //console.log('Received message on data channel:', event);
         var label = event.target.label;
         cHandle.ondata(event.data, label);
     };
     var onDataChannelStateChange = function(event) {
-        console.log('Received state change on data channel:', event);
+        //console.log('Received state change on data channel:', event);
         var label = event.target.label;
         var protocol = event.target.protocol;
         var dcState = config.dataChannel[label] ? config.dataChannel[label].readyState : "null";
-        console.log('State change on <' + label + '> data channel: ' + dcState);
+        //console.log('State change on <' + label + '> data channel: ' + dcState);
         if(dcState === 'open') {
             // Any pending messages to send?
             if(config.dataChannel[label].pending && config.dataChannel[label].pending.length > 0) {
-                console.log("Sending pending messages on <" + label + ">:", config.dataChannel[label].pending.length);
+                //console.log("Sending pending messages on <" + label + ">:", config.dataChannel[label].pending.length);
                 for(var data of config.dataChannel[label].pending) {
-                    console.log("Sending data on data channel <" + label + ">");
+                    //console.log("Sending data on data channel <" + label + ">");
                     console.debug(data);
                     config.dataChannel[label].send(data);
                 }
@@ -2451,6 +2536,7 @@ function _createDataChannel(channelId, dclabel, dcprotocol, incoming, pendingDat
 }
 
 function _createOffer(channelId, media, callbacks) {
+    console.log("_createOffer");
     callbacks = callbacks || {};
     callbacks.success = (typeof callbacks.success == "function") ? callbacks.success : noop;
     callbacks.error = (typeof callbacks.error == "function") ? callbacks.error : noop;
@@ -2464,9 +2550,9 @@ function _createOffer(channelId, media, callbacks) {
     var config = cHandle.webrtcStuff;
     var simulcast = (callbacks.simulcast === true);
     if(!simulcast) {
-        console.log("Creating offer (iceDone=" + config.iceDone + ")");
+        //console.log("Creating offer (iceDone=" + config.iceDone + ")");
     } else {
-        console.log("Creating offer (iceDone=" + config.iceDone + ", simulcast=" + simulcast + ")");
+        //console.log("Creating offer (iceDone=" + config.iceDone + ", simulcast=" + simulcast + ")");
     }
     // https://code.google.com/p/webrtc/issues/detail?id=3508
     var mediaConstraints = {};
@@ -2503,7 +2589,7 @@ function _createOffer(channelId, media, callbacks) {
                 } else {
                     audioTransceiver.direction = "inactive";
                 }
-                console.log("Setting audio transceiver to inactive:", audioTransceiver);
+                //console.log("Setting audio transceiver to inactive:", audioTransceiver);
             }
         } else {
             // Take care of audio m-line
@@ -2514,7 +2600,7 @@ function _createOffer(channelId, media, callbacks) {
                     } else {
                         audioTransceiver.direction = "sendrecv";
                     }
-                    console.log("Setting audio transceiver to sendrecv:", audioTransceiver);
+                    //console.log("Setting audio transceiver to sendrecv:", audioTransceiver);
                 }
             } else if(audioSend && !audioRecv) {
                 if(audioTransceiver) {
@@ -2523,7 +2609,7 @@ function _createOffer(channelId, media, callbacks) {
                     } else {
                         audioTransceiver.direction = "sendonly";
                     }
-                    console.log("Setting audio transceiver to sendonly:", audioTransceiver);
+                    //console.log("Setting audio transceiver to sendonly:", audioTransceiver);
                 }
             } else if(!audioSend && audioRecv) {
                 if(audioTransceiver) {
@@ -2532,11 +2618,11 @@ function _createOffer(channelId, media, callbacks) {
                     } else {
                         audioTransceiver.direction = "recvonly";
                     }
-                    console.log("Setting audio transceiver to recvonly:", audioTransceiver);
+                    //console.log("Setting audio transceiver to recvonly:", audioTransceiver);
                 } else {
                     // In theory, this is the only case where we might not have a transceiver yet
                     audioTransceiver = config.pc.addTransceiver("audio", { direction: "recvonly" });
-                    console.log("Adding recvonly audio transceiver:", audioTransceiver);
+                    //console.log("Adding recvonly audio transceiver:", audioTransceiver);
                 }
             }
         }
@@ -2551,7 +2637,7 @@ function _createOffer(channelId, media, callbacks) {
                 } else {
                     videoTransceiver.direction = "inactive";
                 }
-                console.log("Setting video transceiver to inactive:", videoTransceiver);
+                //console.log("Setting video transceiver to inactive:", videoTransceiver);
             }
         } else {
             // Take care of video m-line
@@ -2562,7 +2648,7 @@ function _createOffer(channelId, media, callbacks) {
                     } else {
                         videoTransceiver.direction = "sendrecv";
                     }
-                    console.log("Setting video transceiver to sendrecv:", videoTransceiver);
+                    //console.log("Setting video transceiver to sendrecv:", videoTransceiver);
                 }
             } else if(videoSend && !videoRecv) {
                 if(videoTransceiver) {
@@ -2571,7 +2657,7 @@ function _createOffer(channelId, media, callbacks) {
                     } else {
                         videoTransceiver.direction = "sendonly";
                     }
-                    console.log("Setting video transceiver to sendonly:", videoTransceiver);
+                    //console.log("Setting video transceiver to sendonly:", videoTransceiver);
                 }
             } else if(!videoSend && videoRecv) {
                 if(videoTransceiver) {
@@ -2580,11 +2666,11 @@ function _createOffer(channelId, media, callbacks) {
                     } else {
                         videoTransceiver.direction = "recvonly";
                     }
-                    console.log("Setting video transceiver to recvonly:", videoTransceiver);
+                    //console.log("Setting video transceiver to recvonly:", videoTransceiver);
                 } else {
                     // In theory, this is the only case where we might not have a transceiver yet
                     videoTransceiver = config.pc.addTransceiver("video", { direction: "recvonly" });
-                    console.log("Adding recvonly video transceiver:", videoTransceiver);
+                    //console.log("Adding recvonly video transceiver:", videoTransceiver);
                 }
             }
         }
@@ -2601,7 +2687,7 @@ function _createOffer(channelId, media, callbacks) {
     var sendVideo = _isVideoSendEnabled(media);
     if(sendVideo && simulcast && adapter.browserDetails.browser === "firefox") {
         // FIXME Based on https://gist.github.com/voluntas/088bc3cc62094730647b
-        console.log("Enabling Simulcasting for Firefox (RID)");
+        //console.log("Enabling Simulcasting for Firefox (RID)");
         var sender = config.pc.getSenders().find(function(s) {return s.track && s.track.kind === "video"});
         if(sender) {
             var parameters = sender.getParameters();
@@ -2628,12 +2714,12 @@ function _createOffer(channelId, media, callbacks) {
             };
             callbacks.customizeSdp(jsep);
             offer.sdp = jsep.sdp;
-            console.log("Setting local description");
+            //console.log("Setting local description");
             if(sendVideo && simulcast) {
                 // This SDP munging only works with Chrome (Safari STP may support it too)
                 if(adapter.browserDetails.browser === "chrome" ||
                 adapter.browserDetails.browser === "safari") {
-                            console.log("Enabling Simulcasting for Chrome (SDP munging)");
+                            //console.log("Enabling Simulcasting for Chrome (SDP munging)");
                     offer.sdp = mungeSdpForSimulcasting(offer.sdp);
                 } else if(adapter.browserDetails.browser !== "firefox") {
                     console.warn("simulcast=true, but this is not Chrome nor Firefox, ignoring");
@@ -2648,7 +2734,7 @@ function _createOffer(channelId, media, callbacks) {
             config.mediaConstraints = mediaConstraints;
             if(!config.iceDone && !config.trickle) {
                 // Don't do anything until we have all candidates
-                console.log("Waiting for all candidates...");
+                //console.log("Waiting for all candidates...");
                 return;
             }
             // If transforms are present, notify Janus that the media is end-to-end encrypted
@@ -2660,6 +2746,7 @@ function _createOffer(channelId, media, callbacks) {
 }
 
 function _createAnswer(channelId, media, callbacks) {
+    console.log("_createAnswer");
     callbacks = callbacks || {};
     callbacks.success = (typeof callbacks.success == "function") ? callbacks.success : noop;
     callbacks.error = (typeof callbacks.error == "function") ? callbacks.error : noop;
@@ -2673,9 +2760,9 @@ function _createAnswer(channelId, media, callbacks) {
     var config = cHandle.webrtcStuff;
     var simulcast = (callbacks.simulcast === true);
     if(!simulcast) {
-        console.log("Creating answer (iceDone=" + config.iceDone + ")");
+        //console.log("Creating answer (iceDone=" + config.iceDone + ")");
     } else {
-        console.log("Creating answer (iceDone=" + config.iceDone + ", simulcast=" + simulcast + ")");
+        //console.log("Creating answer (iceDone=" + config.iceDone + ", simulcast=" + simulcast + ")");
     }
     var mediaConstraints = null;
     if(unifiedPlan) {
@@ -2711,7 +2798,7 @@ function _createAnswer(channelId, media, callbacks) {
                     } else {
                         audioTransceiver.direction = "inactive";
                     }
-                    console.log("Setting audio transceiver to inactive:", audioTransceiver);
+                    //console.log("Setting audio transceiver to inactive:", audioTransceiver);
                 } catch(e) {
                     console.error(e);
                 }
@@ -2726,7 +2813,7 @@ function _createAnswer(channelId, media, callbacks) {
                         } else {
                             audioTransceiver.direction = "sendrecv";
                         }
-                        console.log("Setting audio transceiver to sendrecv:", audioTransceiver);
+                        //console.log("Setting audio transceiver to sendrecv:", audioTransceiver);
                     } catch(e) {
                         console.error(e);
                     }
@@ -2739,7 +2826,7 @@ function _createAnswer(channelId, media, callbacks) {
                         } else {
                             audioTransceiver.direction = "sendonly";
                         }
-                        console.log("Setting audio transceiver to sendonly:", audioTransceiver);
+                        //console.log("Setting audio transceiver to sendonly:", audioTransceiver);
                     }
                 } catch(e) {
                     console.error(e);
@@ -2752,14 +2839,14 @@ function _createAnswer(channelId, media, callbacks) {
                         } else {
                             audioTransceiver.direction = "recvonly";
                         }
-                        console.log("Setting audio transceiver to recvonly:", audioTransceiver);
+                        //console.log("Setting audio transceiver to recvonly:", audioTransceiver);
                     } catch(e) {
                         console.error(e);
                     }
                 } else {
                     // In theory, this is the only case where we might not have a transceiver yet
                     audioTransceiver = config.pc.addTransceiver("audio", { direction: "recvonly" });
-                    console.log("Adding recvonly audio transceiver:", audioTransceiver);
+                    //console.log("Adding recvonly audio transceiver:", audioTransceiver);
                 }
             }
         }
@@ -2775,7 +2862,7 @@ function _createAnswer(channelId, media, callbacks) {
                     } else {
                         videoTransceiver.direction = "inactive";
                     }
-                    console.log("Setting video transceiver to inactive:", videoTransceiver);
+                    //console.log("Setting video transceiver to inactive:", videoTransceiver);
                 } catch(e) {
                     console.error(e);
                 }
@@ -2790,7 +2877,7 @@ function _createAnswer(channelId, media, callbacks) {
                         } else {
                             videoTransceiver.direction = "sendrecv";
                         }
-                        console.log("Setting video transceiver to sendrecv:", videoTransceiver);
+                        //console.log("Setting video transceiver to sendrecv:", videoTransceiver);
                     } catch(e) {
                         console.error(e);
                     }
@@ -2803,7 +2890,7 @@ function _createAnswer(channelId, media, callbacks) {
                         } else {
                             videoTransceiver.direction = "sendonly";
                         }
-                        console.log("Setting video transceiver to sendonly:", videoTransceiver);
+                        //console.log("Setting video transceiver to sendonly:", videoTransceiver);
                     } catch(e) {
                         console.error(e);
                     }
@@ -2816,14 +2903,14 @@ function _createAnswer(channelId, media, callbacks) {
                         } else {
                             videoTransceiver.direction = "recvonly";
                         }
-                        console.log("Setting video transceiver to recvonly:", videoTransceiver);
+                        //console.log("Setting video transceiver to recvonly:", videoTransceiver);
                     } catch(e) {
                         console.error(e);
                     }
                 } else {
                     // In theory, this is the only case where we might not have a transceiver yet
                     videoTransceiver = config.pc.addTransceiver("video", { direction: "recvonly" });
-                    console.log("Adding recvonly video transceiver:", videoTransceiver);
+                    //console.log("Adding recvonly video transceiver:", videoTransceiver);
                 }
             }
         }
@@ -2847,11 +2934,11 @@ function _createAnswer(channelId, media, callbacks) {
     var sendVideo = _isVideoSendEnabled(media);
     if(sendVideo && simulcast && adapter.browserDetails.browser === "firefox") {
     	// FIXME Based on https://gist.github.com/voluntas/088bc3cc62094730647b
-    	console.log("Enabling Simulcasting for Firefox (RID)");
+    	//console.log("Enabling Simulcasting for Firefox (RID)");
     	var sender = config.pc.getSenders()[1];
-    	console.log(sender);
+    	//console.log(sender);
     	var parameters = sender.getParameters();
-    	console.log(parameters);
+    	//console.log(parameters);
 
     	var maxBitrates = getMaxBitrates(callbacks.simulcastMaxBitrates);
     	sender.setParameters({encodings: callbacks.sendEncodings || [
@@ -2871,7 +2958,7 @@ function _createAnswer(channelId, media, callbacks) {
             };
             callbacks.customizeSdp(jsep);
             answer.sdp = jsep.sdp;
-            console.log("Setting local description");
+            //console.log("Setting local description");
             if(sendVideo && simulcast) {
             	// This SDP munging only works with Chrome
             	if(adapter.browserDetails.browser === "chrome") {
@@ -2889,7 +2976,7 @@ function _createAnswer(channelId, media, callbacks) {
             config.mediaConstraints = mediaConstraints;
             if(!config.iceDone && !config.trickle) {
                 // Don't do anything until we have all candidates
-                console.log("Waiting for all candidates...");
+                //console.log("Waiting for all candidates...");
                 return;
             }
             // If transforms are present, notify Janus that the media is end-to-end encrypted
@@ -2901,6 +2988,7 @@ function _createAnswer(channelId, media, callbacks) {
 }
 
 function getBitrate(channelId) {
+    console.log("getBitrate");
     var cHandle = channels[channelId];
     if(!cHandle || !cHandle.webrtcStuff) {
         console.warn("Invalid handle");
@@ -2912,7 +3000,7 @@ function getBitrate(channelId) {
     // Start getting the bitrate, if getStats is supported
     if(config.pc.getStats) {
         if(!config.bitrate.timer) {
-            console.log("Starting bitrate timer (via getStats)");
+            //console.log("Starting bitrate timer (via getStats)");
             config.bitrate.timer = setInterval(function() {
                 config.pc.getStats()
                     .then(function(stats) {
@@ -2965,11 +3053,13 @@ function getBitrate(channelId) {
 }
 
 function webrtcError(error) {
+    console.log("webrtcError");
     console.error("WebRTC error:", error);
 }
 
 function _cleanupWebrtc(channelId) {
-    console.log("Cleaning WebRTC stuff");
+    console.log("_cleanupWebrtc");
+    //console.log("Cleaning WebRTC stuff");
     var cHandle = channels[channelId];
     if(!cHandle) {
         // Nothing to clean
@@ -2995,7 +3085,7 @@ function _cleanupWebrtc(channelId) {
         config.bitrate.tsbefore = null;
         config.bitrate.value = null;
         if(!config.streamExternal && config.myStream) {
-            console.log("Stopping local stream tracks");
+            //console.log("Stopping local stream tracks");
             stopAllTracks(config.myStream);
         }
         config.streamExternal = false;
@@ -3020,11 +3110,12 @@ function _cleanupWebrtc(channelId) {
 }
 
 function _destroyHandle(channelId, callbacks) {
+    console.log("_destroyHandle");
     callbacks = callbacks || {};
     callbacks.success = (typeof callbacks.success == "function") ? callbacks.success : noop;
     callbacks.error = (typeof callbacks.error == "function") ? callbacks.error : noop;
     var noRequest = (callbacks.noRequest === true);
-    console.log("Destroying handle " + channelId + " (only-locally=" + noRequest + ")");
+    //console.log("Destroying handle " + channelId + " (only-locally=" + noRequest + ")");
     _cleanupWebrtc(channelId);
     var cHandle = channels[channelId];
     if(!cHandle || cHandle.detached) {
@@ -3047,6 +3138,7 @@ function _destroyHandle(channelId, callbacks) {
 }
 
 function unsubscribe(channelId) {
+    console.log("unsubscribe");
     var data = { cid: channelId };
     var request = { data };
     httpAPICall("/onsvc/videoconf/unsubscribe", {
@@ -3054,7 +3146,7 @@ function unsubscribe(channelId) {
         // withCredentials: withCredentials,
         body: request,
         success: function(json) {
-            console.log("Destroyed handle:");
+            //console.log("Destroyed handle:");
             console.debug(json);
             delete channels[channelId];
         },
@@ -3067,11 +3159,12 @@ function unsubscribe(channelId) {
 }
 
 function stopAllTracks(stream) {
+    console.log("stopAllTracks");
 	try {
 		// Try a MediaStreamTrack.stop() for each track
 		var tracks = stream.getTracks();
 		for(var mst of tracks) {
-			console.log("##### [stopAllTracks()]", mst);
+			//console.log("##### [stopAllTracks()]", mst);
 			if(mst) {
 				mst.stop();
 			}
@@ -3082,6 +3175,7 @@ function stopAllTracks(stream) {
 }
 
 function attachMediaStream(element, stream) {
+    console.log("attachMediaStream");
     try {
         element.srcObject = stream;
     } catch (e) {
@@ -3092,7 +3186,9 @@ function attachMediaStream(element, stream) {
         }
     }
 };
+
 function reattachMediaStream(to, from) {
+    console.log("reattachMediaStream");
     try {
         to.srcObject = from.srcObject;
     } catch (e) {
@@ -3106,6 +3202,7 @@ function reattachMediaStream(to, from) {
 
 //--- For videoRoom
 function publishOwnFeed(useAudio) {
+    console.log("publishOwnFeed");
 	// Publish our stream
 	sfutest.createOffer(
 		{
@@ -3142,12 +3239,13 @@ function publishOwnFeed(useAudio) {
 }
 
 function localFeedForVideoCall(isCaller) {
+    console.log("localFeedForVideoCall");
     var data = { userid: calleeId };
     var body = { data };
     _createChannelHandler("/onsvc/videocall/init", body, {
             success: function(cHandle) {
                 videocall = cHandle;
-                console.log("Plugin attached! (ChannelId=" + videocall.getId() + ")");
+                //console.log("Plugin attached! (ChannelId=" + videocall.getId() + ")");
                 // Call this user
                 if(isCaller) {
                     cHandle.createOffer(
@@ -3204,13 +3302,13 @@ function localFeedForVideoCall(isCaller) {
                 }
             },
             iceState: function(state) {
-                console.log("ICE state changed to " + state);
+                //console.log("ICE state changed to " + state);
             },
             mediaState: function(medium, on) {
-                console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
+                //console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
             },
             webrtcState: function(on) {
-                console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
+                //console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
                 if(on) {
                     $("#videolocal").parent().unblock();
                     changeBitrate("1024");
@@ -3228,12 +3326,12 @@ function localFeedForVideoCall(isCaller) {
                             console.debug("  >> [" + list[mp] + "]");
                         }
                     } else if(event === 'calling') {
-                        console.log("Waiting for the peer to answer...");
+                        //console.log("Waiting for the peer to answer...");
                         bootbox.alert("상대방의 응답을 기다리는 중입니다...");
                         ringingSound.play();
                         afterVideoCallStart();
                     } else if(event === 'failure') {
-                        console.log("VidelCall failure... " + msg["reason"]);
+                        //console.log("VidelCall failure... " + msg["reason"]);
                         // Reset status
                         bootbox.hideAll();
                         videocall.detach();
@@ -3248,7 +3346,7 @@ function localFeedForVideoCall(isCaller) {
 
                         bootbox.alert("상대방과의 연결에 실패했습니다. 잠시 후 다시 시도해주시기 바랍니다.");
                     } else if(event === 'incomingcall') {
-                        console.log("Incoming call from " + msg["caller_id"] + "!");
+                        //console.log("Incoming call from " + msg["caller_id"] + "!");
 
                         //--- Get Caller Name
                         calleeId = msg["caller_id"];
@@ -3323,9 +3421,9 @@ function localFeedForVideoCall(isCaller) {
                         bootbox.hideAll();
                         var peer = msg["id"];
                         if(!peer) {
-                            console.log("Call started!");
+                            //console.log("Call started!");
                         } else {
-                            console.log(peer + " accepted the call!");
+                            //console.log(peer + " accepted the call!");
                             ringingSound.load();
                             addCalleeLayout();
                         }
@@ -3355,7 +3453,7 @@ function localFeedForVideoCall(isCaller) {
                             }
                         }
                     } else if(event === 'hangup') {
-                        console.log("Call hung up by " + msg["id"] + " (" + msg["reason"] + ")!");
+                        //console.log("Call hung up by " + msg["id"] + " (" + msg["reason"] + ")!");
                         // Reset status
                         bootbox.hideAll();
                         videocall.detach();
@@ -3502,7 +3600,7 @@ function localFeedForVideoCall(isCaller) {
                 }
             },
             ondataopen: function(data) {
-                console.log("The DataChannel is available!");
+                //console.log("The DataChannel is available!");
                 $('#videos').removeClass('hide').show();
             },
             ondata: function(data) {
@@ -3510,7 +3608,7 @@ function localFeedForVideoCall(isCaller) {
                 $('#datarecv').val(data);
             },
             oncleanup: function() {
-                console.log(" ::: Got a cleanup notification :::");
+                //console.log(" ::: Got a cleanup notification :::");
                 ringingSound.load();
                 $('#myvideo').remove();
                 $('#remotevideo').remove();
@@ -3540,6 +3638,7 @@ function localFeedForVideoCall(isCaller) {
 }
 
 function setUserName() {
+    console.log("setUserName");
     for(var i in groupDataList) {
         var groupData = groupDataList[i];
         var levelGroupList = groupData['level_group_list'];
@@ -3558,6 +3657,7 @@ function setUserName() {
 }
 
 function sendCreateRoomRequest(roomTitle, groupId) {
+    console.log("sendCreateRoomRequest");
     var data = { type: "local" };
     var body = { data };
     var path = "/onsvc/videoconf/create";
@@ -3582,6 +3682,7 @@ function sendCreateRoomRequest(roomTitle, groupId) {
 }
 
 function sendDestroyRoomRequest(roomId) {
+    console.log("sendDestroyRoomRequest");
     var path = "/onsvc/videoconf/destroy";
     var data = { room_id: roomId };
     var body = { data };
@@ -3604,13 +3705,14 @@ function sendDestroyRoomRequest(roomId) {
 }
 
 function localFeedForVideoConf(targetRoomId) {
+    console.log("localFeedForVideoConf");
     var data = { type: "local" };
     var body = { data };
     _createChannelHandler("/onsvc/videoconf/init", body, {
         success: function(cHandle) {
             sfutest = cHandle;
-            console.log("[VideoRoom] Plugin attached! (ChannelId=" + sfutest.getId() + ")");
-            console.log("  -- This is a publisher/manager");
+            //console.log("[VideoRoom] Plugin attached! (ChannelId=" + sfutest.getId() + ")");
+            //console.log("  -- This is a publisher/manager");
             var path = "/onsvc/videoconf/join";
             var data = { room_id: targetRoomId }; // roomId
             body = { data };
@@ -3645,13 +3747,13 @@ function localFeedForVideoConf(targetRoomId) {
             }
         },
         iceState: function(state) {
-            console.log("ICE state changed to " + state);
+            //console.log("ICE state changed to " + state);
         },
         mediaState: function(medium, on) {
-            console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
+            //console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
         },
         webrtcState: function(on) {
-            console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
+            //console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
             $("#videolocal").parent().parent().unblock();
             if(!on)
                 return;
@@ -3671,7 +3773,7 @@ function localFeedForVideoConf(targetRoomId) {
                     if(msg["room_owner"]) {
                         roomOwner = true;
                     }
-                    console.log("Successfully joined room " + msg["room_id"] + " with ID " + feedId);
+                    //console.log("Successfully joined room " + msg["room_id"] + " with ID " + feedId);
                     $('#myname').text(displayName);
                     //-----FIXME: subscriber_mode 사용 관련 확인 필요
                     if(subscriber_mode) {
@@ -3740,7 +3842,7 @@ function localFeedForVideoConf(targetRoomId) {
                     } else if(msg["leaving"]) {
                         // One of the publishers has gone away?
                         var leaving = msg["leaving"];
-                        console.log("Publisher left: " + leaving);
+                        //console.log("Publisher left: " + leaving);
                         var remoteFeed = null;
                         for(var i=1; i<max_member; i++) {
                             if(feeds[i] && feeds[i].rfid == leaving) {
@@ -3873,7 +3975,7 @@ function localFeedForVideoConf(targetRoomId) {
             // The publisher stream is sendonly, we don't expect anything here
         },
         oncleanup: function() {
-            console.log(" ::: Got a cleanup notification: we are unpublished now :::");
+            //console.log(" ::: Got a cleanup notification: we are unpublished now :::");
             mystream = null;
             roomOwner = false;
             $("#videolocal").parent().parent().unblock();
@@ -3915,6 +4017,7 @@ function localFeedForVideoConf(targetRoomId) {
 }
 
 function joinTextRoom(roomId) {
+    console.log("joinTextRoom");
     var transaction = randomString(12);
     var register = {
         textroom: "join",
@@ -3937,7 +4040,7 @@ function joinTextRoom(roomId) {
         // We're in
         afterTextRoomJoinSuccess();
         // Any participants already in?
-        console.log("Participants:", response.participants);
+        //console.log("Participants:", response.participants);
         if(response.participants && response.participants.length > 0) {
             for(var i in response.participants) {
                 var p = response.participants[i];
@@ -3956,6 +4059,7 @@ function joinTextRoom(roomId) {
 }
 
 function newRemoteFeed(id, display, audio, video) {
+    console.log("newRemoteFeed");
     // Init remote channel
     // A new feed has been published, create a new plugin handle and attach to it as a subscriber
 	var remoteFeed = null;
@@ -3965,8 +4069,8 @@ function newRemoteFeed(id, display, audio, video) {
         success: function(channelHandler) {
             remoteFeed = channelHandler;
             // remoteFeed.simulcastStarted = false;
-            console.log("Plugin attached! (ChannelId=" + remoteFeed.getId() + ")");
-            console.log("  -- This is a subscriber");
+            //console.log("Plugin attached! (ChannelId=" + remoteFeed.getId() + ")");
+            //console.log("  -- This is a subscriber");
             remoteFeed.videoCodec = video;
             // join 요청 필요
             var data = { type: "request", cid: remoteFeed.getId(), feed: id };
@@ -4014,7 +4118,7 @@ function newRemoteFeed(id, display, audio, video) {
                     } else {
                         remoteFeed.spinner.spin();
                     }
-                    console.log("Successfully attached to feed " + remoteFeed.rfid + " (" + remoteFeed.rfdisplay + ") in room " + msg["room_id"]);
+                    //console.log("Successfully attached to feed " + remoteFeed.rfid + " (" + remoteFeed.rfdisplay + ") in room " + msg["room_id"]);
                     addRemoteFeedLayout(remoteFeed);
 
                     $('#joined_member').append(
@@ -4075,10 +4179,10 @@ function newRemoteFeed(id, display, audio, video) {
             }
         },
         iceState: function(state) {
-            console.log("ICE state of this WebRTC PeerConnection (feed #" + remoteFeed.rfindex + ") changed to " + state);
+            //console.log("ICE state of this WebRTC PeerConnection (feed #" + remoteFeed.rfindex + ") changed to " + state);
         },
         webrtcState: function(on) {
-            console.log("Server says this WebRTC PeerConnection (feed #" + remoteFeed.rfindex + ") is " + (on ? "up" : "down") + " now");
+            //console.log("Server says this WebRTC PeerConnection (feed #" + remoteFeed.rfindex + ") is " + (on ? "up" : "down") + " now");
         },
         onlocalstream: function(stream) {
             // The subscriber stream is recvonly, we don't expect anything here
@@ -4153,7 +4257,7 @@ function newRemoteFeed(id, display, audio, video) {
             }
         },
         oncleanup: function() {
-            console.log(" ::: Got a cleanup notification (remote feed " + id + ") :::");
+            //console.log(" ::: Got a cleanup notification (remote feed " + id + ") :::");
             if(remoteFeed.spinner)
                 remoteFeed.spinner.stop();
             remoteFeed.spinner = null;
@@ -4175,13 +4279,14 @@ function newRemoteFeed(id, display, audio, video) {
 }
 
 function localFeedForScreenSharing() {
+    console.log("localFeedForScreenSharing");
     var data = { type: "screen" };
     var body = { data: data };
     _createChannelHandler("/onsvc/videoconf/init", body, {
         success: function(cHandle) {
             $('#details').remove();
             screentest = cHandle;
-            console.log("Plugin attached! (ChannelId=" + screentest.getId() + ")");
+            //console.log("Plugin attached! (ChannelId=" + screentest.getId() + ")");
             if(role === "publisher") {
                 preShareScreen();
             }
@@ -4199,16 +4304,16 @@ function localFeedForScreenSharing() {
             }
         },
         iceState: function(state) {
-            console.log("ICE state changed to " + state);
+            //console.log("ICE state changed to " + state);
         },
         mediaState: function(medium, on) {
-            console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
+            //console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
             if(!on) {
                 // stopSharing();
             }
         },
         webrtcState: function(on) {
-            console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
+            //console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
             $("#screencapture").parent().unblock();
             if(on) {
                 sharingOn = true;
@@ -4233,7 +4338,7 @@ function localFeedForScreenSharing() {
             if(event) {
                 if(event === "joined") {
                     feedId = msg["id"];
-                    console.log("Successfully joined room " + msg["room_id"] + " with ID " + feedId);
+                    //console.log("Successfully joined room " + msg["room_id"] + " with ID " + feedId);
                     if(role === "publisher") {
                         // This is our session, publish our stream
                         console.debug("Negotiating WebRTC stream for our screen (capture " + capture + ")");
@@ -4324,7 +4429,7 @@ function localFeedForScreenSharing() {
                         // }
                         //-----
                         if(role === "listener" && msg["leaving"] === source) {
-                            console.log("ScreenSharing Publisher left: " + leaving);
+                            //console.log("ScreenSharing Publisher left: " + leaving);
                             $('#room').hide();
                             sharingOn = false;
                             resizeMultiVideo();
@@ -4365,7 +4470,7 @@ function localFeedForScreenSharing() {
             // The publisher stream is sendonly, we don't expect anything here
         },
         oncleanup: function() {
-            console.log(" ::: Got a cleanup notification :::");
+            //console.log(" ::: Got a cleanup notification :::");
             $('#screencapture').empty();
             $("#screencapture").parent().unblock();
             $('#room').hide();
@@ -4377,6 +4482,7 @@ function localFeedForScreenSharing() {
 
 var remoteScreenSharingFeed = null;
 function newRemoteFeedForScreenSharing(id, display) {
+    console.log("newRemoteFeedForScreenSharing");
     source = id;
 	var remoteFeed = null;
     var data = { type: "remote" };
@@ -4387,8 +4493,8 @@ function newRemoteFeedForScreenSharing(id, display) {
             remoteFeed.rfid = id;
             remoteFeed.rfdisplay = display;
             remoteScreenSharingFeed = remoteFeed;
-            console.log("Plugin attached! (id=" + remoteFeed.getId() + ")");
-            console.log("  -- This is a subscriber");
+            //console.log("Plugin attached! (id=" + remoteFeed.getId() + ")");
+            //console.log("  -- This is a subscriber");
 
             var data = { type: "request", cid: remoteFeed.getId(), feed: id };
             var request = { data };
@@ -4412,17 +4518,17 @@ function newRemoteFeedForScreenSharing(id, display) {
             bootbox.alert("Error attaching plugin... " + error);
         },
         iceState: function(state) {
-            console.log("ICE state changed to " + state);
+            //console.log("ICE state changed to " + state);
         },
         mediaState: function(medium, on) {
-            console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
+            //console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
             if(!on) {
                 // stopSharing();
                 console.error("No!!!!!");
             }
         },
         webrtcState: function(on) {
-            console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
+            //console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
             $("#screencapture").parent().unblock();
             // if(on) {
             //     changeScreenSharingBitrate("1536");
@@ -4447,7 +4553,7 @@ function newRemoteFeedForScreenSharing(id, display) {
                     } else {
                         spinner.spin();
                     }
-                    console.log("[ScreenSharing] Successfully attached to feed " + msg["id"] + " (" + display + ") in room " + msg["room_id"]);
+                    //console.log("[ScreenSharing] Successfully attached to feed " + msg["id"] + " (" + display + ") in room " + msg["room_id"]);
                     sharingOn = true;
                     $('#screenmenu').hide();
                     $('#room').removeClass('hide').show();
@@ -4526,7 +4632,7 @@ function newRemoteFeedForScreenSharing(id, display) {
             $("#screenvideo").get(0).volume = 1;
         },
         oncleanup: function() {
-            console.log(" ::: Got a cleanup notification (remote feed " + id + ") :::");
+            //console.log(" ::: Got a cleanup notification (remote feed " + id + ") :::");
             $('#waitingvideo').remove();
             $('#screencapture').empty();
             $("#screencapture").parent().unblock();
@@ -4538,6 +4644,7 @@ function newRemoteFeedForScreenSharing(id, display) {
 }
 
 function stopSharing() {
+    console.log("stopSharing");
     if(screentest) {
         doStopScreenSharing();
     }
@@ -4548,6 +4655,7 @@ function stopSharing() {
 }
 
 function preShareScreen() {
+    console.log("preShareScreen");
 	if(!_isExtensionEnabled()) {
 		bootbox.alert("You're using Chrome but don't have the screensharing extension installed: click <b><a href='https://chrome.google.com/webstore/detail/janus-webrtc-screensharin/hapfgfdkleiggjjpfpenajgdnfckjpaj' target='_blank'>here</a></b> to do so", function() {
 			// window.location.reload();
@@ -4558,9 +4666,11 @@ function preShareScreen() {
 	// Create a new room
 	capture = "screen";
     shareScreen();
+
 }
 
 function shareScreen() {
+    console.log("shareScreen");
 	role = "publisher";
     var data = { cid: screentest.getId() };
     var request = { data };
@@ -4581,6 +4691,7 @@ function shareScreen() {
 }
 
 function testSharing() {
+    console.log("testSharing");
     if(!sharingOn) {
         role = "publisher";
         createScreenSharingHandler();
@@ -4594,10 +4705,11 @@ function testSharing() {
 }
 
 function localFeedForRecord() {
+    console.log("localFeedForRecord");
     _createRecordHandler({
         success: function(pluginHandle) {
             recordplay = pluginHandle;
-            console.log("Plugin attached! (id=" + recordplay.getId() + ")");
+            //console.log("Plugin attached! (id=" + recordplay.getId() + ")");
         },
         error: function(error) {
             console.error("  -- Error attaching plugin...", error);
@@ -4612,13 +4724,13 @@ function localFeedForRecord() {
             }
         },
         iceState: function(state) {
-            console.log("ICE state changed to " + state);
+            //console.log("ICE state changed to " + state);
         },
         mediaState: function(medium, on) {
-            console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
+            //console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
         },
         webrtcState: function(on) {
-            console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
+            //console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
         },
         onmessage: function(msg, jsep) {
             console.debug(" ::: Got a message :::", msg);
@@ -4630,7 +4742,7 @@ function localFeedForRecord() {
                         var event = result["status"];
                         console.debug("Event: " + event);
                         if(event === 'preparing' || event === 'refreshing') {
-                            console.log("Preparing the recording playout");
+                            //console.log("Preparing the recording playout");
                             recordplay.createAnswer(
                                 {
                                     jsep: jsep,
@@ -4653,13 +4765,13 @@ function localFeedForRecord() {
                                 recordplay.handleRemoteJsep({ jsep: jsep });
                             var id = result["id"];
                             if(id) {
-                                console.log("The ID of the current recording is " + id);
+                                //console.log("The ID of the current recording is " + id);
                                 recordingId = id;
                             }
                         } else if(event === 'playing') {
-                            console.log("Playout has started!");
+                            //console.log("Playout has started!");
                         } else if(event === 'stopped') {
-                            console.log("Session has stopped!");
+                            //console.log("Session has stopped!");
                             // FIXME Reset status
                             recordingId = null;
                             recording = false;
@@ -4685,7 +4797,7 @@ function localFeedForRecord() {
             //--- Not used
         },
         oncleanup: function() {
-            console.log(" ::: Got a cleanup notification :::");
+            //console.log(" ::: Got a cleanup notification :::");
             // FIXME Reset status
             if(spinner)
                 spinner.stop();
@@ -4700,10 +4812,11 @@ function localFeedForRecord() {
 }
 
 function localFeedForData() {
+    console.log("localFeedForData");
     _createDataHandler({
         success: function(pluginHandle) {
             textroom = pluginHandle;
-            console.log("[TextRoom] Plugin attached! (id=" + textroom.getId() + ")");
+            //console.log("[TextRoom] Plugin attached! (id=" + textroom.getId() + ")");
             // Setup the DataChannel
             setupChatting();
         },
@@ -4712,13 +4825,13 @@ function localFeedForData() {
             bootbox.alert("Error attaching plugin... " + error);
         },
         iceState: function(state) {
-            console.log("ICE state changed to " + state);
+            //console.log("ICE state changed to " + state);
         },
         mediaState: function(medium, on) {
-            console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
+            //console.log("WebRTC server " + (on ? "started" : "stopped") + " receiving our " + medium);
         },
         webrtcState: function(on) {
-            console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
+            //console.log("WebRTC server says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now");
             if(on) {
                 afterTextRoomJoinSuccess();
             }
@@ -4762,7 +4875,7 @@ function localFeedForData() {
             }
         },
         ondataopen: function(data) {
-            console.log("The DataChannel is available!");
+            //console.log("The DataChannel is available!");
         },
         ondata: function(data) {
             console.debug("We got data from the DataChannel!", data);
@@ -4849,7 +4962,7 @@ function localFeedForData() {
             }
         },
         oncleanup: function() {
-            console.log(" ::: Got a cleanup notification :::");
+            //console.log(" ::: Got a cleanup notification :::");
             $('#datasend').attr('disabled', true);
         }
     });
@@ -4857,6 +4970,7 @@ function localFeedForData() {
 
 // Helper to format times
 function getDateString(jsonDate) {
+    console.log(getDateString = "getDateString(73)");
 	var when = new Date();
 	if(jsonDate) {
 		when = new Date(Date.parse(jsonDate));
@@ -4873,6 +4987,7 @@ function getDateString(jsonDate) {
 
 // Helper methods to parse a media object
 function _isAudioSendEnabled(media) {
+    console.log("_isAudioSendEnabled");
     console.debug("isAudioSendEnabled:", media);
     if(!media)
         return true;	// Default
@@ -4884,6 +4999,7 @@ function _isAudioSendEnabled(media) {
 }
 
 function _isAudioSendRequired(media) {
+    console.log("_isAudioSendRequired");
     console.debug("isAudioSendRequired:", media);
     if(!media)
         return false;	// Default
@@ -4895,6 +5011,7 @@ function _isAudioSendRequired(media) {
 }
 
 function _isAudioRecvEnabled(media) {
+    console.log("_isAudioRecvEnabled");
     console.debug("isAudioRecvEnabled:", media);
     if(!media)
         return true;	// Default
@@ -4906,6 +5023,7 @@ function _isAudioRecvEnabled(media) {
 }
 
 function _isVideoSendEnabled(media) {
+    console.log("_isVideoSendEnabled");
     console.debug("isVideoSendEnabled:", media);
     if(!media)
         return true;	// Default
@@ -4917,6 +5035,7 @@ function _isVideoSendEnabled(media) {
 }
 
 function _isVideoSendRequired(media) {
+    console.log("_isVideoSendRequired");
     console.debug("isVideoSendRequired:", media);
     if(!media)
         return false;	// Default
@@ -4928,6 +5047,7 @@ function _isVideoSendRequired(media) {
 }
 
 function _isVideoRecvEnabled(media) {
+    console.log("_isVideoRecvEnabled");
     console.debug("isVideoRecvEnabled:", media);
     if(!media)
         return true;	// Default
@@ -4939,6 +5059,7 @@ function _isVideoRecvEnabled(media) {
 }
 
 function _isScreenSendEnabled(media) {
+    console.log("_isScreenSendEnabled");
     console.debug("isScreenSendEnabled:", media);
     if (!media)
         return false;
@@ -4955,6 +5076,7 @@ function _isScreenSendEnabled(media) {
 }
 
 function _isDataEnabled(media) {
+    console.log("_isDataEnabled");
     console.debug("isDataEnabled:", media);
     if(adapter.browserDetails.browser === "edge") {
         console.warn("Edge doesn't support data channels yet");
@@ -4966,11 +5088,13 @@ function _isDataEnabled(media) {
 }
 
 function _isTrickleEnabled(trickle) {
+    console.log("_isTrickleEnabled");
     console.debug("isTrickleEnabled:", trickle);
     return (trickle === false) ? false : true;
 }
 
 function _isExtensionEnabled() {
+    console.log(_isExtensionEnabled = "_isExtensionEnabled(82)");
 	if(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
 		// No need for the extension, getDisplayMedia is supported
 		return true;
@@ -5024,7 +5148,7 @@ var _extension = {
 					callback(null, event.data.sourceId);
 				}
 			} else if (event.data.type == 'janusGetScreenPending') {
-				console.log('clearing ', event.data.id);
+				//console.log('clearing ', event.data.id);
 				window.clearTimeout(event.data.id);
 			}
 		});
@@ -5032,6 +5156,7 @@ var _extension = {
 };
 
 function btnChange(id, isEnable) {
+    console.log("btnChange");
     if(isEnable) {
         $('#'+id).attr('style', 'background: #8585ff; cursor: pointer;');
     } else {
@@ -5040,6 +5165,7 @@ function btnChange(id, isEnable) {
 }
 
 function setConfigMenu() {
+    console.log("setConfigMenu");
     $("#cfgBtn").unbind();
     $("#cfgBtn").click(function() {
         navigator.mediaDevices.enumerateDevices().then(function(devices) {
@@ -5086,7 +5212,7 @@ function setConfigMenu() {
     $("#tx_res").unbind();
     $("#tx_res").change(function() {
         var value = $(this).val();
-        console.log("##### Resolution changed:", value);
+        //console.log("##### Resolution changed:", value);
         if(value === "720") {
             changeOwnFeedVideo("hdres");
         } else if(value === "360") {
@@ -5175,7 +5301,7 @@ function setConfigMenu() {
                 if (typeof audioElement[i].sinkId !== 'undefined') {
                     audioElement[i].setSinkId(id)
                         .then(function() {
-                            console.log('Success, audio output device attached: ' + id);
+                            //console.log('Success, audio output device attached: ' + id);
                         })
                         .catch(function(error) {
                             var errorMessage = error;
@@ -5239,9 +5365,11 @@ function setConfigMenu() {
     document.querySelector("#video_filter_slider_value").innerHTML = "Level " + videoFilterLevel;
     document.querySelector("#video_filter_slider").removeEventListener('input', videoFilterSliderEventListener);
     document.querySelector("#video_filter_slider").addEventListener('input', videoFilterSliderEventListener);
+
 }
 
 function audioPitchRadioEventListener() {
+    console.log("audioPitchRadioEventListener");
     audioPitchMode = this.value;
     if(audioPitchMode == "custom") {
         $("#audio_pitch").removeAttr("disabled");
@@ -5260,12 +5388,13 @@ function audioPitchRadioEventListener() {
         }
     }
     pitchChangeEffect.setPitchOffset(pitchVal);
-    console.log("Set audio pitch:", audioPitchMode);
+    //console.log("Set audio pitch:", audioPitchMode);
 }
 
 function audioPitchSliderEventListener(e) {
+    console.log("audioPitchSliderEventListener");
     pitchVal = parseFloat(e.target.value);
-    console.log("Set audio pitch:", pitchVal);
+    //console.log("Set audio pitch:", pitchVal);
     if(pitchChangeEffect !== null) {
         pitchChangeEffect.setPitchOffset(pitchVal);
         document.querySelector("#audio_pitch_value").innerHTML = pitchVal;
@@ -5273,22 +5402,25 @@ function audioPitchSliderEventListener(e) {
 }
 
 function videoFilterModeRadioEventListener() {
+    console.log("videoFilterModeRadioEventListener");
     videoFilterMode = this.value;
     if(videoFilterMode === "none") {
         $("#video_filter_slider").attr("disabled", true);
     } else {
         $("#video_filter_slider").removeAttr("disabled");
     }
-    console.log("Set video filter mode:", this.value);
+    //console.log("Set video filter mode:", this.value);
 }
 
 function videoFilterSliderEventListener(e) {
-    console.log("Set voice filter level:", e.target.value);
+    console.log(videoFilterSliderEventListener = "videoFilterSliderEventListener(88)");
+    //console.log("Set voice filter level:", e.target.value);
     document.querySelector("#video_filter_slider_value").innerHTML = "Level " + e.target.value;
     videoFilterLevel = parseInt(e.target.value);
 }
 
 function addButtonMenu() {
+    console.log("addButtonMenu");
     if(calleeId !== null) {
         $('#btm_menu *').remove();
         $('#btm_menu').append(
@@ -5421,6 +5553,7 @@ function addButtonMenu() {
 }
 
 function addButtonEvent() {
+    console.log("addButtonEvent");
     $("#mute").unbind();
     $("#mute").click(toggleMute);
 
@@ -5459,6 +5592,7 @@ function addButtonEvent() {
 
 //----- For TextRoom
 function checkEnterForTextRoom(field, event) {
+    console.log("checkEnterForTextRoom");
 	var theCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
 	if(theCode == 13) {
         sendData();
@@ -5470,6 +5604,7 @@ function checkEnterForTextRoom(field, event) {
 
 // Helper method to create random identifiers (e.g., transaction)
 function randomString(len) {
+    console.log("randomString");
 	var charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	var randomString = '';
 	for (var i = 0; i < len; i++) {
@@ -5480,6 +5615,7 @@ function randomString(len) {
 };
 
 function sendData() {
+    console.log("sendData");
 	var data = $('#datasend').val();
 	if(data === "") {
 		bootbox.alert('Insert a message to send on the DataChannel');
@@ -5505,6 +5641,7 @@ function sendData() {
 
 // Private method to send a data channel message
 function _sendData(channelId, callbacks) {
+    console.log("_sendData");
     callbacks = callbacks || {};
     callbacks.success = (typeof callbacks.success == "function") ? callbacks.success : noop;
     callbacks.error = (typeof callbacks.error == "function") ? callbacks.error : noop;
@@ -5533,37 +5670,44 @@ function _sendData(channelId, callbacks) {
         callbacks.success();
         return;
     }
-    console.log("Sending data on data channel <" + label + ">");
+    //console.log("Sending data on data channel <" + label + ">");
     console.debug(data);
     config.dataChannel[label].send(data);
     callbacks.success();
 }
 
 function openNav() {
+    console.log("openNav");
     document.getElementById("mySidenav").style.width = "350px";
 }
 
 function closeNav() {
+    console.log("closeNav");
     document.getElementById("mySidenav").style.width = "0";
 }
 
 function openMembers() {
+    console.log("openMembers");
     document.getElementById("side_member_list").style.width = "350px";
 }
 
 function closeMembers() {
+    console.log("closeMembers");
     document.getElementById("side_member_list").style.width = "0";
 }
 
 function getInviteCodeForRoomInfo() {
+    console.log("getInviteCodeForRoomInfo");
     copyInviteCode(roomId);
 }
 
 function getInviteCode(roomId) {
+    console.log("getInviteCode");
     copyInviteCode(roomId);
 }
 
 function copyInviteCode(roomId) {
+    console.log("copyInviteCode");
     var inviteCode = "https://onnetsystems.co.kr/onsvc/join?rid=" + roomId;
     bootbox.dialog({
         title: "회의방 초대 코드",
@@ -5590,6 +5734,7 @@ function copyInviteCode(roomId) {
 }
 
 function initConfigForAudio() {
+    console.log("initConfigForAudio");
     $("#audio_cfg_content").css("display", "block");
     $("#video_cfg_content").css("display", "none");
     $("#audio_cfg_btn").addClass("active");
@@ -5597,6 +5742,7 @@ function initConfigForAudio() {
 }
 
 function initConfigForVideo() {
+    console.log("initConfigForVideo");
     $("#audio_cfg_content").css("display", "none");
     $("#video_cfg_content").css("display", "block");
     $("#audio_cfg_btn").removeClass("active");
@@ -5605,6 +5751,7 @@ function initConfigForVideo() {
 
 var isFullScreen = false;
 function changeFullScreenMode() {
+    console.log("changeFullScreenMode");
     if(isFullScreen) {
         stopFullScreen();
         $("#full_screen_btn").html("전체화면");
@@ -5617,6 +5764,7 @@ function changeFullScreenMode() {
 }
 
 function startFullScreen() {
+    console.log("startFullScreen");
     if(document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
     } else if(document.documentElement.webkitRequestFullscreen) {
@@ -5632,6 +5780,7 @@ function startFullScreen() {
 }
 
 function stopFullScreen() {
+    console.log("stopFullScreen");
     if(document.exitFullscreen) {
         document.exitFullscreen();
     } else if(document.webkitExitFullscreen) {
@@ -5647,6 +5796,7 @@ function stopFullScreen() {
 }
 
 function addFullScreenEventListener() {
+    console.log("addFullScreenEventListener");
     document.addEventListener('fullscreenchange', updateFullScreenStatus);
     document.addEventListener('webkitfullscreenchange', updateFullScreenStatus);
     document.addEventListener('mozfullscreenchange', updateFullScreenStatus);
@@ -5654,6 +5804,7 @@ function addFullScreenEventListener() {
 }
 
 function updateFullScreenStatus() {
+    console.log("updateFullScreenStatus");
     if(!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement)  {
         $("#full_screen_btn").html("전체화면");
         isFullScreen = false;
@@ -5664,6 +5815,7 @@ function updateFullScreenStatus() {
 }
 
 function toggleMute() {
+    console.log("toggleMute");
 	var muted;
     if(calleeId !== null) {
         muted = videocall.isAudioMuted();
@@ -5695,6 +5847,7 @@ function toggleMute() {
 }
 
 function toogleVideoEnable() {
+    console.log("toogleVideoEnable");
     var muted;
     if(calleeId !== null) {
         muted = videocall.isVideoMuted();
@@ -5726,6 +5879,7 @@ function toogleVideoEnable() {
 }
 
 function _isMuted(channelId, video) {
+    console.log("_isMuted");
     var cHandle = channels[channelId];
     if(!cHandle || !cHandle.webrtcStuff) {
         console.warn("Invalid handle");
@@ -5758,6 +5912,7 @@ function _isMuted(channelId, video) {
 }
 
 function _mute(channelId, video, mute) {
+    console.log("_mute");
     var cHandle = channels[channelId];
     if(!cHandle || !cHandle.webrtcStuff) {
         console.warn("Invalid handle");
@@ -5792,11 +5947,12 @@ function _mute(channelId, video, mute) {
 }
 
 function changeBitrate(id) {
+    console.log("changeBitrate");
     var bitrate = parseInt(id)*1000;
     if(bitrate === 0) {
-        console.log("Not limiting bandwidth via REMB");
+        //console.log("Not limiting bandwidth via REMB");
     } else {
-        console.log("Capping bandwidth to " + bitrate + " via REMB");
+        //console.log("Capping bandwidth to " + bitrate + " via REMB");
     }
     var data = { request: 'bitrate', bitrate: bitrate };
     var request = { data };
@@ -5819,6 +5975,7 @@ function changeBitrate(id) {
 
 //---temp
 function changeScreenSharingBitrate(id) {
+    console.log("changeScreenSharingBitrate");
     var bitrate = parseInt(id)*1000;
     var data = { request: "bitrate", cid: screentest.getId(), bitrate: bitrate };
     var request = { data: data };
@@ -5839,6 +5996,7 @@ function changeScreenSharingBitrate(id) {
 }
 
 function changeOwnFeedVideo(video) {
+    console.log("changeOwnFeedVideo");
     if(calleeId !== null) {
         videocall.createOffer(
             {
@@ -5847,7 +6005,7 @@ function changeOwnFeedVideo(video) {
                     replaceVideo: true
                 },
                 success: function(jsep) {
-                    console.log("Resolution changed to " + video);
+                   //console.log("Resolution changed to " + video);
                     console.debug("Got publisher SDP!", jsep);
                     var data = { userid: calleeId, jsep: jsep };
                     var request = { type: "videocall", data: data };
@@ -5880,7 +6038,7 @@ function changeOwnFeedVideo(video) {
                     replaceVideo: true
                 },
                 success: function(jsep) {
-                    console.log("Resolution changed to " + video);
+                    //console.log("Resolution changed to " + video);
                     console.debug("Got publisher SDP!", jsep);
                     var data = { request: "media", cid: sfutest.getId(), audio: true, video: true, jsep: jsep };
                     var request = { type: "videoconf", data: data };
@@ -5907,6 +6065,7 @@ function changeOwnFeedVideo(video) {
 }
 
 function startRecording() {
+    console.log("startRecording");
 	if(recording)
 		return;
 	// Start a recording
@@ -5976,6 +6135,7 @@ function startRecording() {
 }
 
 function stopRecording() {
+    console.log("stopRecording");
 	// Stop a recording/playout
 	$('#stop').unbind('click');
     var data = { request: "stop" };
@@ -6000,16 +6160,18 @@ function stopRecording() {
 }
 
 function testRecord() {
+    console.log("testRecord");
     if(!recording) {
-        console.log("Recording start:");
+        //console.log("Recording start:");
         startRecording();
     } else {
-        console.log("Recording stop:");
+        //console.log("Recording stop:");
         stopRecording();
     }
 }
 
 function setupChatting() {
+    console.log("setupChatting");
     var data = { request: "setup" };
     var request = { data: data };
     httpAPICall("/onsvc/text", {
@@ -6028,7 +6190,9 @@ function setupChatting() {
     });
 }
 
+
 function exit() {
+    console.log("exit");
     if(calleeId !== null) {
         doHangup();
     } else {
@@ -6038,11 +6202,13 @@ function exit() {
 }
 
 function initSelectMenu() {
+    console.log("initSelectMenu");
     $("#tx_res").val("360").prop("selected", true);
     $("#bitrate").val("1024").prop("selected", true);
 }
 
 function addLocalFeedLayout() {
+    console.log("addLocalFeedLayout");
     $('#members').append(
         '<div class="col-xs-3 user-video" id=local-video>' +
             '<div class="video-bg" id="videolocal">' +
@@ -6053,6 +6219,7 @@ function addLocalFeedLayout() {
 }
 
 function addRemoteFeedLayout(remoteFeed) {
+    console.log("addRemoteFeedLayout");
     $('#members').append(
         '<div class="col-xs-3 user-video" id="r' + remoteFeed.rfindex + '">' +
             '<div class="video-bg" id="videoremote' + remoteFeed.rfindex + '">' +
@@ -6063,6 +6230,7 @@ function addRemoteFeedLayout(remoteFeed) {
 }
 
 function addCallerLayout() {
+    console.log("addCallerLayout");
     $('#videos').append(
         '<div class="video-call" id=video_call>' +
         '</div>'
@@ -6077,6 +6245,7 @@ function addCallerLayout() {
 }
 
 function addCalleeLayout() {
+    console.log("addCalleeLayout");
     $('#video_call').append(
         '<div class="col-xs-3 callee-video" id=callee_video>' +
             '<div class="callee-video-bg" id="videoremote">' +
@@ -6088,6 +6257,7 @@ function addCalleeLayout() {
 
 var userListLoader;
 function afterSessionCreationSuccess() {
+    console.log("afterSessionCreationSuccess");
     // window.addEventListener('beforeunload', (event) => {
     //     // 기본 동작 방지
     //     event.preventDefault();
@@ -6102,17 +6272,20 @@ function afterSessionCreationSuccess() {
 }
 
 function afterVideoRoomJoinSuccess() {
+    console.log("afterVideoRoomJoinSuccess");
     $('#dashboard').hide();
     $('#logo').hide();
 }
 
 function afterTextRoomJoinSuccess() {
+    console.log("afterTextRoomJoinSuccess");
     $('#roomjoin').hide();
     $('#textroom').removeClass('hide').show();
     $('#datasend').removeAttr('disabled');
 }
 
 function afterGetStreamEvent() {
+    console.log("afterGetStreamEvent");
     $('#videojoin').hide();
     $('#videos').removeClass('hide').show();
     addButtonMenu();
@@ -6120,6 +6293,7 @@ function afterGetStreamEvent() {
 }
 
 function unAfterGetStreamEvent() {
+    console.log("unAfterGetStreamEvent");
     $('#videojoin').removeClass('hide').show();
     $('#videos').hide();
     $('#btm_menu').hide();
@@ -6127,6 +6301,7 @@ function unAfterGetStreamEvent() {
 }
 
 function afterVideoCallStart() {
+    console.log("afterVideoCallStart");
     $('#members').hide();
     $('#dashboard').hide();
     $('#logo').hide();
@@ -6134,6 +6309,7 @@ function afterVideoCallStart() {
 
 // VideoCall, VideoConf 종료 후 처리
 function afterVideoCallEnd() {
+    console.log("afterVideoCallEnd");
     calleeId = null;
     calleeName = null;
     //--- Clean audio pitch config
