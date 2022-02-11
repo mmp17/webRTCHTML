@@ -122,7 +122,7 @@ function doResize() {
     resizeMultiVideo();
     resizeChatArea();
     resizeMemberListArea();
-    
+    window.test.whathe();
 }
 
 function resizeMultiVideo() {
