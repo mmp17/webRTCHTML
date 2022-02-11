@@ -123,7 +123,7 @@ function doResize() {
     resizeChatArea();
     resizeMemberListArea();
     window.test.whathe();
-    window.AndroidBridge.whatthe2(1);
+    window.test.whatthe2(1);
 }
 
 function resizeMultiVideo() {
