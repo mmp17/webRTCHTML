@@ -98,7 +98,7 @@ var videoFilterMode = null;
 var videoFilterLevel = -1;
 
 $(document).ready(function() {
-    $(window).resize(doResize);
+    $(window).resize();
     doResize();
     
     // 토큰이 없으면 로그인 페이지, 있으면 대시보드
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 function doResize() {
     /* 윈도우창 크기 조절시 */ 
-    console.log("doResize");
+    console.log("test");
 
     resizeMultiVideo();
     resizeChatArea();
