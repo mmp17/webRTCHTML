@@ -125,14 +125,6 @@ function doResize() {
     //window.test.whatthe2("1");
 }
 
-function test1($id, $pw) {
-        var data ={
-            "id": $('#login_id').val(), 
-            "password": $('#login_pw').val()
-        }
-        auth();
-    }
-
 function resizeMultiVideo() {
     /* console */
     console.log("resizeMultiVideo");
@@ -621,8 +613,7 @@ function auth() {
             if(json["result"] === "failure" || json["result"] === "error") {
                 var reason = json["data"]["reason"];
                 var errorCode = json["data"]["error_code"];
-                if(errorCode === 4101) {
-                    function errorCode1(errorCode) {var errorCode1 = {"errorCode":errorCode === 4101 === alert('로그인 정보가 잘못되었습니다. ID 혹은 Password를 다시 확인해주세요.')}}
+                if(errorCode === 4101) {             
                     alertMessage = "로그인 정보가 잘못되었습니다. ID 혹은 Password를 다시 확인해주세요.";
                 } else if(errorCode === 4102) {
                     alertMessage = "승인되지 않은 계정입니다. 관리자에게 문의해주세요.";
@@ -660,8 +651,6 @@ function auth() {
             }
         }
     });
-     /* 안드로이드에서 받음 */
-        window.test.test2($(id), $(pw), $(errorcode));
 }
 
 
