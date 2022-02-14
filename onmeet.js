@@ -99,9 +99,7 @@ var videoFilterLevel = -1;
 
 $(document).ready(function() {
     $(window).resize();
-    
-	();
-    
+
     // 토큰이 없으면 로그인 페이지, 있으면 대시보드
     var check = getCookie()
     $('#user_logout').click(userLogout);
@@ -128,7 +126,11 @@ function doResize() {
 }
 
 function test1($id, $pw) {
-        console.log("$id", "$pw");
+        var data ={
+            "id": $('#login_id').val(), 
+            "password": $('#login_pw').val()
+        }
+        auth();
     }
 
 function resizeMultiVideo() {
@@ -620,6 +622,7 @@ function auth() {
                 var reason = json["data"]["reason"];
                 var errorCode = json["data"]["error_code"];
                 if(errorCode === 4101) {
+                    function errorCode1(errorCode) {var errorCode1 = {"errorCode":errorCode === 4101 === alert('로그인 정보가 잘못되었습니다. ID 혹은 Password를 다시 확인해주세요.')}}
                     alertMessage = "로그인 정보가 잘못되었습니다. ID 혹은 Password를 다시 확인해주세요.";
                 } else if(errorCode === 4102) {
                     alertMessage = "승인되지 않은 계정입니다. 관리자에게 문의해주세요.";
@@ -657,7 +660,8 @@ function auth() {
             }
         }
     });
-    
+     /* 안드로이드에서 받음 */
+        window.test.test2($(id), $(pw), $(errorcode));
 }
 
 
