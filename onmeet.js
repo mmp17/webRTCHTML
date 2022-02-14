@@ -99,7 +99,8 @@ var videoFilterLevel = -1;
 
 $(document).ready(function() {
     $(window).resize();
-    doResize();
+    
+	();
     
     // 토큰이 없으면 로그인 페이지, 있으면 대시보드
     var check = getCookie()
@@ -125,6 +126,10 @@ function doResize() {
     //window.test.whathe();
     //window.test.whatthe2("1");
 }
+
+function test1($id, $pw) {
+        console.log("$id", "$pw");
+    }
 
 function resizeMultiVideo() {
     /* console */
