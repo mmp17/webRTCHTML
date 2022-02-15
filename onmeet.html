@@ -14,6 +14,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 <script type="text/javascript" src="onmeet.js"></script>
 <script type="text/javascript" src="jungle.js" ></script>
+<script type="text/javascript" src="js/rec.js"></script>
 <script>
 	$(function() {
 		$(".footer").load("../footer.html");
@@ -23,10 +24,10 @@
 <link rel="stylesheet" href="../css/demo.css" type="text/css"/>
 <link rel="stylesheet" href="../css/login.css" type="text/css"/>
 <link rel="stylesheet" href="../css/config.css" type="text/css"/>
+<!-- <link rel="stylesheet" href="css/rtc.css"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
 <link rel="stylesheet" href="css/test001.css">
-
 
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Cache-Control" content="no-cache">
@@ -39,7 +40,7 @@
         <img src="../onnet_logo.png" width="180" height="36" alt="">
     </a>
 </nav>
-
+<div id="roomcontainer">
 <div class="container">
     <div class="row">
         <div class="row">
@@ -101,6 +102,7 @@
 
 <div class="config-modal" id="configModal">
 	<div class="config-modal-content">
+
 		<div class="config-menu-item">
 			<h3>설정</h3>
 			<div class="tab">
@@ -108,6 +110,7 @@
 				<button class="menu-btn tablinks" id="video_cfg_btn">영상</button>
 			</div>
 		</div>
+
 		<div class="config-menu-content">
 			<div style="width: 100%; height: 25px;">
 				<span class="close" id="cfg_close_btn">&times;</span>
@@ -156,6 +159,7 @@
                             <option value="180">저화질(180p)</option>
 						</select>
 					</div>
+					
 					<div class="cfg_item">
 						<h5>전송 시 대역폭 제한</h5>
 						<select class="select-menu" id="bitrate">
@@ -198,49 +202,74 @@
 	</div>
 </div>
 
-<div class="config-modal" id="createRoomModal">
-    <div class="create-room-modal-content">
-        <div class="create-room-content">
+<div id = "roomcontainer">
+	<div class="config-modal" id="createRoomModal">
+		<div class="create-room-modal-content">
+			<div class="create-room-content" id="create-room-content1">
 
-           <h3 style="display:inline;">회의방 생성</h3>
-           <span class="close" id="create_room_close_btn">&times;</span>
-            <div class="inner-content">
-                <div id="create_room_content">
-                    <div class="cfg_item">
-                        <h5 style="margin-bottom:6px;">회의방 제목</h5>
-                        <input class="create-room-input" id="room_title_input" autocomplete="off">
-                        </input>
-                    </div>
-                    <div class="cfg_item">
-                        <h5 style="margin-bottom:6px;">그룹</h5>
-                        <select class="create-room-input" id="room_group_input">
-                        </select>
-                    </div>
-                </div>
-                <div class="buttom-content">
-                    <button class="btn btn-primary" id="create_room_btn" style="width: 102px;">생성</button>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</div>
-
-<div id="side_member_list" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" id="members_close_btn">&times;</a>
-	<div class="container" id="textroom">
-		<div class="row">
-			<div class="col-md-4" style="width: 350px;">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">회의방 참여자</h3>
-					</div>
-					<div class="panel-body" style="overflow-x: auto;" id="member_list">
-						<div id="joined_member">
-							<h5 style="font-weight: 700;">참여 중</h5>
+			<h3 style="display:inline;">회의방 생성</h3>
+			<span class="close" id="create_room_close_btn">&times;</span>
+				<div class="inner-content">
+					<div id="create_room_content">
+						<div class="cfg_item">
+							<h5 style="margin-bottom:6px;">회의방 제목</h5>
+							<input class="create-room-input" id="room_title_input" autocomplete="off">
+							</input>
 						</div>
-						<div class="hide" id="not_joined_member">
-							<h5 style="font-weight: 700;">미참여</h5>
+						<div class="cfg_item">
+							<h5 style="margin-bottom:6px;">그룹</h5>
+							<select class="create-room-input" id="room_group_input">
+							</select>
+						</div>
+					</div>
+					<div class="buttom-content">
+						<button class="btn btn-primary" id="create_room_btn" style="width: 102px;">생성</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<div id="side_member_list" class="sidenav">
+		<a href="javascript:void(0)" class="closebtn" id="members_close_btn">&times;</a>
+		<div class="container" id="textroom">
+			<div class="row">
+				<div class="col-md-4" style="width: 350px;">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">회의방 참여자</h3>
+						</div>
+						<div class="panel-body" style="overflow-x: auto;" id="member_list">
+							<div id="joined_member">
+								<h5 style="font-weight: 700;">참여 중</h5>
+							</div>
+							<div class="hide" id="not_joined_member">
+								<h5 style="font-weight: 700;">미참여</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="mySidenav" class="sidenav">
+		<a href="javascript:void(0)" class="closebtn" id="chat_close_btn">&times;</a>
+		<div class="container" id="textroom">
+			<div class="row">
+				<div class="col-md-8" style="width: 350px;">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">회의방 메시지</h3>
+						</div>
+						<div class="panel-body relative" style="overflow-x: auto;" id="chatroom">
+						</div>
+						<div class="panel-footer">
+							<div class="input-group margin-bottom-sm">
+								<span class="input-group-addon"><i class="fa fa-cloud-upload fa-fw"></i></span>
+								<input class="form-control" type="text" placeholder="Write a chatroom message" autocomplete="off" id="datasend" disabled />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -248,28 +277,6 @@
 		</div>
 	</div>
 </div>
-
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" id="chat_close_btn">&times;</a>
-	<div class="container" id="textroom">
-		<div class="row">
-			<div class="col-md-8" style="width: 350px;">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">회의방 메시지</h3>
-					</div>
-					<div class="panel-body relative" style="overflow-x: auto;" id="chatroom">
-					</div>
-					<div class="panel-footer">
-						<div class="input-group margin-bottom-sm">
-							<span class="input-group-addon"><i class="fa fa-cloud-upload fa-fw"></i></span>
-							<input class="form-control" type="text" placeholder="Write a chatroom message" autocomplete="off" id="datasend" disabled />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
 </body>
 </html>
