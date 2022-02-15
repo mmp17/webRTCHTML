@@ -121,8 +121,6 @@ function doResize() {
     resizeMultiVideo();
     resizeChatArea();
     resizeMemberListArea();
-    //window.test.whathe();
-    //window.test.whatthe2("1");
 }
 
 function resizeMultiVideo() {
