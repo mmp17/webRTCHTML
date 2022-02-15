@@ -6204,23 +6204,31 @@ function initSelectMenu() {
     $("#bitrate").val("1024").prop("selected", true);
 }
 
-function addLocalFeedLayout() {
-    console.log("addLocalFeedLayout");
-    $('#members').append(
-        '<div class="col-xs-3 user-video" id=local-video>' +
-            '<div class="video-bg" id="videolocal">' +
+/* 발신자 레이아웃 */
+function addCallerLayout() {
+    console.log("addCallerLayout");
+    $('#videos').append(
+        '<div class="video-call" id=video_call>' +
+        '</div>'
+    );
+    $('#video_call').append(
+        '<div class="position-absolute top-0 end-0 caller-video" id=caller_video>' +
+            '<div class="caller-video-bg" id="videolocal">' +
+                '<span><p> hihihihihihihihi </p></span>' +
                 '<span class="user-name" id="myname"></span>' +
             '</div>' +
         '</div>');
     resizeMultiVideo();
 }
 
-function addRemoteFeedLayout(remoteFeed) {
-    console.log("addRemoteFeedLayout");
-    $('#members').append(
-        '<div class="col-xs-3 user-video" id="r' + remoteFeed.rfindex + '">' +
-            '<div class="video-bg" id="videoremote' + remoteFeed.rfindex + '">' +
-                '<span class="user-name">' + remoteFeed.rfdisplay + '</span>' +
+/* 수신자 레이아웃 */
+function addCalleeLayout() {
+    console.log("addCalleeLayout");
+    $('#video_call').append(
+        '<div class="position-absolute top-0 end-0 callee-video" id=callee_video>' +
+            '<div class="callee-video-bg" id="videoremote">' +
+            '<span><p> hihihih123112312132132ihihihihi </p></span>' +
+                '<span class="user-name">' + calleeName + '</span>' +
             '</div>' +
         '</div>');
     resizeMultiVideo();
