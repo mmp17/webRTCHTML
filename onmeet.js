@@ -98,9 +98,8 @@ var videoFilterMode = null;
 var videoFilterLevel = -1;
 
 $(document).ready(function() {
-    $(window).resize(doResize);
-    doResize();
-    
+    $(window).resize();
+
     // 토큰이 없으면 로그인 페이지, 있으면 대시보드
     var check = getCookie()
     $('#user_logout').click(userLogout);
@@ -117,12 +116,11 @@ $(document).ready(function() {
 
 function doResize() {
     /* 윈도우창 크기 조절시 */ 
-    console.log("doResize");
+    console.log("test");
 
     resizeMultiVideo();
     resizeChatArea();
     resizeMemberListArea();
-    
 }
 
 function resizeMultiVideo() {
@@ -164,6 +162,11 @@ function resizeMultiVideo() {
         $(".caller-video").css("height", miniHeight + 20 + "px");
         $(".caller-video-bg").css("width", miniWidth + "px");
         $(".caller-video-bg").css("height", miniHeight + "px");
+
+        $(".callee-video").css("width", width + 20 + "px");
+        $(".callee-video").css("height", height + 20 + "px");
+        $(".callee-video-bg").css("width", width + "px");
+        $(".callee-video-bg").css("height", height + "px");
 
         $("#video_call").css("height", realWinHeight + "px");
         $("#video_call").css("margin-top", topMargin + "px");
@@ -608,7 +611,7 @@ function auth() {
             if(json["result"] === "failure" || json["result"] === "error") {
                 var reason = json["data"]["reason"];
                 var errorCode = json["data"]["error_code"];
-                if(errorCode === 4101) {
+                if(errorCode === 4101) {             
                     alertMessage = "로그인 정보가 잘못되었습니다. ID 혹은 Password를 다시 확인해주세요.";
                 } else if(errorCode === 4102) {
                     alertMessage = "승인되지 않은 계정입니다. 관리자에게 문의해주세요.";
@@ -646,7 +649,6 @@ function auth() {
             }
         }
     });
-    
 }
 
 
@@ -3336,7 +3338,6 @@ function localFeedForVideoCall(isCaller) {
                         $('#videos').hide();
                         $('#curbitrate').hide();
                         $('#curres').hide();
-                        $('roomcontainer').hide();
                         ringingSound.load();
                         afterVideoCallEnd();
 
@@ -3543,9 +3544,9 @@ function localFeedForVideoCall(isCaller) {
                 var addButtons = false;
                 if($('#remotevideo').length === 0) {
                     addButtons = true;
-                    $('#videoremote').append('<video class="rounded centered video-frame hide" id="remotevideo" position:"absolute" width="100%" height="100%" autoplay playsinline/>');
+                    $('#videoremote').append('<video class="rounded centered video-frame hide" id="remotevideo" width="100%" height="100%" autoplay playsinline/>');
                     $('#videoremote').append(
-                        //'<span class="label label-primary hide" id="curres" style="position: absolute; bottom: 25px; left: 25px;"></span>' +
+                        '<span class="label label-primary hide" id="curres" style="position: absolute; bottom: 25px; left: 25px;"></span>' +
                         '<span class="label label-info hide" id="curbitrate" style="position: absolute; bottom: 25px; right: 20px;"></span>');
                     // Show the video, hide the spinner and show the resolution when we get a playing event
                     $("#remotevideo").bind("playing", function () {
@@ -3616,7 +3617,6 @@ function localFeedForVideoCall(isCaller) {
                 $('#videos').hide();
                 $('#curbitrate').hide();
                 $('#curres').hide();
-                $('roomcontainer').hide();
                 if(bitrateTimer[1])
                     clearInterval(bitrateTimer[1]);
                 bitrateTimer[1] = null;
@@ -4193,7 +4193,7 @@ function newRemoteFeed(id, display, audio, video) {
                 $('#videoremote'+remoteFeed.rfindex).append('<video class="rounded centered video-frame" id="waitingvideo' + remoteFeed.rfindex + '" width="100%" height="100%" />');
                 $('#videoremote'+remoteFeed.rfindex).append('<video class="rounded centered video-frame hide" id="remotevideo' + remoteFeed.rfindex + '" width="100%" height="100%" autoplay playsinline/>');
                 $('#videoremote'+remoteFeed.rfindex).append(
-                    //'<span class="label label-primary hide" id="curres'+remoteFeed.rfindex+'" style="position: absolute; bottom: 12px; left: 12px;"></span>' +
+                    '<span class="label label-primary hide" id="curres'+remoteFeed.rfindex+'" style="position: absolute; bottom: 12px; left: 12px;"></span>' +
                     '<span class="label label-info hide" id="curbitrate'+remoteFeed.rfindex+'" style="position: absolute; bottom: 12px; right: 12px;"></span>');
                 // Show the video, hide the spinner and show the resolution when we get a playing event
                 $("#remotevideo"+remoteFeed.rfindex).bind("playing", function () {
@@ -4446,7 +4446,6 @@ function localFeedForScreenSharing() {
             console.debug(" ::: Got a local stream :::", stream);
             $('#screenmenu').hide();
             $('#room').removeClass('hide').show();
-            $('roomcontainer').hide();
             resizeMultiVideo();
             if($('#screenvideo').length === 0) {
                 $('#screencapture').append('<video class="rounded centered" id="screenvideo" width="100%" height="100%" autoplay playsinline muted="muted"/>');
@@ -5422,78 +5421,90 @@ function addButtonMenu() {
     if(calleeId !== null) {
         $('#btm_menu *').remove();
         $('#btm_menu').append(
+            '<div class="room-name" id="room_title">' +
+            '</div>' +
             '<div class="ctrl-menu" id="ctrl_menu">' +
                 '<div class="ctrl-btn" id="mute" style="cursor: pointer;">' +
-                    '<img src="img/mic.png" width="35" height="35" alt="" >' +
+                    '<img src="../icon/mic.png" width="25" height="25" alt="" >' +
                 '</div>' +
                 '<div class="ctrl-btn" id="camera_dis" style="cursor: pointer;">' +
-                    '<img src="img/video.png" width="35" height="35" alt="" >' +
+                    '<img src="../icon/video.png" width="25" height="25" alt="" >' +
                 '</div>' +
-                '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer;">' +
-                    '<img src="img/exit.png" width="35" height="35" alt="" >' +
-                '</div>' +
-            '</div>' +
-                /*'<div class="dropup">' +
+                '<div class="dropup">' +
                     '<div class="dropbtn ctrl-btn" id="more" style="cursor: pointer;">' +
                         '<img src="../icon/more.png" width="25" height="25" alt="" >' +
                         '<div class="dropup-content">' +
-                            //'<button class="menu-btn" id="full_screen_btn">전체화면</button>' +
-                            //'<button class="menu-btn" id="cfgBtn">설정</button>' +
+                            '<button class="menu-btn" id="full_screen_btn">전체화면</button>' +
+                            '<button class="menu-btn" id="cfgBtn">설정</button>' +
                         '</div>' +
                     '</div>' +
-                '</div>' +*/
-            //'<div class="side-ctrl-menu" id="side_ctrl_menu">' +
+                '</div>' +
+                '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; background: rgb(195,5,5);">' +
+                    '<img src="../icon/log-out.png" width="25" height="25" alt="" >' +
+                '</div>' +
+            '</div>' +
+            '<div class="side-ctrl-menu" id="side_ctrl_menu">' +
             '</div>');
     } else {
         if(roomOwner) {
             $('#btm_menu *').remove();
             $('#btm_menu').append(
+                '<div class="room-name" id="room_title">' +
+                    '<div>' +
+                        '<span id="room_title">' + roomTitle +'</span>' +
+                    '</div>' +
+                '</div>' +
                 '<div class="ctrl-menu" id="ctrl_menu">' +
                     '<div class="ctrl-btn" id="mute" style="cursor: pointer;">' +
-                        '<img src="img/mic.png" width="35" height="35" alt="" >' +
+                        '<img src="../icon/mic.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="camera_dis" style="cursor: pointer;">' +
-                        '<img src="img/video.png" width="35" height="35" alt="" >' +
+                        '<img src="../icon/video.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="screen_sharing" title="화면 공유" style="cursor: pointer;">' +
-                        '<img src="img/screen.png" width="35" height="35" alt="" >' +
+                        '<img src="../icon/screen.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="record" title="녹화" style="cursor: pointer;">' +
-                        '<img src="img/record.png" width="35" height="35" alt="" >' +
+                        '<img src="../icon/record.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="dropup">' +
                         '<div class="dropbtn ctrl-btn" id="more" style="cursor: pointer;">' +
-                            '<img src="img/more.png" width="35" height="35" alt="" >' +
+                            '<img src="../icon/more.png" width="25" height="25" alt="" >' +
                             '<div class="dropup-content">' +
-                            //    '<button class="menu-btn" id="full_screen_btn">전체화면</button>' +
-                            //    '<button class="menu-btn" id="cfgBtn">설정</button>' +
+                                '<button class="menu-btn" id="full_screen_btn">전체화면</button>' +
+                                '<button class="menu-btn" id="cfgBtn">설정</button>' +
                             '</div>' +
                         '</div>' +
                     '</div>' +
                     '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; background: rgb(195,5,5);">' +
-                        '<img src="img/exit.png" width="35" height="35" alt="" >' +
+                        '<img src="../icon/log-out.png" width="25" height="25" alt="" >' +
                     '</div>' +
                 '</div>' +
                 '<div class="side-ctrl-menu" id="side_ctrl_menu">' +
                     '<div class="ctrl-btn" id="room_info" style="cursor: pointer;">' +
-                        '<img src="img/info.png" width="25" height="25" alt="" >' +
+                        '<img src="../icon/info.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="members_open_btn" style="cursor: pointer;">' +
-                        '<img src="img/member.png" width="25" height="25" alt="" >' +
+                        '<img src="../icon/member.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="chat_open_btn" style="cursor: pointer;">' +
-                        '<img src="img/chat.png" width="25" height="25" alt="" >' +
+                        '<img src="../icon/chat.png" width="25" height="25" alt="" >' +
                     '</div>' +
                 '</div>');
         } else {
             $('#btm_menu *').remove();
             $('#btm_menu').append(
+                '<div class="room-name" id="room_title">' +
+                    '<div>' +
+                        '<span id="room_title">' + roomTitle +'</span>' +
+                    '</div>' +
+                '</div>' +
                 '<div class="ctrl-menu" id="ctrl_menu">' +
                     '<div class="ctrl-btn" id="mute" style="cursor: pointer;">' +
-                        '<img src="img/mic.png" width="25" height="25" alt="" >' +
+                        '<img src="../icon/mic.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="camera_dis" style="cursor: pointer;">' +
-                        '<img src="img/video.png" width="25" height="25" alt="" >' +
+                        '<img src="../icon/video.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     //--- 참여자는 화면공유 기능 사용X
                     // '<div class="ctrl-btn" id="screen_sharing" title="화면 공유" style="cursor: pointer;">' +
@@ -5503,7 +5514,7 @@ function addButtonMenu() {
                     // '<div class="ctrl-btn" id="record" title="녹화" style="cursor: pointer;">' +
                     //     '<img src="../icon/record.png" width="25" height="25" alt="" >' +
                     // '</div>' +
-                    /*'<div class="dropup">' +
+                    '<div class="dropup">' +
                         '<div class="dropbtn ctrl-btn" id="more" style="cursor: pointer;">' +
                             '<img src="../icon/more.png" width="25" height="25" alt="" >' +
                             '<div class="dropup-content">' +
@@ -5512,9 +5523,8 @@ function addButtonMenu() {
                             '</div>' +
                         '</div>' +
                     '</div>' +
-                    */
-                    '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; <!-- background: rgb(195,5,5); -->">' +
-                        '<img src="img/exit.png" width="35" height="35" alt="" >' +
+                    '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; background: rgb(195,5,5);">' +
+                        '<img src="../icon/log-out.png" width="25" height="25" alt="" >' +
                     '</div>' +
                 '</div>' +
                 '<div class="side-ctrl-menu" id="side_ctrl_menu">' +
@@ -5523,13 +5533,14 @@ function addButtonMenu() {
                     //     '<img src="../icon/info.png" width="25" height="25" alt="" >' +
                     // '</div>' +
                     '<div class="ctrl-btn" id="members_open_btn" style="cursor: pointer;">' +
-                        '<img src="img/member.png" width="25" height="25" alt="" >' +
+                        '<img src="../icon/member.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="chat_open_btn" style="cursor: pointer;">' +
-                        '<img src="img/chat.png" width="25" height="25" alt="" >' +
+                        '<img src="../icon/chat.png" width="25" height="25" alt="" >' +
                     '</div>' +
                 '</div>');
         }
+
         
     }
     setConfigMenu();
@@ -5823,12 +5834,12 @@ function toggleMute() {
         muted = sfutest.isAudioMuted();
     }
     $('#mute').html(muted ?
-        '<img src="img/mic_mute.png" width="35" height="35" alt="" >' :
-        '<img src="img/mic.png" width="35" height="35" alt="" >');
+        '<img src="../icon/mute.png" width="25" height="25" alt="" >' :
+        '<img src="../icon/mic.png" width="25" height="25" alt="" >');
     if(muted) {
-        $('#mute').attr('style','background: transparent; cursor: pointer;');
+        $('#mute').attr('style', 'background: rgba(195, 5, 5, 1); cursor: pointer;');
     } else {
-        $('#mute').attr('style','background: transparent; cursor: pointer;');
+        $('#mute').attr('style', 'background: rgba(200, 200, 200, 1); cursor: pointer;');
     }
 }
 
@@ -5854,14 +5865,13 @@ function toogleVideoEnable() {
             sfutest.muteVideo();
         muted = sfutest.isVideoMuted();
     }
-    /* 카메라 on/off */
     $('#camera_dis').html(muted ?
-        '<img src="img/video_off.png" width="35" height="35" alt="" >' :
-        '<img src="img/video.png" width="35" height="35" alt="" >');
+        '<img src="../icon/video_mute.png" width="25" height="25" alt="" >' :
+        '<img src="../icon/video.png" width="25" height="25" alt="" >');
     if(muted) {
-        $('#camera_dis').attr('style','background: transparent; cursor: pointer;');
+        $('#camera_dis').attr('style', 'background: rgba(195, 5, 5, 1); cursor: pointer;');
     } else {
-        $('#camera_dis').attr('style','background: transparent; cursor: pointer;');
+        $('#camera_dis').attr('style', 'background: rgba(200, 200, 200, 1); cursor: pointer;');
     }
 }
 
@@ -6156,7 +6166,7 @@ function testRecord() {
         stopRecording();
     }
 }
-/*
+
 function setupChatting() {
     console.log("setupChatting");
     var data = { request: "setup" };
@@ -6176,7 +6186,7 @@ function setupChatting() {
         }
     });
 }
-*/
+
 
 function exit() {
     console.log("exit");
@@ -6194,29 +6204,6 @@ function initSelectMenu() {
     $("#bitrate").val("1024").prop("selected", true);
 }
 
-function addLocalFeedLayout() {
-    console.log("addLocalFeedLayout");
-    $('#members').append(
-        '<div class="col-xs-3 user-video" id=local-video>' +
-            '<div class="video-bg" id="videolocal">' +
-                '<span class="user-name" id="myname"></span>' +
-            '</div>' +
-        '</div>');
-    resizeMultiVideo();
-}
-
-function addRemoteFeedLayout(remoteFeed) {
-    console.log("addRemoteFeedLayout");
-    $('#members').append(
-        '<div class="col-xs-3 user-video" id="r' + remoteFeed.rfindex + '">' +
-            '<div class="video-bg" id="videoremote' + remoteFeed.rfindex + '">' +
-                '<span class="user-name">' + remoteFeed.rfdisplay + '</span>' +
-            '</div>' +
-        '</div>');
-    resizeMultiVideo();
-}
-
-
 /* 발신자 레이아웃 */
 function addCallerLayout() {
     console.log("addCallerLayout");
@@ -6225,20 +6212,49 @@ function addCallerLayout() {
         '</div>'
     );
     $('#video_call').append(
-        '<div class="caller-video" id=caller_video>' +
+        '<div class="position-absolute top-0 end-0 caller-video" id=caller_video>' +
             '<div class="caller-video-bg" id="videolocal">' +
-                //'<span class="user-name" id="myname"></span>' +
+                '<span><p> hihihihihihihihi </p></span>' +
+                '<span class="user-name" id="myname"></span>' +
             '</div>' +
         '</div>');
     resizeMultiVideo();
 }
+
 /* 수신자 레이아웃 */
 function addCalleeLayout() {
     console.log("addCalleeLayout");
     $('#video_call').append(
-        '<div class="callee-video" id=callee_video>' +
+        '<div class="position-absolute top-0 end-0 callee-video" id=callee_video>' +
             '<div class="callee-video-bg" id="videoremote">' +
-               // '<span class="user-name">' + calleeName + '</span>' +
+            '<span><p> hihihih123112312132132ihihihihi </p></span>' +
+                '<span class="user-name">' + calleeName + '</span>' +
+            '</div>' +
+        '</div>');
+    resizeMultiVideo();
+}
+
+function addCallerLayout() {
+    console.log("addCallerLayout");
+    $('#videos').append(
+        '<div class="video-call" id=video_call>' +
+        '</div>'
+    );
+    $('#video_call').append(
+        '<div class="col-xs-3 caller-video" id=caller_video>' +
+            '<div class="caller-video-bg" id="videolocal">' +
+                '<span class="user-name" id="myname"></span>' +
+            '</div>' +
+        '</div>');
+    resizeMultiVideo();
+}
+
+function addCalleeLayout() {
+    console.log("addCalleeLayout");
+    $('#video_call').append(
+        '<div class="col-xs-3 callee-video" id=callee_video>' +
+            '<div class="callee-video-bg" id="videoremote">' +
+                '<span class="user-name">' + calleeName + '</span>' +
             '</div>' +
         '</div>');
     resizeMultiVideo();
@@ -6256,8 +6272,6 @@ function afterSessionCreationSuccess() {
     // });
     $('#details').remove();
     $('#dashboard').removeClass('hide').show();
-    $('#roomcontainer').hide();
-    $("#configModal").hide();
     getUserList();
     getConfRoomList()
 }
@@ -6296,9 +6310,6 @@ function afterVideoCallStart() {
     $('#members').hide();
     $('#dashboard').hide();
     $('#logo').hide();
-    /* 화상통화 연결 후 설정/회의방/채팅방 hide*/
-    $('#roomcontainer').hide();
-    $("#configModal").hide();
 }
 
 // VideoCall, VideoConf 종료 후 처리
@@ -6319,9 +6330,6 @@ function afterVideoCallEnd() {
     $('#members').removeClass('hide').show();
     $('#dashboard').removeClass('hide').show();
     $('#logo').removeClass('hide').show();
-    /* 영상통화 관련 로직 처리 후 종료됐을 때 roomcontainer, configModal show*/
-    $('#roomcontainer').hide();
-    $("#configModal").hide();
     closeNav();
     closeMembers();
     $('#joined_member *').remove();
