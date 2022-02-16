@@ -5429,6 +5429,10 @@ function addButtonMenu() {
                 '<div class="ctrl-btn" id="camera_dis" style="cursor: pointer;">' +
                     '<img src="img/video.png" width="35" height="35" alt="" >' +
                 '</div>' +
+                '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer;">' +
+                    '<img src="img/exit.png" width="35" height="35" alt="" >' +
+                '</div>' +
+            '</div>' +
                 /*'<div class="dropup">' +
                     '<div class="dropbtn ctrl-btn" id="more" style="cursor: pointer;">' +
                         '<img src="../icon/more.png" width="25" height="25" alt="" >' +
@@ -5438,10 +5442,6 @@ function addButtonMenu() {
                         '</div>' +
                     '</div>' +
                 '</div>' +*/
-                '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; <!--background: rgb(195,5,5);-->">' +
-                    '<img src="img/exit.png" width="25" height="25" alt="" >' +
-                '</div>' +
-            '</div>' +
             //'<div class="side-ctrl-menu" id="side_ctrl_menu">' +
             '</div>');
     } else {
@@ -5450,20 +5450,20 @@ function addButtonMenu() {
             $('#btm_menu').append(
                 '<div class="ctrl-menu" id="ctrl_menu">' +
                     '<div class="ctrl-btn" id="mute" style="cursor: pointer;">' +
-                        '<img src="/img/mic.png" width="35" height="35" alt="" >' +
+                        '<img src="img/mic.png" width="35" height="35" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="camera_dis" style="cursor: pointer;">' +
-                        '<img src="/img/video.png" width="35" height="35" alt="" >' +
+                        '<img src="img/video.png" width="35" height="35" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="screen_sharing" title="화면 공유" style="cursor: pointer;">' +
-                        '<img src="/img/screen.png" width="35" height="35" alt="" >' +
+                        '<img src="img/screen.png" width="35" height="35" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="record" title="녹화" style="cursor: pointer;">' +
-                        '<img src="/img/record.png" width="35" height="35" alt="" >' +
+                        '<img src="img/record.png" width="35" height="35" alt="" >' +
                     '</div>' +
                     '<div class="dropup">' +
                         '<div class="dropbtn ctrl-btn" id="more" style="cursor: pointer;">' +
-                            '<img src="/img/more.png" width="35" height="35" alt="" >' +
+                            '<img src="img/more.png" width="35" height="35" alt="" >' +
                             '<div class="dropup-content">' +
                             //    '<button class="menu-btn" id="full_screen_btn">전체화면</button>' +
                             //    '<button class="menu-btn" id="cfgBtn">설정</button>' +
@@ -5471,18 +5471,18 @@ function addButtonMenu() {
                         '</div>' +
                     '</div>' +
                     '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; background: rgb(195,5,5);">' +
-                        '<img src="/img/log-out.png" width="35" height="35" alt="" >' +
+                        '<img src="img/exit.png" width="35" height="35" alt="" >' +
                     '</div>' +
                 '</div>' +
                 '<div class="side-ctrl-menu" id="side_ctrl_menu">' +
                     '<div class="ctrl-btn" id="room_info" style="cursor: pointer;">' +
-                        '<img src="/img/info.png" width="25" height="25" alt="" >' +
+                        '<img src="img/info.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="members_open_btn" style="cursor: pointer;">' +
-                        '<img src="/img/member.png" width="25" height="25" alt="" >' +
+                        '<img src="img/member.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="chat_open_btn" style="cursor: pointer;">' +
-                        '<img src="/img/chat.png" width="25" height="25" alt="" >' +
+                        '<img src="img/chat.png" width="25" height="25" alt="" >' +
                     '</div>' +
                 '</div>');
         } else {
@@ -5490,10 +5490,10 @@ function addButtonMenu() {
             $('#btm_menu').append(
                 '<div class="ctrl-menu" id="ctrl_menu">' +
                     '<div class="ctrl-btn" id="mute" style="cursor: pointer;">' +
-                        '<img src="/img/mic.png" width="25" height="25" alt="" >' +
+                        '<img src="img/mic.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="camera_dis" style="cursor: pointer;">' +
-                        '<img src="/img/video.png" width="25" height="25" alt="" >' +
+                        '<img src="img/video.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     //--- 참여자는 화면공유 기능 사용X
                     // '<div class="ctrl-btn" id="screen_sharing" title="화면 공유" style="cursor: pointer;">' +
@@ -5513,8 +5513,8 @@ function addButtonMenu() {
                         '</div>' +
                     '</div>' +
                     */
-                    '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; background: rgb(195,5,5);">' +
-                        '<img src="/img/log-out.png" width="25" height="25" alt="" >' +
+                    '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer; <!-- background: rgb(195,5,5); -->">' +
+                        '<img src="img/exit.png" width="35" height="35" alt="" >' +
                     '</div>' +
                 '</div>' +
                 '<div class="side-ctrl-menu" id="side_ctrl_menu">' +
@@ -5523,10 +5523,10 @@ function addButtonMenu() {
                     //     '<img src="../icon/info.png" width="25" height="25" alt="" >' +
                     // '</div>' +
                     '<div class="ctrl-btn" id="members_open_btn" style="cursor: pointer;">' +
-                        '<img src="/img/member.png" width="25" height="25" alt="" >' +
+                        '<img src="img/member.png" width="25" height="25" alt="" >' +
                     '</div>' +
                     '<div class="ctrl-btn" id="chat_open_btn" style="cursor: pointer;">' +
-                        '<img src="/img/chat.png" width="25" height="25" alt="" >' +
+                        '<img src="img/chat.png" width="25" height="25" alt="" >' +
                     '</div>' +
                 '</div>');
         }
@@ -6227,7 +6227,7 @@ function addCallerLayout() {
     $('#video_call').append(
         '<div class="caller-video" id=caller_video>' +
             '<div class="caller-video-bg" id="videolocal">' +
-                '<span class="user-name" id="myname"></span>' +
+                //'<span class="user-name" id="myname"></span>' +
             '</div>' +
         '</div>');
     resizeMultiVideo();
@@ -6238,7 +6238,7 @@ function addCalleeLayout() {
     $('#video_call').append(
         '<div class="callee-video" id=callee_video>' +
             '<div class="callee-video-bg" id="videoremote">' +
-                '<span class="user-name">' + calleeName + '</span>' +
+               // '<span class="user-name">' + calleeName + '</span>' +
             '</div>' +
         '</div>');
     resizeMultiVideo();
