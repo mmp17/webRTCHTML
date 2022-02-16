@@ -5429,7 +5429,7 @@ function addButtonMenu() {
                 '<div class="ctrl-btn" id="camera_dis" style="cursor: pointer;">' +
                     '<img src="img/video.png" width="35" height="35" alt="" >' +
                 '</div>' +
-                '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer;"></div>' +
+                '<div class="ctrl-btn" id="exit_btn" style="cursor: pointer;">' +
                     '<img src="img/exit.png" width="35" height="35" alt="" >' +
                 '</div>' +
             '</div>' +
