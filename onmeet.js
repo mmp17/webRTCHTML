@@ -6329,5 +6329,3 @@ function afterVideoCallEnd() {
     getUserList();
     unAfterGetStreamEvent();
 }
-
-// test
